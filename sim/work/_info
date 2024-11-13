@@ -7,15 +7,15 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Users/sierr/Downloads/play_DESim/sim
+Z0 dC:/Users/sierr/Documents/Vishwas Puri/Piano Tiles/sim
 vdisplay
-Z1 !s110 1731477746
+Z1 !s110 1731480136
 !i10b 1
-!s100 86>>5eOn0?aDNSbzR3DNM3
-I<CNb0mU8eNDSzm?WBN;:20
+!s100 i_jezIAoYckH;[<7F1h=c2
+Ia1[Ka]nh]jOl25oNF1ha[1
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-w1731477741
+w1731480076
 8../display.v
 F../display.v
 L0 8
@@ -23,13 +23,13 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1731477746.000000
+Z4 !s108 1731480136.000000
 Z5 !s107 ../vga_demo.v|../top.v|../display.v|
 Z6 !s90 ../display.v|../top.v|../vga_demo.v|
 !i113 1
 Z7 tCvgOpt 0
 vtb
-!s110 1731477745
+!s110 1731480135
 !i10b 1
 !s100 Go]CW3?L8<4?h5=kD34Gc0
 IE2m;PWd7O8Lo07VX;^<IC1
@@ -43,7 +43,7 @@ R3
 r1
 !s85 0
 31
-!s108 1731477745.000000
+!s108 1731480135.000000
 !s107 ../tb/tb.v|
 !s90 ../tb/tb.v|
 !i113 1

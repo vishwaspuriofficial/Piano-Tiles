@@ -1,5 +1,5 @@
 # vsim -pli "simfpga.vpi" -Lf 220model -Lf altera_mf_ver -Lf verilog -c -do "run -all" tb 
-# Start time: 01:02:37 on Nov 13,2024
+# Start time: 01:42:17 on Nov 13,2024
 # Loading work.tb
 # Loading work.top
 # Loading work.display
@@ -10,8 +10,8 @@
 # 
 # Connected to server!
 # ** Note: $finish    : ../tb/tb.v(24)
-#    Time: 11485 us  Iteration: 1  Instance: /tb
+#    Time: 5760 us  Iteration: 1  Instance: /tb
 # 
 # Quitting...
-# End time: 01:02:56 on Nov 13,2024, Elapsed time: 0:00:19
+# End time: 01:42:29 on Nov 13,2024, Elapsed time: 0:00:12
 # Errors: 0, Warnings: 0

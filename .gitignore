@@ -1,3 +1,9 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/settings.json
+sim/transcript
+sim/work/_info
+sim/work/_lib.qdb
+sim/work/_lib1_0.qdb
+sim/work/_lib1_0.qpg
+sim/work/_lib1_0.qtl

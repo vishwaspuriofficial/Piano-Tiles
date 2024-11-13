@@ -129,6 +129,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		drawTop4 <= 0;
 		eraseBottom4 <= 0;
 		drawEnable4 <= 1;
+
+//      finished1 <= 1;
+//      finished2 <= 1;
+//      finished3 <= 1;
+//      finished4 <= 1;
+
 		gameOn <= 1'b0;
 		old_KEY0 <= 1'b0;
 	end
@@ -615,7 +621,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		end
 		
 		// Third tile
-		if (eraseEnable3 & finished2)
+		if (eraseEnable3 & finished2 & finished1)
 		begin
 			if (yStart3 < 120 - YSIZE)
 			begin
@@ -629,7 +635,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			fast_count <= 22'd1; // No updates for fast_count
 		end
 		
-		else if (continueErase3 & finished2) // Erases entire tile
+		else if (continueErase3 & finished2 & finished1) // Erases entire tile
 		begin
 			VGA_X <= xCount3;
 			VGA_Y <= yCount3;
@@ -656,7 +662,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			end
 		end
 		
-		else if (continueEraseBottom3 & finished2) // Erases tile from top to bottom, one row at a time
+		else if (continueEraseBottom3 & finished2 & finished1) // Erases tile from top to bottom, one row at a time
 		begin
 		
 			VGA_X <= xCount3;
@@ -678,7 +684,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		end
 		
 		// Tile drawings
-		if (drawEnable3 & finished2) // Enables the draw top flag to create illusion of tile going on the screen
+		if (drawEnable3 & finished2 & finished1) // Enables the draw top flag to create illusion of tile going on the screen
 		begin
 			xCount3 <= xStart3;
 			yCount3 <= yStart3;
@@ -690,7 +696,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			fast_count <= 22'd1;
 		end
 		
-		else if (continueDrawTop3 & finished2)
+		else if (continueDrawTop3 & finished2 & finished1)
 		begin
 			VGA_X <= xCount3;
 			VGA_Y <= drawTop3;
@@ -717,7 +723,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			end
 		end
 		
-		else if (continueDraw3 & finished2) 
+		else if (continueDraw3 & finished2 & finished1) 
 		begin
 			VGA_X <= xCount3;
 			VGA_Y <= yCount3;
@@ -740,7 +746,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		end
 		
 		// Fourth tile
-		if (eraseEnable4 & finished3)
+		if (eraseEnable4 & finished3 & finished2 & finished1)
 		begin
 			if (yStart4 < 120 - YSIZE)
 			begin
@@ -754,7 +760,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			fast_count <= 22'd1; // No updates for fast_count
 		end
 		
-		else if (continueErase4 & finished3) // Erases entire tile
+		else if (continueErase4 & finished3 & finished2 & finished1) // Erases entire tile
 		begin
 			VGA_X <= xCount4;
 			VGA_Y <= yCount4;
@@ -781,7 +787,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			end
 		end
 		
-		else if (continueEraseBottom4 & finished3) // Erases tile from top to bottom, one row at a time
+		else if (continueEraseBottom4 & finished3 & finished2 & finished1) // Erases tile from top to bottom, one row at a time
 		begin
 		
 			VGA_X <= xCount4;
@@ -803,7 +809,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		end
 		
 		// Tile drawings
-		if (drawEnable4 & finished3) // Enables the draw top flag to create illusion of tile going on the screen
+		if (drawEnable4 & finished3 & finished2 & finished1) // Enables the draw top flag to create illusion of tile going on the screen
 		begin
 			xCount4 <= xStart4;
 			yCount4 <= yStart4;
@@ -815,7 +821,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			fast_count <= 22'd1;
 		end
 		
-		else if (continueDrawTop4 & finished3)
+		else if (continueDrawTop4 & finished3 & finished2 & finished1)
 		begin
 			VGA_X <= xCount4;
 			VGA_Y <= drawTop4;
@@ -842,7 +848,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			end
 		end
 		
-		else if (continueDraw4 & finished3) 
+		else if (continueDraw4 & finished3 & finished2 & finished1) 
 		begin
 			VGA_X <= xCount4;
 			VGA_Y <= yCount4;
@@ -879,6 +885,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 	end
 	
 	// Test/debug code
+//  assign LEDR[3:0] = {finished1, finished2, finished3, finished4};
 //	assign LEDR[0] = continueDraw;
 //	assign LEDR[1] = drawEnable;
 //	assign LEDR[2] = plot;
