@@ -4,7 +4,7 @@
 `define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 4)     // Height of each row 
 `define BORDER_WIDTH 1       // Width of each border line
 
-module vga_demo(CLOCK_50, SW, KEY, HEX3, HEX2, HEX1, HEX0, VGA_X, VGA_Y, VGA_COLOR, plot);
+module initial(CLOCK_50, SW, KEY, HEX3, HEX2, HEX1, HEX0, VGA_X, VGA_Y, VGA_COLOR, plot);
 	
 	input CLOCK_50;	
 	input [7:0] SW;

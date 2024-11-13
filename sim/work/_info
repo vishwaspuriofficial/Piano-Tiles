@@ -9,13 +9,13 @@ z2
 cModel Technology
 Z0 dC:/Users/sierr/Documents/Vishwas Puri/Piano Tiles/sim
 vdisplay
-Z1 !s110 1731480136
+Z1 !s110 1731531428
 !i10b 1
-!s100 i_jezIAoYckH;[<7F1h=c2
-Ia1[Ka]nh]jOl25oNF1ha[1
+!s100 fnQD<4Vd_IAOVm3UEiAZ_3
+IJzFgSgm><34kaO6d[UMUU2
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-w1731480076
+w1731531188
 8../display.v
 F../display.v
 L0 8
@@ -23,13 +23,13 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1731480136.000000
-Z5 !s107 ../vga_demo.v|../top.v|../display.v|
-Z6 !s90 ../display.v|../top.v|../vga_demo.v|
+Z4 !s108 1731531428.000000
+Z5 !s107 ../top.v|../display.v|
+Z6 !s90 ../display.v|../top.v|
 !i113 1
 Z7 tCvgOpt 0
 vtb
-!s110 1731480135
+R1
 !i10b 1
 !s100 Go]CW3?L8<4?h5=kD34Gc0
 IE2m;PWd7O8Lo07VX;^<IC1
@@ -43,29 +43,9 @@ R3
 r1
 !s85 0
 31
-!s108 1731480135.000000
+R4
 !s107 ../tb/tb.v|
 !s90 ../tb/tb.v|
-!i113 1
-R7
-vtile_generator
-R1
-!i10b 1
-!s100 S__lfXRFPR8F`;Lf2hm030
-I>dR4cXm3REbG[<T8PEWW]1
-R2
-R0
-Z8 w1731438003
-Z9 8../vga_demo.v
-Z10 F../vga_demo.v
-L0 70
-R3
-r1
-!s85 0
-31
-R4
-R5
-R6
 !i113 1
 R7
 vtop
@@ -75,30 +55,10 @@ R1
 IUUMZL:]zd:5i;E1iKQ3_Y2
 R2
 R0
-w1731475060
+w1731529306
 8../top.v
 F../top.v
 L0 24
-R3
-r1
-!s85 0
-31
-R4
-R5
-R6
-!i113 1
-R7
-vvga_demo
-R1
-!i10b 1
-!s100 RC68@[ZfKIHmV3U^zH_781
-Ia?GJV_DAl3Uc2z8D0l>`X1
-R2
-R0
-R8
-R9
-R10
-L0 7
 R3
 r1
 !s85 0

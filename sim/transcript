@@ -1,5 +1,5 @@
 # vsim -pli "simfpga.vpi" -Lf 220model -Lf altera_mf_ver -Lf verilog -c -do "run -all" tb 
-# Start time: 01:42:17 on Nov 13,2024
+# Start time: 15:57:09 on Nov 13,2024
 # Loading work.tb
 # Loading work.top
 # Loading work.display
@@ -9,9 +9,10 @@
 # 
 # 
 # Connected to server!
+# Could not send VGA signal to GUI
 # ** Note: $finish    : ../tb/tb.v(24)
-#    Time: 5760 us  Iteration: 1  Instance: /tb
+#    Time: 22169870 ns  Iteration: 2  Instance: /tb
 # 
 # Quitting...
-# End time: 01:42:29 on Nov 13,2024, Elapsed time: 0:00:12
+# End time: 15:57:52 on Nov 13,2024, Elapsed time: 0:00:43
 # Errors: 0, Warnings: 0

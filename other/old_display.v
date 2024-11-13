@@ -1,14 +1,12 @@
 `define RESOLUTION_WIDTH 160 // Width of the screen
-`define RESOLUTION_HEIGHT 90 // Height of the screen
+`define RESOLUTION_HEIGHT 120 // Height of the screen
 `define COLUMN_WIDTH ((`RESOLUTION_WIDTH - 3 * `BORDER_WIDTH) / 4)  
-`define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 3)     // Height of each row 
+`define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 4)     // Height of each row 
 `define BORDER_WIDTH 1       // Width of each border line
 
-//DESIM
-module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
-//BOARD
-// module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
-//                 VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
+
+module old_display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
+                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
 	
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
@@ -19,17 +17,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 	output reg [2:0] VGA_COLOR;                 // for DESim VGA
 	output reg plot;                            // for DESim VGA
 	output [9:0] LEDR;
-
-	//BOARD
-	// output [7:0] VGA_R;
-	// output [7:0] VGA_G;
-	// output [7:0] VGA_B;
-	// output VGA_HS;
-	// output VGA_VS;
-	// output VGA_BLANK_N;
-	// output VGA_SYNC_N;
-	// output VGA_CLK; 
-
+	
 	parameter XSIZE = 8'd35, YSIZE = 7'd20;
 	
 	// This is the blueprint for 1 tile falling down (on loop for all 4 columns)
@@ -113,10 +101,9 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 	
 	reg finished4;
 
-	//Screen Control + Draw
+	//Screen Control
 	reg gameOn;
-	reg [7:0] x_count = 0;
-    reg [6:0] y_count = 0;
+	reg old_KEY1;
 	
 	initial
 	begin
@@ -148,38 +135,39 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 //      finished2 <= 1;
 //      finished3 <= 1;
 //      finished4 <= 1;
-		gameOn <= SW[0];
+
+		gameOn <= 1'b0;
+		old_KEY1 <= 1'b0;
 	end
 	
 	// Updates for tile movement
 	reg [21:0] fast_count;
-	//DESIM
 	assign tileShiftEnable = fast_count == 22'd4000; 
-
-	//BOARD
-	// assign tileShiftEnable = fast_count == 22'd416666; 
 	// 22'd2500000 corresponds to roughly 20px/second
 	// 22'd416666 corresponds to roughly 120px/second
 
-	//BOARD
-	//    vga_adapter VGA (
-    //    .resetn(KEY[0]),
-    //    .clock(CLOCK_50),
-    //    .colour(VGA_COLOR),
-    //    .x(VGA_X),
-    //    .y(VGA_Y),
-    //    .plot(plot),
-    //    .VGA_R(VGA_R),
-    //    .VGA_G(VGA_G),
-    //    .VGA_B(VGA_B),
-    //    .VGA_HS(VGA_HS),
-    //    .VGA_VS(VGA_VS),
-    //    .VGA_BLANK_N(VGA_BLANK_N),
-    //    .VGA_SYNC_N(VGA_SYNC_N),
-    //    .VGA_CLK(VGA_CLK));
-    //    defparam VGA.RESOLUTION = "160x120";
-    //    defparam VGA.MONOCHROME = "FALSE";
-    //    defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
+	// Counters for X and Y coordinates
+    reg [7:0] x_count = 0;
+    reg [6:0] y_count = 0;
+
+	   vga_adapter VGA (
+       .resetn(KEY[0]),
+       .clock(CLOCK_50),
+       .colour(VGA_COLOR),
+       .x(VGA_X),
+       .y(VGA_Y),
+       .plot(plot),
+       .VGA_R(VGA_R),
+       .VGA_G(VGA_G),
+       .VGA_B(VGA_B),
+       .VGA_HS(VGA_HS),
+       .VGA_VS(VGA_VS),
+       .VGA_BLANK_N(VGA_BLANK_N),
+       .VGA_SYNC_N(VGA_SYNC_N),
+       .VGA_CLK(VGA_CLK));
+       defparam VGA.RESOLUTION = "160x120";
+       defparam VGA.MONOCHROME = "FALSE";
+       defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
     //    defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
 	
 	always@ (posedge CLOCK_50)
@@ -196,7 +184,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			) begin
 				VGA_COLOR <= 3'b010; // Green for the vertical lines
 			end else begin
-				VGA_COLOR <= 3'b000; // RED for the rest of the screen
+				VGA_COLOR <= 3'b111; // White for the rest of the screen
 			end
 
 			// Increment x_count for each pixel
@@ -217,6 +205,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			VGA_X <= x_count;
 			VGA_Y <= y_count;
 		
+
+
 		// fast_count updates
 		if (tileShiftEnable)
 		begin
@@ -877,6 +867,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 				finished4 <= 1;
 				xCount4 <= xStart4;
 			end
+			
 		end
 		
 		else if (continueDraw4 & finished3 & finished2 & finished1) 
@@ -902,28 +893,16 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		end
 
 		end else begin
-			VGA_COLOR <= 3'b001; // Blue
-
-			// Increment x_count for each pixel
-			x_count <= x_count + 1;
-
-			// Checks for right edge
-			if (x_count == `RESOLUTION_WIDTH -1) begin 
-				x_count <= 0;
-				y_count <= y_count + 1;
-			end
-
-			// Checks for bottom edge (Corrected line)
-			if (y_count == `RESOLUTION_HEIGHT) begin
-				y_count <= 0;
-			end
-
-			// Assign the counters to VGA_X and VGA_Y
-			VGA_X <= x_count;
-			VGA_Y <= y_count;
+			VGA_COLOR <= 3'b000; // Black
+        	plot <= 1'b1;
 		end
 
-		gameOn <= SW[0];
+		// Toggle gameOn with KEY[1] press (assuming KEY[1] is active low)
+		if (KEY[1] == 1'b0 && !old_KEY1) begin // Detect a falling edge of KEY[1] using old_KEY1
+			gameOn <= ~gameOn; // Toggle gameOn
+			// If desired, reset the tile animation state variables when switching to/from game screen.
+		end
+		old_KEY1 <= KEY[1]; 
 		
 	end
 	
@@ -937,4 +916,3 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 //	assign LEDR[7] = continueEraseBottom;
 	
 endmodule
-
