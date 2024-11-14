@@ -6,8 +6,8 @@ add wave -noupdate -label VGA_Y -radix hexadecimal /testbench/VGA_Y
 add wave -noupdate -label VGA_COLOR -radix hexadecimal /testbench/VGA_COLOR
 add wave -noupdate -label plot -radix binary /testbench/plot
 add wave -noupdate -divider display
-add wave -noupdate -label xCount -radix hexadecimal /testbench/U1/x_count
-add wave -noupdate -label xCount -radix hexadecimal /testbench/U1/y_count
+add wave -noupdate -label x_count -radix hexadecimal /testbench/U1/x_count
+add wave -noupdate -label y_count -radix hexadecimal /testbench/U1/y_count
 add wave -noupdate -label xCount -radix hexadecimal /testbench/U1/xCount
 add wave -noupdate -label yCount -radix hexadecimal /testbench/U1/yCount
 add wave -noupdate -label xCount2 -radix hexadecimal /testbench/U1/xCount2

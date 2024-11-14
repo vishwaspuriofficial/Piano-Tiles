@@ -194,6 +194,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		begin
 			enableBackground <= 1;
 			startedOnce <= 1;
+			plot <= 1;
 		end
 
 		if (enableBackground)

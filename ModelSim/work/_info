@@ -9,7 +9,7 @@ z2
 cModel Technology
 dC:/users/ethan/ECE241_labs/project/VGA_display_setup/modelSim
 vdisplay
-Z0 !s110 1731544803
+Z0 !s110 1731545014
 !i10b 1
 !s100 `i9Ym70bJb_:C7Q8mgNAb2
 Io0=TjnmAe=nO;a7Z<^I=f1
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1731544803.000000
+Z4 !s108 1731545014.000000
 !s107 ../display.v|
 !s90 -reportprogress|300|../display.v|
 !i113 1
@@ -31,11 +31,11 @@ Z5 tCvgOpt 0
 vtestbench
 R0
 !i10b 1
-!s100 h[6a^C1:L:Fm7QOma47EC1
-I`TV?8zLI]7P=27KX]V;W:3
+!s100 CBYR1ebYVHQ68KmXgU0N90
+IIT>HM^6ZIn0O8[eFTI[BN3
 R1
 R2
-w1731480916
+w1731544916
 8testbench.v
 Ftestbench.v
 L0 3
