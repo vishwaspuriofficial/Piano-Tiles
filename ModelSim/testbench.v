@@ -20,6 +20,11 @@ module testbench ( );
 		#((CLOCK_PERIOD) / 2) CLOCK_50 <= ~CLOCK_50;
 	end
 
+	initial begin
+        SW[0] <= 1'b0;
+        #10 SW[0] <= 1'b1;
+	end // initial
+
 	display U1 (CLOCK_50, SW[7:0], KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 
 endmodule
