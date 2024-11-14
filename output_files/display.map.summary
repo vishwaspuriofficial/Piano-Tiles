@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Wed Nov 13 19:49:36 2024
+Analysis & Synthesis Status : Successful - Wed Nov 13 20:12:27 2024
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : display
 Top-level Entity Name : display
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 276
+Total registers : 273
 Total pins : 71
 Total virtual pins : 0
 Total block memory bits : 57,600

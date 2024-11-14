@@ -194,7 +194,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		begin
 			enableBackground <= 1;
 			startedOnce <= 1;
-			plot <= 1;
 		end
 
 		if (enableBackground)
@@ -228,7 +227,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 				y_count <= 0;
 			end
 
-			if (x_count == (`RESOLUTION_WIDTH - 2) & y_count == (`RESOLUTION_HEIGHT - 1)) begin
+			if (x_count == (`RESOLUTION_WIDTH - 1) & y_count == (`RESOLUTION_HEIGHT - 1)) begin
 				enableBackground <= 0;
 			end
 
@@ -237,7 +236,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			VGA_Y <= y_count;
 		end
 
-		if (gameOn & ~enableBackground) 
+		if (gameOn & ~enableBackground & startedOnce) 
 		begin
 		
 		// fast_count updates
@@ -880,7 +879,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		end 
 
 		else begin
-			if (~enableBackground)
+			if (~enableBackground & startedOnce)
 			begin
 				VGA_COLOR <= 3'b001; // Blue
 
