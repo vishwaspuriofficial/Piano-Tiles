@@ -1,14 +1,14 @@
 `define RESOLUTION_WIDTH 160 // Width of the screen
 `define RESOLUTION_HEIGHT 120 // Height of the screen
-`define COLUMN_WIDTH ((`RESOLUTION_WIDTH - 3 * `BORDER_WIDTH) / 4)  
+`define COLUMN_WIDTH 35 
 `define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 3)     // Height of each row 
-`define BORDER_WIDTH 1       // Width of each border line
+`define BORDER_WIDTH 4       // Width of each border line
 
 //DESIM
-// module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
+module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 //BOARD
-module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
-                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
+// module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
+//                 VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
 	
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
@@ -21,14 +21,14 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	output [9:0] LEDR;
 
 	//BOARD
-	output [7:0] VGA_R;
-	output [7:0] VGA_G;
-	output [7:0] VGA_B;
-	output VGA_HS;
-	output VGA_VS;
-	output VGA_BLANK_N;
-	output VGA_SYNC_N;
-	output VGA_CLK; 
+	// output [7:0] VGA_R;
+	// output [7:0] VGA_G;
+	// output [7:0] VGA_B;
+	// output VGA_HS;
+	// output VGA_VS;
+	// output VGA_BLANK_N;
+	// output VGA_SYNC_N;
+	// output VGA_CLK; 
 
 	parameter XSIZE = 8'd34, YSIZE = 7'd20;
 	
@@ -116,6 +116,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	//Screen Control + Draw
 	reg gameOn;
 	reg enableBackground;
+	reg startedOnce;
 	reg [7:0] x_count = 0;
     reg [6:0] y_count = 0;
 	
@@ -123,6 +124,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	begin
 		gameOn <= SW[0];
 		enableBackground <= 0;
+		startedOnce <= 0;
 
 		xStart <= 8'd4;
 		yStart <= 7'd0;
@@ -157,74 +159,85 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	// Updates for tile movement
 	reg [21:0] fast_count;
 	//DESIM
-	// assign tileShiftEnable = fast_count == 22'd4000; 
+	assign tileShiftEnable = fast_count == 22'd4000; 
 
 	//BOARD
-	assign tileShiftEnable = fast_count == 22'd416666; 
+	// assign tileShiftEnable = fast_count == 22'd416666; 
 	// 22'd2500000 corresponds to roughly 20px/second
 	// 22'd416666 corresponds to roughly 120px/second
 
 	//BOARD
-	   vga_adapter VGA (
-       .resetn(KEY[0]),
-       .clock(CLOCK_50),
-       .colour(VGA_COLOR),
-       .x(VGA_X),
-       .y(VGA_Y),
-       .plot(plot),
-       .VGA_R(VGA_R),
-       .VGA_G(VGA_G),
-       .VGA_B(VGA_B),
-       .VGA_HS(VGA_HS),
-       .VGA_VS(VGA_VS),
-       .VGA_BLANK_N(VGA_BLANK_N),
-       .VGA_SYNC_N(VGA_SYNC_N),
-       .VGA_CLK(VGA_CLK));
-       defparam VGA.RESOLUTION = "160x120";
-       defparam VGA.MONOCHROME = "FALSE";
-       defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
-       defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
+	//    vga_adapter VGA (
+    //    .resetn(KEY[0]),
+    //    .clock(CLOCK_50),
+    //    .colour(VGA_COLOR),
+    //    .x(VGA_X),
+    //    .y(VGA_Y),
+    //    .plot(plot),
+    //    .VGA_R(VGA_R),
+    //    .VGA_G(VGA_G),
+    //    .VGA_B(VGA_B),
+    //    .VGA_HS(VGA_HS),
+    //    .VGA_VS(VGA_VS),
+    //    .VGA_BLANK_N(VGA_BLANK_N),
+    //    .VGA_SYNC_N(VGA_SYNC_N),
+    //    .VGA_CLK(VGA_CLK));
+    //    defparam VGA.RESOLUTION = "160x120";
+    //    defparam VGA.MONOCHROME = "FALSE";
+    //    defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
+    //    defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
 	
 	always@ (posedge CLOCK_50)
 	begin
-		if (gameOn)
-		// begin
-		// 	enableBackground <= 1;
-		// end
+		
+		if (gameOn & ~startedOnce)
+		begin
+			enableBackground <= 1;
+			startedOnce <= 1;
+		end
 
-		// if (gameOn &) 
-		// begin
+		if (enableBackground)
+		begin
+			//Code for Black Background + Border Lines
+			// Determine if the current pixel is on a black vertical line
+			plot <= 1;
+			if ( 
+				(x_count >= 0 && x_count < `BORDER_WIDTH) ||
+				(x_count >= `COLUMN_WIDTH + `BORDER_WIDTH && x_count < `COLUMN_WIDTH + 2 * `BORDER_WIDTH) || 
+				(x_count >= 2*`COLUMN_WIDTH + 2* `BORDER_WIDTH && x_count < 2*`COLUMN_WIDTH + 3*`BORDER_WIDTH) ||
+				(x_count >= 3*`COLUMN_WIDTH + 3*`BORDER_WIDTH && x_count < 3*`COLUMN_WIDTH + 4*`BORDER_WIDTH) ||
+				(x_count >= 4*`COLUMN_WIDTH + 4*`BORDER_WIDTH && x_count < 4*`COLUMN_WIDTH + 5*`BORDER_WIDTH)
+			) begin
+				VGA_COLOR <= 3'b010; // Blue for the vertical lines
+			end else begin
+				VGA_COLOR <= 3'b000; // Black for the rest of the screen
+			end
 
-		// 	// //Code for White Background + Border Lines
-		// 	// // Determine if the current pixel is on a black vertical line
-		// 	// if ( 
-		// 	// 	(x_count >= `COLUMN_WIDTH + 1              && x_count < `COLUMN_WIDTH + `BORDER_WIDTH + 1) || 
-		// 	// 	(x_count >= 2*`COLUMN_WIDTH + `BORDER_WIDTH + 1 && x_count < 2*`COLUMN_WIDTH + 2*`BORDER_WIDTH + 1) ||
-		// 	// 	(x_count >= 3*`COLUMN_WIDTH + 2*`BORDER_WIDTH + 1 && x_count < 3*`COLUMN_WIDTH + 3*`BORDER_WIDTH + 1)
-		// 	// ) begin
-		// 	// 	VGA_COLOR <= 3'b010; // Green for the vertical lines
-		// 	// end else begin
-		// 	// 	VGA_COLOR <= 3'b000; // RED for the rest of the screen
-		// 	// end
+			// Increment x_count for each pixel
+			x_count <= x_count + 1;
 
-		// 	// // Increment x_count for each pixel
-		// 	// x_count <= x_count + 1;
+			// Checks for right edge
+			if (x_count == `RESOLUTION_WIDTH -1) begin 
+				x_count <= 0;
+				y_count <= y_count + 1;
+			end
 
-		// 	// // Checks for right edge
-		// 	// if (x_count == `RESOLUTION_WIDTH -1) begin 
-		// 	// 	x_count <= 0;
-		// 	// 	y_count <= y_count + 1;
-		// 	// end
+			// Checks for bottom edge (Corrected line)
+			if (y_count == `RESOLUTION_HEIGHT) begin
+				y_count <= 0;
+			end
 
-		// 	// // Checks for bottom edge (Corrected line)
-		// 	// if (y_count == `RESOLUTION_HEIGHT) begin
-		// 	// 	y_count <= 0;
-		// 	// end
+			if (x_count == (`RESOLUTION_WIDTH - 2) & y_count == (`RESOLUTION_HEIGHT - 1)) begin
+				enableBackground <= 0;
+			end
 
-		// 	// // Assign the counters to VGA_X and VGA_Y
-		// 	// VGA_X <= x_count;
-		// 	// VGA_Y <= y_count;
-		// end
+			// Assign the counters to VGA_X and VGA_Y
+			VGA_X <= x_count;
+			VGA_Y <= y_count;
+		end
+
+		if (gameOn & ~enableBackground) 
+		begin
 		
 		// fast_count updates
 		if (tileShiftEnable)
@@ -863,40 +876,46 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			end
 		end
 
-		// end else begin
-		// 	VGA_COLOR <= 3'b001; // Blue
+		end 
 
-		// 	// Increment x_count for each pixel
-		// 	x_count <= x_count + 1;
+		else begin
+			if (~enableBackground)
+			begin
+				VGA_COLOR <= 3'b001; // Blue
 
-		// 	// Checks for right edge
-		// 	if (x_count == `RESOLUTION_WIDTH -1) begin 
-		// 		x_count <= 0;
-		// 		y_count <= y_count + 1;
-		// 	end
+				// Increment x_count for each pixel
+				x_count <= x_count + 1;
 
-		// 	// Checks for bottom edge (Corrected line)
-		// 	if (y_count == `RESOLUTION_HEIGHT) begin
-		// 		y_count <= 0;
-		// 	end
+				// Checks for right edge
+				if (x_count == `RESOLUTION_WIDTH -1) begin 
+					x_count <= 0;
+					y_count <= y_count + 1;
+				end
 
-		// 	// Assign the counters to VGA_X and VGA_Y
-		// 	VGA_X <= x_count;
-		// 	VGA_Y <= y_count;
-		// end
+				// Checks for bottom edge (Corrected line)
+				if (y_count == `RESOLUTION_HEIGHT) begin
+					y_count <= 0;
+				end
 
-		// gameOn <= SW[0];
+				// Assign the counters to VGA_X and VGA_Y
+				VGA_X <= x_count;
+				VGA_Y <= y_count;
+			end
 		end
+
+		gameOn <= SW[0];
 	end
 	
 	// Test/debug code
 //  assign LEDR[3:0] = {finished1, finished2, finished3, finished4};
 //	assign LEDR[0] = continueDraw;
-// assign LEDR[1] = drawEnable;
+//  assign LEDR[1] = drawEnable;
 //	assign LEDR[2] = plot;
 //	assign LEDR[8] = eraseEnable;
 //	assign LEDR[4] = tileShiftEnable;
 //	assign LEDR[7] = continueEraseBottom;
+// assign LEDR[7:0] = x_count;
+// assign LEDR[0] = enableBackground;
 	
 endmodule
 

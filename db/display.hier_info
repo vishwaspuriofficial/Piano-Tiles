@@ -1,6 +1,6 @@
 |display
 CLOCK_50 => CLOCK_50.IN1
-SW[0] => ~NO_FANOUT~
+SW[0] => gameOn.DATAIN
 SW[1] => ~NO_FANOUT~
 SW[2] => ~NO_FANOUT~
 SW[3] => ~NO_FANOUT~
