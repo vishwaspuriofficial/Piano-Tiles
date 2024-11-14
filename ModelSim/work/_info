@@ -7,34 +7,34 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/users/ethan/ECE241_labs/project/VGA_display_setup/modelSim
+dC:/users/ethan/ECE241_labs/project/VGA_display_setup/modelSim
 vdisplay
-Z1 !s110 1731482214
+Z0 !s110 1731537512
 !i10b 1
-!s100 883WH^Xc`Uc5H?]IkNb5;0
-IzA8;03U3XN`c>:2H>j6Cg0
-Z2 VDg1SIo80bB@j0V0VzS_@n1
-R0
-w1731482096
+!s100 PH:2AJ9<c33YFL:mM]]0n1
+I_Ll5<Yz3SA8_f@o9FLH2=0
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dC:/users/ethan/ECE241_labs/VSCode/piano-Tiles/modelSim
+w1731537447
 8../display.v
 F../display.v
-L0 1
+L0 8
 Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1731482214.000000
+Z4 !s108 1731537512.000000
 !s107 ../display.v|
 !s90 -reportprogress|300|../display.v|
 !i113 1
 Z5 tCvgOpt 0
 vtestbench
-R1
+R0
 !i10b 1
 !s100 h[6a^C1:L:Fm7QOma47EC1
 I`TV?8zLI]7P=27KX]V;W:3
+R1
 R2
-R0
 w1731480916
 8testbench.v
 Ftestbench.v

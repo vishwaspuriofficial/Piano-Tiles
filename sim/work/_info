@@ -7,15 +7,15 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Users/sierr/Documents/Vishwas Puri/Piano Tiles/sim
+Z0 dC:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/sim
 vdisplay
-Z1 !s110 1731531428
+Z1 !s110 1731539913
 !i10b 1
-!s100 fnQD<4Vd_IAOVm3UEiAZ_3
-IJzFgSgm><34kaO6d[UMUU2
+!s100 BVdagVVgk8<D^F`DF;NQ=0
+Ij:b4oDP]Q@FXb]hQ0USJn3
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-w1731531188
+w1731539907
 8../display.v
 F../display.v
 L0 8
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1731531428.000000
+Z4 !s108 1731539913.000000
 Z5 !s107 ../top.v|../display.v|
 Z6 !s90 ../display.v|../top.v|
 !i113 1
@@ -35,7 +35,7 @@ R1
 IE2m;PWd7O8Lo07VX;^<IC1
 R2
 R0
-w1731401851
+Z8 w1731534558
 8../tb/tb.v
 F../tb/tb.v
 L0 6
@@ -55,7 +55,7 @@ R1
 IUUMZL:]zd:5i;E1iKQ3_Y2
 R2
 R0
-w1731529306
+R8
 8../top.v
 F../top.v
 L0 24
