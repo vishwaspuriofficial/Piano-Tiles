@@ -5,10 +5,10 @@
 `define BORDER_WIDTH 4       // Width of each border line
 
 //DESIM
-module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
+// module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 //BOARD
-// module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
-//                 VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
+module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
+                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
 	
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
@@ -21,14 +21,14 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 	output [9:0] LEDR;
 
 	//BOARD
-	// output [7:0] VGA_R;
-	// output [7:0] VGA_G;
-	// output [7:0] VGA_B;
-	// output VGA_HS;
-	// output VGA_VS;
-	// output VGA_BLANK_N;
-	// output VGA_SYNC_N;
-	// output VGA_CLK; 
+	output [7:0] VGA_R;
+	output [7:0] VGA_G;
+	output [7:0] VGA_B;
+	output VGA_HS;
+	output VGA_VS;
+	output VGA_BLANK_N;
+	output VGA_SYNC_N;
+	output VGA_CLK; 
 
 	parameter XSIZE = 8'd34, YSIZE = 7'd20;
 	
@@ -159,33 +159,33 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 	// Updates for tile movement
 	reg [21:0] fast_count;
 	//DESIM
-	assign tileShiftEnable = fast_count == 22'd4000; 
+	// assign tileShiftEnable = fast_count == 22'd4000; 
 
 	//BOARD
-	// assign tileShiftEnable = fast_count == 22'd416666; 
+	assign tileShiftEnable = fast_count == 22'd416666; 
 	// 22'd2500000 corresponds to roughly 20px/second
 	// 22'd416666 corresponds to roughly 120px/second
 
 	//BOARD
-	//    vga_adapter VGA (
-    //    .resetn(KEY[0]),
-    //    .clock(CLOCK_50),
-    //    .colour(VGA_COLOR),
-    //    .x(VGA_X),
-    //    .y(VGA_Y),
-    //    .plot(plot),
-    //    .VGA_R(VGA_R),
-    //    .VGA_G(VGA_G),
-    //    .VGA_B(VGA_B),
-    //    .VGA_HS(VGA_HS),
-    //    .VGA_VS(VGA_VS),
-    //    .VGA_BLANK_N(VGA_BLANK_N),
-    //    .VGA_SYNC_N(VGA_SYNC_N),
-    //    .VGA_CLK(VGA_CLK));
-    //    defparam VGA.RESOLUTION = "160x120";
-    //    defparam VGA.MONOCHROME = "FALSE";
-    //    defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
-    //    defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
+	   vga_adapter VGA (
+       .resetn(KEY[0]),
+       .clock(CLOCK_50),
+       .colour(VGA_COLOR),
+       .x(VGA_X),
+       .y(VGA_Y),
+       .plot(plot),
+       .VGA_R(VGA_R),
+       .VGA_G(VGA_G),
+       .VGA_B(VGA_B),
+       .VGA_HS(VGA_HS),
+       .VGA_VS(VGA_VS),
+       .VGA_BLANK_N(VGA_BLANK_N),
+       .VGA_SYNC_N(VGA_SYNC_N),
+       .VGA_CLK(VGA_CLK));
+       defparam VGA.RESOLUTION = "160x120";
+       defparam VGA.MONOCHROME = "FALSE";
+       defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
+       defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
 	
 	always@ (posedge CLOCK_50)
 	begin
