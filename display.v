@@ -141,8 +141,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	reg [21:0] globalSpeed;
 	reg [25:0] timeBetweenTile;
 
+	//Random
+	reg [3:0] random;
+    wire [1:0] random_column;
+
 	initial
 	begin
+		random = 4'b0001;
 		gameOn <= 1;
 		gameOver <= 0;
 		enableBackground <= 0;
@@ -262,6 +267,14 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				col4pressed <= 0;
 			end else col4pressed <= 1;
 	end
+
+	always @(posedge CLOCK_50) begin
+        random <= {random[2:0], random[3] ^ random[2]};
+    end
+
+	assign random_column = random[1:0];
+
+
 	always@ (posedge CLOCK_50)
 	begin
 		
@@ -392,8 +405,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			// For first tile
 			if (~onScreen)
 			begin
-				
-				xStart <= `BORDER_WIDTH; // make this a variable
+				case (random_column)
+                    2'b00: xStart <= `BORDER_WIDTH;
+                    2'b01: xStart <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
+                    2'b10: xStart <= (3*`BORDER_WIDTH) + (2*`COLUMN_WIDTH);
+                    2'b11: xStart <= (4*`BORDER_WIDTH) + (3*`COLUMN_WIDTH);
+                endcase
 				yStart <= 7'd0;
 				drawTop <= 0;
 				drawEnable <= 1;
@@ -405,7 +422,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			// For second tile
 			else if (~onScreen2)
 			begin
-				xStart2 <= (2*`BORDER_WIDTH)+`COLUMN_WIDTH; // make this a variable
+				case ({random[0], random[3] ^ random[2]})
+                    2'b00: xStart2 <= `BORDER_WIDTH;
+                    2'b01: xStart2 <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
+                    2'b10: xStart2 <= (3*`BORDER_WIDTH) + (2*`COLUMN_WIDTH);
+                    2'b11: xStart2 <= (4*`BORDER_WIDTH) + (3*`COLUMN_WIDTH);
+                endcase
 				yStart2 <= 7'd0;
 				drawTop2 <= 0;
 				drawEnable2 <= 1;
