@@ -4,3 +4,6 @@
 sim/transcript
 sim/work
 *.flock
+db
+incremental_db
+output_files
