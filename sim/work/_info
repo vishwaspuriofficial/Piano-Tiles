@@ -9,21 +9,21 @@ z2
 cModel Technology
 Z0 dC:/Users/sierr/Documents/Vishwas Puri/Piano Tiles/sim
 vdisplay
-Z1 !s110 1731841521
+Z1 !s110 1731843347
 !i10b 1
-!s100 Kh8TmGCQmTC_ULlDGk=fB1
-Id3<@P9P^ZEl1dD5i0b7Uf3
+!s100 gaNdTKNAZ0eF1d0IW>X<21
+I@?2g9z:^z6cd[X;F0^W2K3
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-Z3 w1731841464
+Z3 w1731843343
 Z4 8../display.v
 Z5 F../display.v
-L0 8
+L0 14
 Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1731841521.000000
+Z7 !s108 1731843347.000000
 Z8 !s107 ../top.v|../display.v|
 Z9 !s90 ../display.v|../top.v|
 !i113 1
@@ -31,14 +31,14 @@ Z10 tCvgOpt 0
 vseven_seg_decoder
 R1
 !i10b 1
-!s100 UKR11d18mn^1kN9X8m<I_3
-I<H<6MbZgBULH5No=VHG:12
+!s100 @Zn46M29[;DKc:lQjUT642
+IPg<ANA6NZDc<`JP0Sj9gl0
 R2
 R0
 R3
 R4
 R5
-L0 1024
+L0 1029
 R6
 r1
 !s85 0

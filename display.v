@@ -3,6 +3,12 @@
 `define COLUMN_WIDTH 35 
 `define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 3)     // Height of each row 
 `define BORDER_WIDTH 4       // Width of each border line
+`define TILES 3'b000 //Black 
+`define BACKGROUND 3'b111 //WHITE
+`define BOUNDARY 3'b100 //RED
+`define BORDER 3'b010 //GREEN
+`define GAMEOVER 3'b001 //BLUE
+
 
 //DESIM
 module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX1);
@@ -272,7 +278,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		if (enableBackground)
 		begin
 			//Code for Black Background + Border Lines
-			// Determine if the current pixel is on a black vertical line
 			plot <= 1;
 			if ( 
 				(x_count >= 0 && x_count < `BORDER_WIDTH) ||
@@ -281,9 +286,9 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				(x_count >= 3*`COLUMN_WIDTH + 3*`BORDER_WIDTH && x_count < 3*`COLUMN_WIDTH + 4*`BORDER_WIDTH) ||
 				(x_count >= 4*`COLUMN_WIDTH + 4*`BORDER_WIDTH && x_count < 4*`COLUMN_WIDTH + 5*`BORDER_WIDTH)
 			) begin
-				VGA_COLOR <= 3'b010; // Blue for the vertical lines
+				VGA_COLOR <= `BORDER;
 			end else begin
-				VGA_COLOR <= 3'b000; // Black for the rest of the screen
+				VGA_COLOR <= `BACKGROUND;
 			end
 
 			// Increment x_count for each pixel
@@ -298,7 +303,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 
 			// Checks for bottom edge (Corrected line)
 			if (y_count == `RESOLUTION_HEIGHT - 1) begin
-				VGA_COLOR <= 3'b100;
+				VGA_COLOR <= `BOUNDARY;
 			end
 
 			if (x_count == (`RESOLUTION_WIDTH - 1) & y_count == (`RESOLUTION_HEIGHT - 1)) begin
@@ -558,7 +563,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			plot <= 0;
 			continueErase <= 1;
 			eraseEnable <= 0;
-			VGA_COLOR <= 3'b000;
+			VGA_COLOR <= `BACKGROUND;
 
 			fast_count <= 22'd1; // No updates for fast_count
 		end
@@ -567,7 +572,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			VGA_X <= xCount;
 			VGA_Y <= yCount;
-			VGA_COLOR <= 3'b000;
+			VGA_COLOR <= `BACKGROUND;
 			plot <= 1;
 			
 			xCount <= xCount + 1;
@@ -590,7 +595,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			yCount <= yStart;
 			plot <= 0;
 			drawEnable <= 0;
-			VGA_COLOR <= 3'b111;
+			VGA_COLOR <= `TILES;
 			if (drawTop < YSIZE - 1)
 				continueDrawTop <= 1;
 			else
@@ -603,7 +608,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			VGA_X <= xCount;
 			VGA_Y <= drawTop;
-			VGA_COLOR <= 3'b111;
+			VGA_COLOR <= `TILES;
 			plot <= 1;
 			
 			xCount <= xCount + 1;
@@ -620,7 +625,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			VGA_X <= xCount;
 			VGA_Y <= yCount + YSIZE - 2;
-			VGA_COLOR <= 3'b111;
+			VGA_COLOR <= `TILES;
 			plot <= 1;
 			
 			xCount <= xCount + 1;
@@ -641,7 +646,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			plot <= 0;
 			continueErase2 <= 1;
 			eraseEnable2 <= 0;
-			VGA_COLOR <= 3'b000;
+			VGA_COLOR <= `BACKGROUND;
 
 			fast_count <= 22'd1; // No updates for fast_count
 		end
@@ -650,7 +655,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			VGA_X <= xCount2;
 			VGA_Y <= yCount2;
-			VGA_COLOR <= 3'b000;
+			VGA_COLOR <= `BACKGROUND;
 			plot <= 1;
 			
 			xCount2 <= xCount2 + 1;
@@ -673,7 +678,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			yCount2 <= yStart2;
 			plot <= 0;
 			drawEnable2 <= 0;
-			VGA_COLOR <= 3'b111;
+			VGA_COLOR <= `TILES;
 			if (drawTop2 < YSIZE - 1)
 				continueDrawTop2 <= 1;
 			else
@@ -686,7 +691,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			VGA_X <= xCount2;
 			VGA_Y <= drawTop2;
-			VGA_COLOR <= 3'b111;
+			VGA_COLOR <= `TILES;
 			plot <= 1;
 			
 			xCount2 <= xCount2 + 1;
@@ -703,7 +708,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			VGA_X <= xCount2;
 			VGA_Y <= yCount2 + YSIZE - 2;
-			VGA_COLOR <= 3'b111;
+			VGA_COLOR <= `TILES;
 			plot <= 1;
 			
 			xCount2 <= xCount2 + 1;
@@ -726,7 +731,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 		plot <= 0;
 		// 		continueErase3 <= 1;
 		// 		eraseEnable3 <= 0;
-		// 		VGA_COLOR <= 3'b000;
+		// 		VGA_COLOR <= `BACKGROUND;
 		// 	end
 		// 	fast_count <= 22'd1; // No updates for fast_count
 		// end
@@ -735,7 +740,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// begin
 		// 	VGA_X <= xCount3;
 		// 	VGA_Y <= yCount3;
-		// 	VGA_COLOR <= 3'b000;
+		// 	VGA_COLOR <= `BACKGROUND;
 		// 	plot <= 1;
 			
 		// 	xCount3 <= xCount3 + 1;
@@ -757,7 +762,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		
 		// 	VGA_X <= xCount3;
 		// 	VGA_Y <= eraseBottom3;
-		// 	VGA_COLOR <= 3'b000;
+		// 	VGA_COLOR <= `BACKGROUND;
 		// 	if (eraseBottom3 < 121)
 		// 		plot <= 1;
 		// 	else
@@ -780,7 +785,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 	yCount3 <= yStart3;
 		// 	plot <= 0;
 		// 	drawEnable3 <= 0;
-		// 	VGA_COLOR <= 3'b111;
+		// 	VGA_COLOR <= `TILES;
 		// 	continueDrawTop3 <= 1;
 			
 		// 	fast_count <= 22'd1;
@@ -790,7 +795,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// begin
 		// 	VGA_X <= xCount3;
 		// 	VGA_Y <= drawTop3;
-		// 	VGA_COLOR <= 3'b111;
+		// 	VGA_COLOR <= `TILES;
 		// 	if (drawTop3 < YSIZE - 2)
 		// 		plot <= 1;
 		// 	else
@@ -817,7 +822,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// begin
 		// 	VGA_X <= xCount3;
 		// 	VGA_Y <= yCount3 + YSIZE - 2;
-		// 	VGA_COLOR <= 3'b111;
+		// 	VGA_COLOR <= `TILES;
 		// 	plot <= 1;
 			
 		// 	xCount3 <= xCount3 + 1;
@@ -839,7 +844,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 		plot <= 0;
 		// 		continueErase4 <= 1;
 		// 		eraseEnable4 <= 0;
-		// 		VGA_COLOR <= 3'b000;
+		// 		VGA_COLOR <= `BACKGROUND;
 		// 	end
 		// 	fast_count <= 22'd1; // No updates for fast_count
 		// end
@@ -848,7 +853,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// begin
 		// 	VGA_X <= xCount4;
 		// 	VGA_Y <= yCount4;
-		// 	VGA_COLOR <= 3'b000;
+		// 	VGA_COLOR <= `BACKGROUND;
 		// 	plot <= 1;
 			
 		// 	xCount4 <= xCount4 + 1;
@@ -870,7 +875,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		
 		// 	VGA_X <= xCount4;
 		// 	VGA_Y <= eraseBottom4;
-		// 	VGA_COLOR <= 3'b000;
+		// 	VGA_COLOR <= `BACKGROUND;
 		// 	if (eraseBottom4 < 121)
 		// 		plot <= 1;
 		// 	else
@@ -893,7 +898,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 	yCount4 <= yStart4;
 		// 	plot <= 0;
 		// 	drawEnable4 <= 0;
-		// 	VGA_COLOR <= 3'b111;
+		// 	VGA_COLOR <= `TILES;
 		// 	continueDrawTop4 <= 1;
 			
 		// 	fast_count <= 22'd1;
@@ -903,7 +908,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// begin
 		// 	VGA_X <= xCount4;
 		// 	VGA_Y <= drawTop4;
-		// 	VGA_COLOR <= 3'b111;
+		// 	VGA_COLOR <= `TILES;
 		// 	if (drawTop4 < YSIZE - 2)
 		// 		plot <= 1;
 		// 	else
@@ -930,7 +935,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// begin
 		// 	VGA_X <= xCount4;
 		// 	VGA_Y <= yCount4 + YSIZE - 2;
-		// 	VGA_COLOR <= 3'b111;
+		// 	VGA_COLOR <= `TILES;
 		// 	plot <= 1;
 			
 		// 	xCount4 <= xCount4 + 1;
@@ -948,7 +953,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		else begin
 			if (~enableBackground & startedOnce)
 			begin
-				VGA_COLOR <= 3'b001; // Blue
+				VGA_COLOR <= `GAMEOVER; // Blue
 
 				// Increment x_count for each pixel
 				x_count <= x_count + 1;
