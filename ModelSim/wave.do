@@ -10,6 +10,12 @@ add wave -noupdate -label x_count -radix hexadecimal /testbench/U1/x_count
 add wave -noupdate -label y_count -radix hexadecimal /testbench/U1/y_count
 add wave -noupdate -label xCount -radix hexadecimal /testbench/U1/xCount
 add wave -noupdate -label yCount -radix hexadecimal /testbench/U1/yCount
+add wave -noupdate -label drawTop -radix hexadecimal /testbench/U1/drawTop
+add wave -noupdate -label drawEnable -radix binary /testbench/U1/drawEnable
+add wave -noupdate -label continueDrawTop -radix binary /testbench/U1/continueDrawTop
+add wave -noupdate -label continueDraw -radix binary /testbench/U1/continueDraw
+add wave -noupdate -label eraseEnable -radix binary /testbench/U1/eraseEnable
+add wave -noupdate -label continueErase -radix binary /testbench/U1/continueErase
 add wave -noupdate -label xCount2 -radix hexadecimal /testbench/U1/xCount2
 add wave -noupdate -label yCount2 -radix hexadecimal /testbench/U1/yCount2
 add wave -noupdate -label xCount3 -radix hexadecimal /testbench/U1/xCount3

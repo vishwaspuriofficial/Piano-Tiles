@@ -9,13 +9,13 @@ z2
 cModel Technology
 dC:/users/ethan/ECE241_labs/project/VGA_display_setup/modelSim
 vdisplay
-Z0 !s110 1731545242
+Z0 !s110 1731746995
 !i10b 1
-!s100 2iM:]f]a@^gfS`71838oN1
-IcmzbL6W=IDoiaQZO=ROK01
+!s100 B9nz>RXfFI0o<[a6>_nmz2
+IMeN5^0e?VOWK`MkU^MU>>0
 Z1 VDg1SIo80bB@j0V0VzS_@n1
-Z2 dC:/users/ethan/ECE241_labs/VSCode/piano-Tiles/modelSim
-w1731545118
+Z2 dC:/users/ethan/ece241_labs/VSCode/piano-Tiles/modelSim
+w1731746990
 8../display.v
 F../display.v
 L0 8
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1731545242.000000
+Z4 !s108 1731746995.000000
 !s107 ../display.v|
 !s90 -reportprogress|300|../display.v|
 !i113 1
