@@ -7,3 +7,9 @@ sim/work
 db
 incremental_db
 output_files
+sim/transcript
+sim/work/_info
+sim/work/_lib.qdb
+sim/work/_lib1_0.qdb
+sim/work/_lib1_0.qpg
+sim/work/_lib1_0.qtl

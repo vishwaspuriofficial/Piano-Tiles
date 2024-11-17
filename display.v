@@ -314,10 +314,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		if (gameOn & ~enableBackground & startedOnce) 
 		begin
 
-
-		// Score updates
-		if (col1pressed)
-		begin
+		if (col1pressed | col2pressed | col3pressed | col4pressed) begin
 			
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == `BORDER_WIDTH)
 			begin
@@ -333,60 +330,53 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				tile2scored <= 1;
 				col1pressed <= 0;
 			end
-			else 
-				gameOver<=1;
-			
-		end
 
-		if (col2pressed)
-		begin
-			if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
+			else if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile1scored)
 					score = score + 1;
 				tile1scored <= 1;
+				col2pressed <= 0;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile2scored)
 					score = score + 1;
 				tile2scored <= 1;
+				col2pressed <= 0;
 			end
-			col2pressed <= 0;
-		end
 
-		if (col3pressed)
-		begin
-			if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
+			else if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
 					score = score + 1;
 				tile1scored <= 1;
+				col3pressed <= 0;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
 					score = score + 1;
 				tile2scored <= 1;
+				col3pressed <= 0;
 			end
-			col3pressed <= 0;
-		end
-
-		if (col4pressed)
-		begin
-			if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
+			
+			else if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
 					score = score + 1;
 				tile1scored <= 1;
+				col4pressed <= 0;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
 					score = score + 1;
 				tile2scored <= 1;
+				col4pressed <= 0;
 			end
-			col4pressed <= 0;
+			else
+				gameOver <= 1;
 		end
 
 		// Tile generation
@@ -1026,7 +1016,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 // assign LEDR[7:1] = xStart2;
 // assign LEDR[0] = nextTileEnable;
 // assign LEDR[7:0] = score;
-assign LEDR[0] = col1pressed;
 seven_seg_decoder H0 (score[3:0], HEX0);
 seven_seg_decoder H1 (score[7:4], HEX1);
 	
