@@ -40,6 +40,6 @@ module top (CLOCK_50, SW, KEY, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, LEDR, VGA_X, 
     output wire [2:0] VGA_COLOR;
     output wire plot;
 
-    display U1 (CLOCK_50, SW[7:0], KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
+    display U1 (CLOCK_50, SW[7:0], KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX1);
 
 endmodule

@@ -5,10 +5,10 @@
 `define BORDER_WIDTH 4       // Width of each border line
 
 //DESIM
-module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
+module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX1);
 //BOARD
 // module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
-//                 VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
+//                 VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1);
 	
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
@@ -19,6 +19,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 	output reg [2:0] VGA_COLOR;                 
 	output reg plot;                           
 	output [9:0] LEDR;
+	output [6:0] HEX1, HEX0;
 
 	//BOARD
 	// output [7:0] VGA_R;
@@ -114,6 +115,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 
 	//Screen Control + Draw
 	reg gameOn;
+	reg gameOver;
 	reg enableBackground;
 	reg startedOnce;
 	reg [7:0] x_count = 0;
@@ -135,7 +137,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 
 	initial
 	begin
-		gameOn <= SW[0];
+		gameOn <= 1;
+		gameOver <= 0;
 		enableBackground <= 0;
 		startedOnce <= 0;
 
@@ -212,22 +215,46 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 	always@ (negedge KEY[3])
 	begin
 		if (KEY[3] == 0)
-			col1pressed <= 1;
+			if (col1pressed) begin
+				gameOver <= 0;
+				col1pressed <= 0;
+				col2pressed <= 0;
+				col3pressed <= 0;
+				col4pressed <= 0;
+			end else col1pressed <= 1;
 	end
 	always@ (negedge KEY[2])
 	begin
 		if (KEY[2] == 0)
-			col2pressed <= 1;
+			if (col2pressed) begin
+				gameOver <= 0;
+				col1pressed <= 0;
+				col2pressed <= 0;
+				col3pressed <= 0;
+				col4pressed <= 0;
+			end else col2pressed <= 1;
 	end
 	always@ (negedge KEY[1])
 	begin
 		if (KEY[1] == 0)
-			col3pressed <= 1;
+			if (col3pressed) begin
+				gameOver <= 0;
+				col1pressed <= 0;
+				col2pressed <= 0;
+				col3pressed <= 0;
+				col4pressed <= 0;
+			end else col3pressed <= 1;
 	end
 	always@ (negedge KEY[0])
 	begin
 		if (KEY[0] == 0)
-			col4pressed <= 1;
+			if (col4pressed) begin
+				gameOver <= 0;
+				col1pressed <= 0;
+				col2pressed <= 0;
+				col3pressed <= 0;
+				col4pressed <= 0;
+			end else col4pressed <= 1;
 	end
 	always@ (posedge CLOCK_50)
 	begin
@@ -287,22 +314,28 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		if (gameOn & ~enableBackground & startedOnce) 
 		begin
 
+
 		// Score updates
 		if (col1pressed)
 		begin
+			
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == `BORDER_WIDTH)
 			begin
 				if (~tile1scored)
 					score = score + 1;
 				tile1scored <= 1;
+				col1pressed <= 0;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == `BORDER_WIDTH)
 			begin
 				if (~tile2scored)
 					score = score + 1;
 				tile2scored <= 1;
+				col1pressed <= 0;
 			end
-			col1pressed <= 0;
+			else 
+				gameOver<=1;
+			
 		end
 
 		if (col2pressed)
@@ -919,6 +952,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 		// 	end
 		// end
 
+
 		end 
 
 		else begin
@@ -976,7 +1010,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 			end
 		end
 
-		gameOn <= SW[0];
+		if (gameOver) gameOn <= 0;
+		else gameOn <= 1;
 	end
 	
 	// Test/debug code
@@ -990,6 +1025,29 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
 // assign LEDR[7:0] = x_count;
 // assign LEDR[7:1] = xStart2;
 // assign LEDR[0] = nextTileEnable;
-assign LEDR[7:0] = score;
+// assign LEDR[7:0] = score;
+assign LEDR[0] = col1pressed;
+seven_seg_decoder H0 (score[3:0], HEX0);
+seven_seg_decoder H1 (score[7:4], HEX1);
 	
+endmodule
+
+module seven_seg_decoder(input [3:0] C, output [6:0] Display);
+    assign Display = (C == 4'b0000) ? 7'b1000000 :  
+                     (C == 4'b0001) ? 7'b1111001 :  
+                     (C == 4'b0010) ? 7'b0100100 :  
+                     (C == 4'b0011) ? 7'b0110000 :  
+                     (C == 4'b0100) ? 7'b0011001 :  
+                     (C == 4'b0101) ? 7'b0010010 :  
+                     (C == 4'b0110) ? 7'b0000010 :  
+                     (C == 4'b0111) ? 7'b1111000 :  
+                     (C == 4'b1000) ? 7'b0000000 :  
+                     (C == 4'b1001) ? 7'b0010000 :  
+                     (C == 4'b1010) ? 7'b0001000 :  
+                     (C == 4'b1011) ? 7'b0000011 :  
+                     (C == 4'b1100) ? 7'b1000110 :  
+                     (C == 4'b1101) ? 7'b0100001 :  
+                     (C == 4'b1110) ? 7'b0000110 :  
+                     (C == 4'b1111) ? 7'b0001110 :  
+                                      7'b1111111;   
 endmodule
