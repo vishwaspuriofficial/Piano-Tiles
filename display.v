@@ -1,7 +1,7 @@
 `define RESOLUTION_WIDTH 160 // Width of the screen
 `define RESOLUTION_HEIGHT 120 // Height of the screen
 `define COLUMN_WIDTH 35 
-`define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 3)     // Height of each row 
+`define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 6)     // Height of each row 
 `define BORDER_WIDTH 4       // Width of each border line
 `define TILES 3'b000 //Black 
 `define BACKGROUND 3'b111 //WHITE
@@ -226,46 +226,34 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	always@ (negedge KEY[3])
 	begin
 		if (KEY[3] == 0)
-			if (col1pressed) begin
+			if (~gameOver)
+				col1pressed <= 1;
+			else
 				gameOver <= 0;
-				col1pressed <= 0;
-				col2pressed <= 0;
-				col3pressed <= 0;
-				col4pressed <= 0;
-			end else col1pressed <= 1;
 	end
 	always@ (negedge KEY[2])
 	begin
 		if (KEY[2] == 0)
-			if (col2pressed) begin
+			if (~gameOver)
+				col2pressed <= 1;
+			else
 				gameOver <= 0;
-				col1pressed <= 0;
-				col2pressed <= 0;
-				col3pressed <= 0;
-				col4pressed <= 0;
-			end else col2pressed <= 1;
 	end
 	always@ (negedge KEY[1])
 	begin
 		if (KEY[1] == 0)
-			if (col3pressed) begin
+			if (~gameOver)
+				col3pressed <= 1;
+			else
 				gameOver <= 0;
-				col1pressed <= 0;
-				col2pressed <= 0;
-				col3pressed <= 0;
-				col4pressed <= 0;
-			end else col3pressed <= 1;
 	end
 	always@ (negedge KEY[0])
 	begin
 		if (KEY[0] == 0)
-			if (col4pressed) begin
+			if (~gameOver)
+				col4pressed <= 1;
+			else
 				gameOver <= 0;
-				col1pressed <= 0;
-				col2pressed <= 0;
-				col3pressed <= 0;
-				col4pressed <= 0;
-			end else col4pressed <= 1;
 	end
 
 	always @(posedge CLOCK_50) begin
@@ -331,71 +319,148 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 
 		if (gameOn & ~enableBackground & startedOnce) 
 		begin
-
-		if (col1pressed | col2pressed | col3pressed | col4pressed) begin
 			
-			if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == `BORDER_WIDTH)
+		// Score updates
+		if (col1pressed)
+		begin
+			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == `BORDER_WIDTH)
 			begin
 				if (~tile1scored)
 					score = score + 1;
 				tile1scored <= 1;
-				col1pressed <= 0;
 			end
-			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == `BORDER_WIDTH)
+			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == `BORDER_WIDTH)
 			begin
 				if (~tile2scored)
 					score = score + 1;
 				tile2scored <= 1;
-				col1pressed <= 0;
-			end
-
-			else if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
-			begin
-				if (~tile1scored)
-					score = score + 1;
-				tile1scored <= 1;
-				col2pressed <= 0;
-			end
-			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
-			begin
-				if (~tile2scored)
-					score = score + 1;
-				tile2scored <= 1;
-				col2pressed <= 0;
-			end
-
-			else if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
-			begin
-				if (~tile1scored)
-					score = score + 1;
-				tile1scored <= 1;
-				col3pressed <= 0;
-			end
-			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
-			begin
-				if (~tile2scored)
-					score = score + 1;
-				tile2scored <= 1;
-				col3pressed <= 0;
-			end
-			
-			else if (yStart > `RESOLUTION_HEIGHT - YSIZE & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
-			begin
-				if (~tile1scored)
-					score = score + 1;
-				tile1scored <= 1;
-				col4pressed <= 0;
-			end
-			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
-			begin
-				if (~tile2scored)
-					score = score + 1;
-				tile2scored <= 1;
-				col4pressed <= 0;
 			end
 			else
 				gameOver <= 1;
+			col1pressed <= 0;
 		end
+
+		if (col2pressed)
+		begin
+			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
+			begin
+				if (~tile1scored)
+					score = score + 1;
+				tile1scored <= 1;
+			end
+			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
+			begin
+				if (~tile2scored)
+					score = score + 1;
+				tile2scored <= 1;
+			end
+			else
+				gameOver <= 1;
+			col2pressed <= 0;
+		end
+
+		if (col3pressed)
+		begin
+			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
+			begin
+				if (~tile1scored)
+					score = score + 1;
+				tile1scored <= 1;
+			end
+			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
+			begin
+				if (~tile2scored)
+					score = score + 1;
+				tile2scored <= 1;
+			end
+			else
+				gameOver <= 1;
+			col3pressed <= 0;
+		end
+
+		if (col4pressed)
+		begin
+			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
+			begin
+				if (~tile1scored)
+					score = score + 1;
+				tile1scored <= 1;
+			end
+			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
+			begin
+				if (~tile2scored)
+					score = score + 1;
+				tile2scored <= 1;
+			end
+			else
+				gameOver <= 1;
+			col4pressed <= 0;
+		end
+
+		// if (col1pressed | col2pressed | col3pressed | col4pressed) begin
+			
+		// 	if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == `BORDER_WIDTH)
+		// 	begin
+		// 		if (~tile1scored)
+		// 			score = score + 1;
+		// 		tile1scored <= 1;
+		// 		col1pressed <= 0;
+		// 	end
+		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == `BORDER_WIDTH)
+		// 	begin
+		// 		if (~tile2scored)
+		// 			score = score + 1;
+		// 		tile2scored <= 1;
+		// 		col1pressed <= 0;
+		// 	end
+
+		// 	else if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
+		// 	begin
+		// 		if (~tile1scored)
+		// 			score = score + 1;
+		// 		tile1scored <= 1;
+		// 		col2pressed <= 0;
+		// 	end
+		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
+		// 	begin
+		// 		if (~tile2scored)
+		// 			score = score + 1;
+		// 		tile2scored <= 1;
+		// 		col2pressed <= 0;
+		// 	end
+
+		// 	else if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
+		// 	begin
+		// 		if (~tile1scored)
+		// 			score = score + 1;
+		// 		tile1scored <= 1;
+		// 		col3pressed <= 0;
+		// 	end
+		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
+		// 	begin
+		// 		if (~tile2scored)
+		// 			score = score + 1;
+		// 		tile2scored <= 1;
+		// 		col3pressed <= 0;
+		// 	end
+			
+		// 	else if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
+		// 	begin
+		// 		if (~tile1scored)
+		// 			score = score + 1;
+		// 		tile1scored <= 1;
+		// 		col4pressed <= 0;
+		// 	end
+		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
+		// 	begin
+		// 		if (~tile2scored)
+		// 			score = score + 1;
+		// 		tile2scored <= 1;
+		// 		col4pressed <= 0;
+		// 	end
+		// 	else
+		// 		gameOver <= 1;
+		// end
 
 		// Tile generation
 		if (nextTileEnable)
@@ -453,13 +518,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				drawTop <= drawTop + 1;
 				drawEnable <= 1;
 			end
-			else if (yStart < `RESOLUTION_HEIGHT - 2 & onScreen)
+			else if (yStart < `RESOLUTION_HEIGHT - 1 & onScreen)
 			begin
 				yStart <= yStart + 1;
 				finished1 <= 0;
 				eraseEnable <= 1;
 			end
-			else if (yStart == `RESOLUTION_HEIGHT - 2) // Puts the animation in a loop
+			else if (yStart == `RESOLUTION_HEIGHT - 1) // Puts the animation in a loop
 			begin
 				finished1 <= 1;
 				onScreen <= 0;
@@ -472,13 +537,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				drawTop2 <= drawTop2 + 1;
 				drawEnable2 <= 1;
 			end
-			else if (yStart2 < `RESOLUTION_HEIGHT - 2 & onScreen2)
+			else if (yStart2 < `RESOLUTION_HEIGHT - 1 & onScreen2)
 			begin
 				yStart2 <= yStart2 + 1;
 				finished2 <= 0;
 				eraseEnable2 <= 1;
 			end
-			else if (yStart2 == `RESOLUTION_HEIGHT - 2) // Puts the animation in a loop
+			else if (yStart2 == `RESOLUTION_HEIGHT - 1) // Puts the animation in a loop
 			begin
 				finished2 <= 1;
 				onScreen2 <= 0;
@@ -998,8 +1063,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 					// timeBetweenTile <= 26'd50000000; // corresponds to 1 second between each tile
 					// 22'd416666 corresponds to roughly 20px/second
 					// 22'd208333 corresponds to roughly 120px/second
-
-					score <= 0;
 
 					xStart <= `BORDER_WIDTH;
 					yStart <= 7'd0;
