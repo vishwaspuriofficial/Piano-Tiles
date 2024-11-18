@@ -326,13 +326,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == `BORDER_WIDTH)
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == `BORDER_WIDTH)
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -345,13 +345,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -364,13 +364,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -383,13 +383,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -461,6 +461,14 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 	else
 		// 		gameOver <= 1;
 		// end
+
+		//Game Over Check
+	if (yStart >= 55 && ~onScreen && ~tile1scored) begin
+		gameOver <= 1;
+	end
+	if (yStart2 >= 55 && ~onScreen2 && ~tile2scored) begin
+		gameOver <= 1;
+	end
 
 		// Tile generation
 		if (nextTileEnable)
@@ -640,6 +648,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			fast_count <= fast_count + 22'd1;
 		end
+
 		
 		// Draw a black tile ontop of the old white tile
 		// First tile
@@ -1108,12 +1117,19 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 // assign LEDR[7:0] = score;
 seven_seg_decoder H0 (score[3:0], HEX0);
 seven_seg_decoder H1 (score[7:4], HEX1);
+
+// seven_seg_decoder H0 (yStart[3:0], HEX0);
+// seven_seg_decoder H1 (yStart[6:4], HEX1);
+// assign LEDR[9:4] = yStart;
+
+// assign LEDR[0] = onScreen;
+// assign LEDR[1] = tile1scored;
 	
 endmodule
 
 module seven_seg_decoder(input [3:0] C, output [6:0] Display);
     assign Display = (C == 4'b0000) ? 7'b1000000 :  
-                     (C == 4'b0001) ? 7'b1111001 :  
+                     (C == 4'b0001) ? 7'b1111001 :
                      (C == 4'b0010) ? 7'b0100100 :  
                      (C == 4'b0011) ? 7'b0110000 :  
                      (C == 4'b0100) ? 7'b0011001 :  
