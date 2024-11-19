@@ -163,7 +163,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 22'd416666 corresponds to roughly 20px/second
 		// 22'd208333 corresponds to roughly 120px/second
 
-		score <= 0;
+		score = 0;
 
 		xStart <= `BORDER_WIDTH;
 		yStart <= 7'd0;
@@ -262,7 +262,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 
 	assign random_column = random[1:0];
 
-
 	always@ (posedge CLOCK_50)
 	begin
 		
@@ -271,7 +270,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			enableBackground <= 1;
 			startedOnce <= 1;
 
-			score <= 0;
+			score = 0;
 			fast_count <= 1;
 			nextTileTime <= 1;
 		end

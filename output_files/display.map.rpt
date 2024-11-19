@@ -1,5 +1,5 @@
 Analysis & Synthesis report for display
-Sun Nov 17 09:04:11 2024
+Mon Nov 18 01:31:46 2024
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -37,7 +37,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                              ;
 +-----------------------------+---------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Sun Nov 17 09:04:11 2024           ;
+; Analysis & Synthesis Status ; Failed - Mon Nov 18 01:31:46 2024           ;
 ; Quartus Prime Version       ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name               ; display                                     ;
 ; Top-level Entity Name       ; display                                     ;
@@ -161,7 +161,7 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sun Nov 17 09:03:39 2024
+    Info: Processing started: Mon Nov 18 01:31:33 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off display -c display
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -177,24 +177,63 @@ Info (12021): Found 1 design units, including 1 entities, in source file top.v
     Info (12023): Found entity 1: top File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/top.v Line: 24
 Info (12021): Found 2 design units, including 2 entities, in source file display.v
     Info (12023): Found entity 1: display File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 14
-    Info (12023): Found entity 2: seven_seg_decoder File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1049
+    Info (12023): Found entity 2: seven_seg_decoder File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1113
 Warning (10236): Verilog HDL Implicit Net warning at display.v(203): created implicit net for "tileShiftEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 203
 Warning (10236): Verilog HDL Implicit Net warning at display.v(204): created implicit net for "nextTileEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 204
 Info (12127): Elaborating entity "display" for the top level hierarchy
 Warning (10036): Verilog HDL or VHDL warning at display.v(80): object "finished2" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 80
 Warning (10036): Verilog HDL or VHDL warning at display.v(100): object "finished3" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 100
 Warning (10036): Verilog HDL or VHDL warning at display.v(120): object "finished4" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 120
-Warning (10230): Verilog HDL assignment warning at display.v(308): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 308
-Warning (10230): Verilog HDL assignment warning at display.v(314): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 314
-Warning (10230): Verilog HDL assignment warning at display.v(340): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 340
-Error (10110): Verilog HDL error at display.v(131): variable "score" has mixed blocking and nonblocking Procedural Assignments -- must be all blocking or all nonblocking assignments File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 131
+Warning (10230): Verilog HDL assignment warning at display.v(295): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 295
+Warning (10230): Verilog HDL assignment warning at display.v(301): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 301
+Warning (10230): Verilog HDL assignment warning at display.v(328): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 328
+Warning (10230): Verilog HDL assignment warning at display.v(334): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 334
+Warning (10230): Verilog HDL assignment warning at display.v(347): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 347
+Warning (10230): Verilog HDL assignment warning at display.v(353): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 353
+Warning (10230): Verilog HDL assignment warning at display.v(366): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 366
+Warning (10230): Verilog HDL assignment warning at display.v(372): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 372
+Warning (10230): Verilog HDL assignment warning at display.v(385): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 385
+Warning (10230): Verilog HDL assignment warning at display.v(391): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 391
+Warning (10230): Verilog HDL assignment warning at display.v(474): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 474
+Warning (10230): Verilog HDL assignment warning at display.v(475): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 475
+Warning (10230): Verilog HDL assignment warning at display.v(476): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 476
+Warning (10230): Verilog HDL assignment warning at display.v(491): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 491
+Warning (10230): Verilog HDL assignment warning at display.v(492): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 492
+Warning (10230): Verilog HDL assignment warning at display.v(493): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 493
+Warning (10230): Verilog HDL assignment warning at display.v(505): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 505
+Warning (10230): Verilog HDL assignment warning at display.v(517): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 517
+Warning (10230): Verilog HDL assignment warning at display.v(522): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 522
+Warning (10230): Verilog HDL assignment warning at display.v(536): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 536
+Warning (10230): Verilog HDL assignment warning at display.v(541): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 541
+Warning (10230): Verilog HDL assignment warning at display.v(648): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 648
+Warning (10230): Verilog HDL assignment warning at display.v(664): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 664
+Warning (10230): Verilog HDL assignment warning at display.v(700): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 700
+Warning (10230): Verilog HDL assignment warning at display.v(713): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 713
+Warning (10230): Verilog HDL assignment warning at display.v(717): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 717
+Warning (10230): Verilog HDL assignment warning at display.v(731): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 731
+Warning (10230): Verilog HDL assignment warning at display.v(747): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 747
+Warning (10230): Verilog HDL assignment warning at display.v(783): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 783
+Warning (10230): Verilog HDL assignment warning at display.v(796): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 796
+Warning (10230): Verilog HDL assignment warning at display.v(800): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 800
+Warning (10230): Verilog HDL assignment warning at display.v(1045): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1045
+Warning (10230): Verilog HDL assignment warning at display.v(1050): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1050
+Warning (10034): Output port "LEDR" at display.v(27) has no driver File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
+Error (10028): Can't resolve multiple constant drivers for net "gameOver" at display.v(234) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 234
+Error (10029): Constant driver at display.v(226) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 226
+Error (10028): Can't resolve multiple constant drivers for net "col1pressed" at display.v(265) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 265
+Error (10028): Can't resolve multiple constant drivers for net "col2pressed" at display.v(265) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 265
+Error (10029): Constant driver at display.v(234) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 234
+Error (10028): Can't resolve multiple constant drivers for net "col3pressed" at display.v(265) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 265
+Error (10029): Constant driver at display.v(242) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 242
+Error (10028): Can't resolve multiple constant drivers for net "col4pressed" at display.v(265) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 265
+Error (10029): Constant driver at display.v(250) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 250
 Error (12153): Can't elaborate top-level user hierarchy
 Info (144001): Generated suppressed messages file C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/output_files/display.map.smsg
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 9 warnings
-    Error: Peak virtual memory: 4788 megabytes
-    Error: Processing ended: Sun Nov 17 09:04:11 2024
-    Error: Elapsed time: 00:00:32
-    Error: Total CPU time (on all processors): 00:00:13
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 10 errors, 40 warnings
+    Error: Peak virtual memory: 4777 megabytes
+    Error: Processing ended: Mon Nov 18 01:31:46 2024
+    Error: Elapsed time: 00:00:13
+    Error: Total CPU time (on all processors): 00:00:09
 
 
 +------------------------------------------+
