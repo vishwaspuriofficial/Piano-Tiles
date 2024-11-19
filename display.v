@@ -142,12 +142,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	reg [25:0] timeBetweenTile;
 
 	//Random
-	reg [3:0] random;
-    wire [1:0] random_column;
+	reg [1:0] random_column;
+	integer seed;
 
 	initial
 	begin
-		random = 4'b0001;
+		seed = $random;
 		gameOn <= 1;
 		gameOver <= 0;
 		enableBackground <= 0;
@@ -325,13 +325,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == `BORDER_WIDTH)
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == `BORDER_WIDTH)
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -344,13 +344,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -363,13 +363,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -382,13 +382,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
-					score = score + 1;
+					score <= score + 1;
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
-					score = score + 1;
+					score <= score + 1;
 				tile2scored <= 1;
 			end
 			else
@@ -461,14 +461,24 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 		gameOver <= 1;
 		// end
 
+		//Game Over Check
+	if (yStart >= 55 && ~onScreen && ~tile1scored) begin
+		gameOver <= 1;
+	end
+	if (yStart2 >= 55 && ~onScreen2 && ~tile2scored) begin
+		gameOver <= 1;
+	end
+
 		// Tile generation
 		if (nextTileEnable)
 		begin
+			seed = $random;
 			nextTileTime <= 1;
 
 			// For first tile
 			if (~onScreen)
 			begin
+				random_column = ($random + seed) % 4 + 2'b01;
 				case (random_column)
                     2'b00: xStart <= `BORDER_WIDTH;
                     2'b01: xStart <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
@@ -486,7 +496,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			// For second tile
 			else if (~onScreen2)
 			begin
-				case ({random[0], random[3] ^ random[2]})
+				random_column = ($random + seed) % 4 + 2'b01;
+				case (random_column)
                     2'b00: xStart2 <= `BORDER_WIDTH;
                     2'b01: xStart2 <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
                     2'b10: xStart2 <= (3*`BORDER_WIDTH) + (2*`COLUMN_WIDTH);
@@ -639,6 +650,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		begin
 			fast_count <= fast_count + 22'd1;
 		end
+
 		
 		// Draw a black tile ontop of the old white tile
 		// First tile
@@ -1105,27 +1117,63 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 // assign LEDR[7:1] = xStart2;
 // assign LEDR[0] = nextTileEnable;
 // assign LEDR[7:0] = score;
-seven_seg_decoder H0 (score[3:0], HEX0);
-seven_seg_decoder H1 (score[7:4], HEX1);
+
+seven_seg_decoder display (score[7:0], HEX0, HEX1);
+// seven_seg_decoder display (random_column + 8'd48, HEX0, HEX1);
+
+// seven_seg_decoder H0 (yStart[3:0], HEX0);
+// seven_seg_decoder H1 (yStart[6:4], HEX1);
+// assign LEDR[9:4] = yStart;
+
+// assign LEDR[0] = onScreen;
+// assign LEDR[1] = tile1scored;
 	
 endmodule
 
-module seven_seg_decoder(input [3:0] C, output [6:0] Display);
-    assign Display = (C == 4'b0000) ? 7'b1000000 :  
-                     (C == 4'b0001) ? 7'b1111001 :  
-                     (C == 4'b0010) ? 7'b0100100 :  
-                     (C == 4'b0011) ? 7'b0110000 :  
-                     (C == 4'b0100) ? 7'b0011001 :  
-                     (C == 4'b0101) ? 7'b0010010 :  
-                     (C == 4'b0110) ? 7'b0000010 :  
-                     (C == 4'b0111) ? 7'b1111000 :  
-                     (C == 4'b1000) ? 7'b0000000 :  
-                     (C == 4'b1001) ? 7'b0010000 :  
-                     (C == 4'b1010) ? 7'b0001000 :  
-                     (C == 4'b1011) ? 7'b0000011 :  
-                     (C == 4'b1100) ? 7'b1000110 :  
-                     (C == 4'b1101) ? 7'b0100001 :  
-                     (C == 4'b1110) ? 7'b0000110 :  
-                     (C == 4'b1111) ? 7'b0001110 :  
-                                      7'b1111111;   
+module seven_seg_decoder(input [7:0] score_in, output reg [6:0] HEX0, output reg [6:0] HEX1);
+
+    reg [3:0] score_tens;
+    reg [3:0] score_ones;
+
+    always @(*) begin
+
+        if (score_in < 10) begin
+            score_tens = 4'b0000;
+            score_ones = score_in[3:0];
+        end else begin
+            score_tens = score_in / 10;
+            score_ones = score_in % 10;
+        end
+
+        case (score_tens)
+            4'b0000: HEX1 = 7'b1000000; // 0
+            4'b0001: HEX1 = 7'b1111001; // 1
+            4'b0010: HEX1 = 7'b0100100; // 2
+            4'b0011: HEX1 = 7'b0110000; // 3
+            4'b0100: HEX1 = 7'b0011001; // 4
+            4'b0101: HEX1 = 7'b0010010; // 5
+            4'b0110: HEX1 = 7'b0000010; // 6
+            4'b0111: HEX1 = 7'b1111000; // 7
+            4'b1000: HEX1 = 7'b0000000; // 8
+            4'b1001: HEX1 = 7'b0010000; // 9
+            default: HEX1 = 7'b1111111; // Blank (or error) for other values
+        endcase
+
+        case (score_ones)
+            4'b0000: HEX0 = 7'b1000000; // 0
+            4'b0001: HEX0 = 7'b1111001; // 1
+            4'b0010: HEX0 = 7'b0100100; // 2
+            4'b0011: HEX0 = 7'b0110000; // 3
+            4'b0100: HEX0 = 7'b0011001; // 4
+            4'b0101: HEX0 = 7'b0010010; // 5
+            4'b0110: HEX0 = 7'b0000010; // 6
+            4'b0111: HEX0 = 7'b1111000; // 7
+            4'b1000: HEX0 = 7'b0000000; // 8
+            4'b1001: HEX0 = 7'b0010000; // 9
+            default: HEX0 = 7'b1111111;  // Blank (or error) for other values
+        endcase
+
+
+    end
 endmodule
+
