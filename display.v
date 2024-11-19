@@ -1115,8 +1115,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 // assign LEDR[7:1] = xStart2;
 // assign LEDR[0] = nextTileEnable;
 // assign LEDR[7:0] = score;
-seven_seg_decoder H0 (score[3:0], HEX0);
-seven_seg_decoder H1 (score[7:4], HEX1);
+seven_seg_decoder display (score[7:0], HEX0, HEX1);
 
 // seven_seg_decoder H0 (yStart[3:0], HEX0);
 // seven_seg_decoder H1 (yStart[6:4], HEX1);
@@ -1127,22 +1126,50 @@ seven_seg_decoder H1 (score[7:4], HEX1);
 	
 endmodule
 
-module seven_seg_decoder(input [3:0] C, output [6:0] Display);
-    assign Display = (C == 4'b0000) ? 7'b1000000 :  
-                     (C == 4'b0001) ? 7'b1111001 :
-                     (C == 4'b0010) ? 7'b0100100 :  
-                     (C == 4'b0011) ? 7'b0110000 :  
-                     (C == 4'b0100) ? 7'b0011001 :  
-                     (C == 4'b0101) ? 7'b0010010 :  
-                     (C == 4'b0110) ? 7'b0000010 :  
-                     (C == 4'b0111) ? 7'b1111000 :  
-                     (C == 4'b1000) ? 7'b0000000 :  
-                     (C == 4'b1001) ? 7'b0010000 :  
-                     (C == 4'b1010) ? 7'b0001000 :  
-                     (C == 4'b1011) ? 7'b0000011 :  
-                     (C == 4'b1100) ? 7'b1000110 :  
-                     (C == 4'b1101) ? 7'b0100001 :  
-                     (C == 4'b1110) ? 7'b0000110 :  
-                     (C == 4'b1111) ? 7'b0001110 :  
-                                      7'b1111111;   
+module seven_seg_decoder(input [7:0] score_in, output reg [6:0] HEX0, output reg [6:0] HEX1);
+
+    reg [3:0] score_tens;
+    reg [3:0] score_ones;
+
+    always @(*) begin
+
+        if (score_in < 10) begin
+            score_tens = 4'b0000;
+            score_ones = score_in[3:0];
+        end else begin
+            score_tens = score_in / 10;
+            score_ones = score_in % 10;
+        end
+
+        case (score_tens)
+            4'b0000: HEX1 = 7'b1000000; // 0
+            4'b0001: HEX1 = 7'b1111001; // 1
+            4'b0010: HEX1 = 7'b0100100; // 2
+            4'b0011: HEX1 = 7'b0110000; // 3
+            4'b0100: HEX1 = 7'b0011001; // 4
+            4'b0101: HEX1 = 7'b0010010; // 5
+            4'b0110: HEX1 = 7'b0000010; // 6
+            4'b0111: HEX1 = 7'b1111000; // 7
+            4'b1000: HEX1 = 7'b0000000; // 8
+            4'b1001: HEX1 = 7'b0010000; // 9
+            default: HEX1 = 7'b1111111; // Blank (or error) for other values
+        endcase
+
+        case (score_ones)
+            4'b0000: HEX0 = 7'b1000000; // 0
+            4'b0001: HEX0 = 7'b1111001; // 1
+            4'b0010: HEX0 = 7'b0100100; // 2
+            4'b0011: HEX0 = 7'b0110000; // 3
+            4'b0100: HEX0 = 7'b0011001; // 4
+            4'b0101: HEX0 = 7'b0010010; // 5
+            4'b0110: HEX0 = 7'b0000010; // 6
+            4'b0111: HEX0 = 7'b1111000; // 7
+            4'b1000: HEX0 = 7'b0000000; // 8
+            4'b1001: HEX0 = 7'b0010000; // 9
+            default: HEX0 = 7'b1111111;  // Blank (or error) for other values
+        endcase
+
+
+    end
 endmodule
+
