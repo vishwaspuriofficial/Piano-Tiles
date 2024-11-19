@@ -142,12 +142,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	reg [25:0] timeBetweenTile;
 
 	//Random
-	reg [3:0] random;
-    wire [1:0] random_column;
+	reg [1:0] random_column;
+	integer seed;
 
 	initial
 	begin
-		random = 4'b0001;
+		seed = $random;
 		gameOn <= 1;
 		gameOver <= 0;
 		enableBackground <= 0;
@@ -255,12 +255,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			else
 				gameOver <= 0;
 	end
-
-	always @(posedge CLOCK_50) begin
-        random <= {random[2:0], random[3] ^ random[2]};
-    end
-
-	assign random_column = random[1:0];
 
 
 	always@ (posedge CLOCK_50)
@@ -473,11 +467,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// Tile generation
 		if (nextTileEnable)
 		begin
+			seed = $random;
 			nextTileTime <= 1;
 
 			// For first tile
 			if (~onScreen)
 			begin
+				random_column = ($random + seed) % 4 + 2'b01;
 				case (random_column)
                     2'b00: xStart <= `BORDER_WIDTH;
                     2'b01: xStart <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
@@ -495,7 +491,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			// For second tile
 			else if (~onScreen2)
 			begin
-				case ({random[0], random[3] ^ random[2]})
+				random_column = ($random + seed) % 4 + 2'b01;
+				case (random_column)
                     2'b00: xStart2 <= `BORDER_WIDTH;
                     2'b01: xStart2 <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
                     2'b10: xStart2 <= (3*`BORDER_WIDTH) + (2*`COLUMN_WIDTH);
@@ -1115,7 +1112,9 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 // assign LEDR[7:1] = xStart2;
 // assign LEDR[0] = nextTileEnable;
 // assign LEDR[7:0] = score;
+
 seven_seg_decoder display (score[7:0], HEX0, HEX1);
+// seven_seg_decoder display (random_column + 8'd48, HEX0, HEX1);
 
 // seven_seg_decoder H0 (yStart[3:0], HEX0);
 // seven_seg_decoder H1 (yStart[6:4], HEX1);
