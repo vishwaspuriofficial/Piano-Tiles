@@ -143,11 +143,11 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 
 	//Random
 	reg [1:0] random_column;
-	integer seed;
+	reg [23:0] lfsr;
 
 	initial
 	begin
-		seed = $random;
+		lfsr = 24'h800001;
 		gameOn <= 1;
 		gameOver <= 0;
 		enableBackground <= 0;
@@ -163,7 +163,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// 22'd416666 corresponds to roughly 20px/second
 		// 22'd208333 corresponds to roughly 120px/second
 
-		score = 0;
+		score <= 0;
 
 		xStart <= `BORDER_WIDTH;
 		yStart <= 7'd0;
@@ -257,10 +257,9 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	end
 
 	always @(posedge CLOCK_50) begin
-        random <= {random[2:0], random[3] ^ random[2]};
+        lfsr <= {lfsr[22:0], lfsr[23] ^ lfsr[22] ^ lfsr[17] ^ lfsr[16]};
     end
 
-	assign random_column = random[1:0];
 
 	always@ (posedge CLOCK_50)
 	begin
@@ -270,7 +269,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			enableBackground <= 1;
 			startedOnce <= 1;
 
-			score = 0;
+			score <= 0;
 			fast_count <= 1;
 			nextTileTime <= 1;
 		end
@@ -472,13 +471,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		// Tile generation
 		if (nextTileEnable)
 		begin
-			seed = $random;
+			random_column = lfsr[1:0]; 
 			nextTileTime <= 1;
 
 			// For first tile
 			if (~onScreen)
 			begin
-				random_column = ($random + seed) % 4 + 2'b01;
 				case (random_column)
                     2'b00: xStart <= `BORDER_WIDTH;
                     2'b01: xStart <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
@@ -496,7 +494,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			// For second tile
 			else if (~onScreen2)
 			begin
-				random_column = ($random + seed) % 4 + 2'b01;
 				case (random_column)
                     2'b00: xStart2 <= `BORDER_WIDTH;
                     2'b01: xStart2 <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
