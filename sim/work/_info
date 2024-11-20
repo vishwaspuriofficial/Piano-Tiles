@@ -9,13 +9,13 @@ z2
 cModel Technology
 Z0 dC:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/sim
 vdisplay
-Z1 !s110 1731862482
+Z1 !s110 1732136405
 !i10b 1
-!s100 SaGzOZjL6e_]n0ANT8UWi0
-Ihj=Ybe7e6C5j[F<chOC7V2
+!s100 NRVESK9]S9JiP00J@ogoo0
+Ibz9^@?dh6<KhbF^J_a^@T3
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-Z3 w1731853065
+Z3 w1732136400
 Z4 8../display.v
 Z5 F../display.v
 L0 14
@@ -23,7 +23,7 @@ Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1731862482.000000
+Z7 !s108 1732136405.000000
 Z8 !s107 ../top.v|../display.v|
 Z9 !s90 ../display.v|../top.v|
 !i113 1
@@ -31,14 +31,14 @@ Z10 tCvgOpt 0
 vseven_seg_decoder
 R1
 !i10b 1
-!s100 _IdHUfUz;]2LhLJSE=a_;2
-ITH:OIFUYBiK4^1cd]mi^g2
+!s100 HkQ`nd9iIL3gGgG]8]4?g2
+I4_anLZU7h__A@5IiECi0G3
 R2
 R0
 R3
 R4
 R5
-L0 1114
+L0 1204
 R6
 r1
 !s85 0
@@ -63,7 +63,7 @@ R6
 r1
 !s85 0
 31
-R7
+!s108 1732136404.000000
 !s107 ../tb/tb.v|
 !s90 ../tb/tb.v|
 !i113 1

@@ -223,38 +223,34 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
     //   defparam VGA.MONOCHROME = "FALSE";
     //   defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
     //   defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
-	always@ (negedge KEY[3])
-	begin
-		if (KEY[3] == 0)
-			if (~gameOver)
-				col1pressed <= 1;
-			else
-				gameOver <= 0;
-	end
-	always@ (negedge KEY[2])
-	begin
-		if (KEY[2] == 0)
-			if (~gameOver)
-				col2pressed <= 1;
-			else
-				gameOver <= 0;
-	end
-	always@ (negedge KEY[1])
-	begin
-		if (KEY[1] == 0)
-			if (~gameOver)
-				col3pressed <= 1;
-			else
-				gameOver <= 0;
-	end
-	always@ (negedge KEY[0])
-	begin
-		if (KEY[0] == 0)
-			if (~gameOver)
-				col4pressed <= 1;
-			else
-				gameOver <= 0;
-	end
+
+
+	reg key3resetpress;
+	reg key2resetpress;
+	reg key1resetpress;
+	reg key0resetpress;
+
+	reg key3pressed;
+	reg key2pressed;
+	reg key1pressed;
+	reg key0pressed;
+
+	// always@ (negedge KEY[3])
+	// begin
+	// 	key3pressed = 1;
+	// end
+	// always@ (negedge KEY[2])
+	// begin
+	// 	key2pressed = 1;
+	// end
+	// always@ (negedge KEY[1])
+	// begin
+	// 	key1pressed = 1;
+	// end
+	// always@ (negedge KEY[0])
+	// begin
+	// 	key0pressed = 1;
+	// end
 
 	always @(posedge CLOCK_50) begin
         lfsr <= {lfsr[22:0], lfsr[23] ^ lfsr[22] ^ lfsr[17] ^ lfsr[16]};
@@ -264,6 +260,84 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	always@ (posedge CLOCK_50)
 	begin
 		
+		// Key press logic (same as negedge presses)
+		if (KEY[3] == 0 & key3resetpress == 0)
+		begin
+			key3pressed <= 1;
+			key3resetpress <= 1;
+		end
+		if (KEY[3] == 1)
+		begin
+			key3resetpress <= 0;
+		end
+
+		if (KEY[2] == 0 & key2resetpress == 0)
+		begin
+			key2pressed <= 1;
+			key2resetpress <= 1;
+		end
+		if (KEY[2] == 1)
+		begin
+			key2resetpress <= 0;
+		end
+
+		if (KEY[1] == 0 & key1resetpress == 0)
+		begin
+			key1pressed <= 1;
+			key1resetpress <= 1;
+		end
+		if (KEY[1] == 1)
+		begin
+			key1resetpress <= 0;
+		end
+
+		if (KEY[0] == 0 & key0resetpress == 0)
+		begin
+			key0pressed <= 1;
+			key0resetpress <= 1;
+		end
+		if (KEY[0] == 1)
+		begin
+			key0resetpress <= 0;
+		end
+
+
+		if (key3pressed)
+		begin
+			if (~gameOver)
+				col1pressed <= 1;
+			else
+				gameOver <= 0;
+			key3pressed <= 0;
+		end
+		
+		if (key2pressed) 
+		begin
+			if (~gameOver)
+				col2pressed <= 1;
+			else
+				gameOver <= 0;
+			key2pressed <= 0;
+		end
+
+		if (key1pressed) 
+		begin
+			if (~gameOver)
+				col3pressed <= 1;
+			else
+				gameOver <= 0;
+			key1pressed <= 0;
+		end
+
+		if (key0pressed) 
+		begin
+			if (~gameOver)
+				col4pressed <= 1;
+			else
+				gameOver <= 0;
+			key0pressed <= 0;
+		end
+
 		if (gameOn & ~startedOnce)
 		begin
 			enableBackground <= 1;
