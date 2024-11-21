@@ -1,7 +1,7 @@
 `define RESOLUTION_WIDTH 160 // Width of the screen
 `define RESOLUTION_HEIGHT 120 // Height of the screen
 `define COLUMN_WIDTH 35 
-`define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 6)     // Height of each row 
+`define COLUMN_HEIGHT (`RESOLUTION_HEIGHT / 4)     // Height of each row 
 `define BORDER_WIDTH 4       // Width of each border line
 `define TILES 3'b000 //Black 
 `define BACKGROUND 3'b111 //WHITE
