@@ -11,10 +11,10 @@
 
 
 //DESIM
-module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX1);
+// module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX1);
 //BOARD
-// module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
-//                 VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1);
+module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
+                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1);
 
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
@@ -28,14 +28,14 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	output [6:0] HEX1, HEX0;
 
 	//BOARD
-	// output [7:0] VGA_R;
-	// output [7:0] VGA_G;
-	// output [7:0] VGA_B;
-	// output VGA_HS;
-	// output VGA_VS;
-	// output VGA_BLANK_N;
-	// output VGA_SYNC_N;
-	// output VGA_CLK; 
+	output [7:0] VGA_R;
+	output [7:0] VGA_G;
+	output [7:0] VGA_B;
+	output VGA_HS;
+	output VGA_VS;
+	output VGA_BLANK_N;
+	output VGA_SYNC_N;
+	output VGA_CLK; 
 
 	parameter XSIZE = `COLUMN_WIDTH-1, YSIZE = `COLUMN_HEIGHT;
 	
@@ -156,12 +156,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		startedOnce <= 0;
 
 		// DESIM
-		globalSpeed <= 22'd1000;
-		timeBetweenTile <= 26'd100000;
+		// globalSpeed <= 22'd1000;
+		// timeBetweenTile <= 26'd100000;
 		// 22'd4000 is standard for DESim (for globalSpeed)
 		//BOARD
-		// globalSpeed <= 22'd416666;
-		// timeBetweenTile <= 26'd50000000; // corresponds to 1 second between each tile
+		globalSpeed <= 22'd416666;
+		timeBetweenTile <= 26'd50000000; // corresponds to 1 second between each tile
 		// 22'd416666 corresponds to roughly 1 second for a tile to cross the screen
 		// 22'd208333 corresponds to roughly 0.5 seconds for a tile to cross the screen
 
@@ -204,34 +204,36 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	// Updates for tile movement and speed
 	reg [21:0] fast_count;
 	reg [25:0] second_count;
-	//DESIM
+
 	assign tileShiftEnable = fast_count > globalSpeed; // Tile speed
 	assign nextTileEnable = nextTileTime > timeBetweenTile; // Time between each tile
-	assign secondEnable = second_count == 150000;
+
+	//DESIM
+	// assign secondEnable = second_count == 150000;
 
 	//BOARD
-	// assign secondEnable = second_count == 50000000;
+	assign secondEnable = second_count == 50000000;
 
 	//BOARD
-	//    vga_adapter VGA (
-    //   .resetn(KEY[0]),
-    //   .clock(CLOCK_50),
-    //   .colour(VGA_COLOR),
-    //   .x(VGA_X),
-    //   .y(VGA_Y),
-    //   .plot(plot),
-    //   .VGA_R(VGA_R),
-    //   .VGA_G(VGA_G),
-    //   .VGA_B(VGA_B),
-    //   .VGA_HS(VGA_HS),
-    //   .VGA_VS(VGA_VS),
-    //   .VGA_BLANK_N(VGA_BLANK_N),
-    //   .VGA_SYNC_N(VGA_SYNC_N),
-    //   .VGA_CLK(VGA_CLK));
-    //   defparam VGA.RESOLUTION = "160x120";
-    //   defparam VGA.MONOCHROME = "FALSE";
-    //   defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
-    //   defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
+	   vga_adapter VGA (
+      .resetn(~SW[7]),
+      .clock(CLOCK_50),
+      .colour(VGA_COLOR),
+      .x(VGA_X),
+      .y(VGA_Y),
+      .plot(plot),
+      .VGA_R(VGA_R),
+      .VGA_G(VGA_G),
+      .VGA_B(VGA_B),
+      .VGA_HS(VGA_HS),
+      .VGA_VS(VGA_VS),
+      .VGA_BLANK_N(VGA_BLANK_N),
+      .VGA_SYNC_N(VGA_SYNC_N),
+      .VGA_CLK(VGA_CLK));
+      defparam VGA.RESOLUTION = "160x120";
+      defparam VGA.MONOCHROME = "FALSE";
+      defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
+      defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
 
 	reg key3resetpress;
 	reg key2resetpress;
@@ -625,18 +627,18 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			second_count <= 26'd1;
 
 			//DESIM
-			if (globalSpeed >= 500)
-				globalSpeed <= globalSpeed - 100;
+			// if (globalSpeed >= 500)
+			// 	globalSpeed <= globalSpeed - 100;
 
-			if (timeBetweenTile >= 35000)
-				timeBetweenTile <= timeBetweenTile - 15000;
+			// if (timeBetweenTile >= 35000)
+			// 	timeBetweenTile <= timeBetweenTile - 15000;
 
 			//BOARD
-			// if (globalSpeed >= 228333)
-			// 	globalSpeed <= globalSpeed - 2000;
+			if (globalSpeed >= 228333)
+				globalSpeed <= globalSpeed - 2000;
 
-			// if (timeBetweenTile >= 13250000)
-			// 	timeBetweenTile <= timeBetweenTile - 750000;
+			if (timeBetweenTile >= 13250000)
+				timeBetweenTile <= timeBetweenTile - 750000;
 
 		end
 		else
@@ -1085,13 +1087,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 					startedOnce <= 0;
 
 					// DESIM
-					globalSpeed <= 22'd1000;
-					timeBetweenTile <= 26'd100000;
+					// globalSpeed <= 22'd1000;
+					// timeBetweenTile <= 26'd100000;
 					// 22'd4000 is standard for DESim (for globalSpeed)
 
 					//BOARD
-					// globalSpeed <= 22'd416666;
-					// timeBetweenTile <= 26'd50000000; // corresponds to 1 second between each tile
+					globalSpeed <= 22'd416666;
+					timeBetweenTile <= 26'd50000000; // corresponds to 1 second between each tile
 					// 22'd416666 corresponds to roughly 20px/second
 					// 22'd208333 corresponds to roughly 120px/second
 
