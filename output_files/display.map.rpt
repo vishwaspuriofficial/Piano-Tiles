@@ -1,5 +1,5 @@
 Analysis & Synthesis report for display
-Wed Nov 20 16:01:05 2024
+Wed Nov 20 21:54:06 2024
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -50,13 +50,13 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed Nov 20 16:01:04 2024       ;
+; Analysis & Synthesis Status     ; Successful - Wed Nov 20 21:54:06 2024       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; display                                     ;
 ; Top-level Entity Name           ; display                                     ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 211                                         ;
+; Total registers                 ; 362                                         ;
 ; Total pins                      ; 56                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
@@ -170,7 +170,9 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -196,25 +198,25 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 314            ;
+; Estimate of Logic utilization (ALMs needed) ; 545            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 528            ;
-;     -- 7 input functions                    ; 0              ;
-;     -- 6 input functions                    ; 96             ;
-;     -- 5 input functions                    ; 72             ;
-;     -- 4 input functions                    ; 50             ;
-;     -- <=3 input functions                  ; 310            ;
+; Combinational ALUT usage for logic          ; 921            ;
+;     -- 7 input functions                    ; 4              ;
+;     -- 6 input functions                    ; 160            ;
+;     -- 5 input functions                    ; 127            ;
+;     -- 4 input functions                    ; 129            ;
+;     -- <=3 input functions                  ; 501            ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 211            ;
+; Dedicated logic registers                   ; 362            ;
 ;                                             ;                ;
 ; I/O pins                                    ; 56             ;
 ;                                             ;                ;
 ; Total DSP Blocks                            ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 211            ;
-; Total fan-out                               ; 2687           ;
-; Average fan-out                             ; 3.16           ;
+; Maximum fan-out                             ; 362            ;
+; Total fan-out                               ; 4728           ;
+; Average fan-out                             ; 3.39           ;
 +---------------------------------------------+----------------+
 
 
@@ -223,7 +225,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                ; Entity Name         ; Library Name ;
 +-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |display                                  ; 528 (404)           ; 211 (211)                 ; 0                 ; 0          ; 56   ; 0            ; |display                                                                                                                           ; seven_seg_decoder   ; work         ;
+; |display                                  ; 921 (797)           ; 362 (362)                 ; 0                 ; 0          ; 56   ; 0            ; |display                                                                                                                           ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:display|            ; 124 (26)            ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |display|seven_seg_decoder:display                                                                                                 ; seven_seg_decoder   ; work         ;
 ;       |lpm_divide:Div0|                   ; 49 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |display|seven_seg_decoder:display|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
 ;          |lpm_divide_5am:auto_generated|  ; 49 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |display|seven_seg_decoder:display|lpm_divide:Div0|lpm_divide_5am:auto_generated                                                   ; lpm_divide_5am      ; work         ;
@@ -242,39 +244,33 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------+----------------------------------------+
 ; Register name                          ; Reason for Removal                     ;
 +----------------------------------------+----------------------------------------+
-; globalSpeed[5]                         ; Stuck at VCC due to stuck port data_in ;
-; globalSpeed[4]                         ; Stuck at GND due to stuck port data_in ;
-; globalSpeed[3]                         ; Stuck at VCC due to stuck port data_in ;
-; globalSpeed[0..2]                      ; Stuck at GND due to stuck port data_in ;
-; timeBetweenTile[17..25]                ; Stuck at GND due to stuck port data_in ;
-; timeBetweenTile[15,16]                 ; Stuck at VCC due to stuck port data_in ;
-; timeBetweenTile[11..14]                ; Stuck at GND due to stuck port data_in ;
-; timeBetweenTile[9,10]                  ; Stuck at VCC due to stuck port data_in ;
-; timeBetweenTile[8]                     ; Stuck at GND due to stuck port data_in ;
-; timeBetweenTile[7]                     ; Stuck at VCC due to stuck port data_in ;
-; timeBetweenTile[6]                     ; Stuck at GND due to stuck port data_in ;
-; timeBetweenTile[5]                     ; Stuck at VCC due to stuck port data_in ;
-; timeBetweenTile[0..4]                  ; Stuck at GND due to stuck port data_in ;
-; globalSpeed[6..9]                      ; Stuck at VCC due to stuck port data_in ;
-; globalSpeed[10..21]                    ; Stuck at GND due to stuck port data_in ;
+; timeBetweenTile[0..2]                  ; Stuck at GND due to stuck port data_in ;
+; globalSpeed[0,1]                       ; Stuck at GND due to stuck port data_in ;
+; xStart4[3,5]                           ; Merged with xStart4[0]                 ;
+; xStart4[6]                             ; Merged with xStart4[4]                 ;
+; xStart3[3,5]                           ; Merged with xStart3[0]                 ;
 ; xStart2[3,5]                           ; Merged with xStart2[0]                 ;
 ; xStart2[6]                             ; Merged with xStart2[4]                 ;
-; xStart[3,5]                            ; Merged with xStart[0]                  ;
+; xStart[3]                              ; Merged with xStart[0]                  ;
 ; xStart[6]                              ; Merged with xStart[4]                  ;
+; xStart3[6]                             ; Merged with xStart3[4]                 ;
+; xStart[5]                              ; Merged with xStart[0]                  ;
+; xStart4[7]                             ; Stuck at GND due to stuck port data_in ;
+; xStart3[7]                             ; Stuck at GND due to stuck port data_in ;
 ; xStart2[7]                             ; Stuck at GND due to stuck port data_in ;
 ; xStart[7]                              ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 56 ;                                        ;
+; Total Number of Removed Registers = 21 ;                                        ;
 +----------------------------------------+----------------------------------------+
 
 
-+------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                              ;
-+---------------------+---------------------------+----------------------------------------+
-; Register name       ; Reason for Removal        ; Registers Removed due to This Register ;
-+---------------------+---------------------------+----------------------------------------+
-; timeBetweenTile[25] ; Stuck at GND              ; xStart2[7], xStart[7]                  ;
-;                     ; due to stuck port data_in ;                                        ;
-+---------------------+---------------------------+----------------------------------------+
++------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                    ;
++--------------------+---------------------------+-----------------------------------------------+
+; Register name      ; Reason for Removal        ; Registers Removed due to This Register        ;
++--------------------+---------------------------+-----------------------------------------------+
+; timeBetweenTile[0] ; Stuck at GND              ; xStart4[7], xStart3[7], xStart2[7], xStart[7] ;
+;                    ; due to stuck port data_in ;                                               ;
++--------------------+---------------------------+-----------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -282,53 +278,79 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 211   ;
-; Number of registers using Synchronous Clear  ; 43    ;
-; Number of registers using Synchronous Load   ; 79    ;
+; Total registers                              ; 362   ;
+; Number of registers using Synchronous Clear  ; 110   ;
+; Number of registers using Synchronous Load   ; 143   ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 160   ;
+; Number of registers using Clock Enable       ; 303   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+--------------------------------------------------+
-; Inverted Register Statistics                     ;
-+----------------------------------------+---------+
-; Inverted Register                      ; Fan out ;
-+----------------------------------------+---------+
-; drawEnable                             ; 27      ;
-; gameOn                                 ; 23      ;
-; onScreen                               ; 16      ;
-; xStart[2]                              ; 6       ;
-; lfsr[0]                                ; 5       ;
-; lfsr[23]                               ; 1       ;
-; Total number of inverted registers = 6 ;         ;
-+----------------------------------------+---------+
++---------------------------------------------------+
+; Inverted Register Statistics                      ;
++-----------------------------------------+---------+
+; Inverted Register                       ; Fan out ;
++-----------------------------------------+---------+
+; drawEnable                              ; 22      ;
+; gameOn                                  ; 16      ;
+; onScreen                                ; 32      ;
+; xStart[2]                               ; 5       ;
+; globalSpeed[7]                          ; 5       ;
+; globalSpeed[3]                          ; 4       ;
+; globalSpeed[6]                          ; 4       ;
+; globalSpeed[5]                          ; 4       ;
+; globalSpeed[9]                          ; 4       ;
+; globalSpeed[8]                          ; 4       ;
+; timeBetweenTile[5]                      ; 5       ;
+; timeBetweenTile[7]                      ; 4       ;
+; timeBetweenTile[9]                      ; 4       ;
+; timeBetweenTile[10]                     ; 4       ;
+; timeBetweenTile[16]                     ; 4       ;
+; timeBetweenTile[15]                     ; 4       ;
+; lfsr[0]                                 ; 5       ;
+; lfsr[23]                                ; 1       ;
+; Total number of inverted registers = 18 ;         ;
++-----------------------------------------+---------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount[0]         ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount2[0]        ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 0 LEs                ; 14 LEs                 ; Yes        ; |display|y_count[2]        ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |display|x_count[6]        ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart[0]         ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop[6]        ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart2[6]        ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop2[0]       ;
-; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount[0]         ;
-; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount2[1]        ;
-; 6:1                ; 26 bits   ; 104 LEs       ; 78 LEs               ; 26 LEs                 ; Yes        ; |display|nextTileTime[1]   ;
-; 7:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |display|VGA_X[0]~reg0     ;
-; 9:1                ; 22 bits   ; 132 LEs       ; 110 LEs              ; 22 LEs                 ; Yes        ; |display|fast_count[10]    ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |display|score[7]          ;
-; 9:1                ; 6 bits    ; 36 LEs        ; 24 LEs               ; 12 LEs                 ; Yes        ; |display|VGA_Y[4]~reg0     ;
-; 14:1               ; 2 bits    ; 18 LEs        ; 16 LEs               ; 2 LEs                  ; Yes        ; |display|VGA_COLOR[2]~reg0 ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------+
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount[0]           ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount2[1]          ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount3[5]          ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount4[4]          ;
+; 3:1                ; 14 bits   ; 28 LEs        ; 0 LEs                ; 28 LEs                 ; Yes        ; |display|globalSpeed[4]      ;
+; 3:1                ; 17 bits   ; 34 LEs        ; 0 LEs                ; 34 LEs                 ; Yes        ; |display|timeBetweenTile[18] ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 0 LEs                ; 14 LEs                 ; Yes        ; |display|y_count[2]          ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |display|x_count[5]          ;
+; 5:1                ; 26 bits   ; 78 LEs        ; 52 LEs               ; 26 LEs                 ; Yes        ; |display|second_count[21]    ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart[0]           ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop[3]          ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart2[0]          ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop2[3]         ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart3[2]          ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop3[0]         ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart4[5]          ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop4[5]         ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount[2]           ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount2[0]          ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount3[1]          ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount4[4]          ;
+; 6:1                ; 26 bits   ; 104 LEs       ; 78 LEs               ; 26 LEs                 ; Yes        ; |display|nextTileTime[8]     ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |display|score[0]            ;
+; 11:1               ; 8 bits    ; 56 LEs        ; 16 LEs               ; 40 LEs                 ; Yes        ; |display|VGA_X[0]~reg0       ;
+; 13:1               ; 22 bits   ; 176 LEs       ; 176 LEs              ; 0 LEs                  ; Yes        ; |display|fast_count[7]       ;
+; 15:1               ; 6 bits    ; 60 LEs        ; 36 LEs               ; 24 LEs                 ; Yes        ; |display|VGA_Y[6]~reg0       ;
+; 24:1               ; 2 bits    ; 32 LEs        ; 30 LEs               ; 2 LEs                  ; Yes        ; |display|VGA_COLOR[0]~reg0   ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |display|globalSpeed[7]      ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |display|timeBetweenTile[7]  ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |display|Add19               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------+
 
 
 +-------------------------------------------------------------------------+
@@ -393,35 +415,37 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 211                         ;
-;     ENA               ; 39                          ;
-;     ENA SCLR          ; 43                          ;
-;     ENA SLD           ; 78                          ;
+; arriav_ff             ; 362                         ;
+;     ENA               ; 51                          ;
+;     ENA SCLR          ; 110                         ;
+;     ENA SLD           ; 142                         ;
 ;     SLD               ; 1                           ;
-;     plain             ; 50                          ;
-; arriav_lcell_comb     ; 530                         ;
-;     arith             ; 185                         ;
+;     plain             ; 58                          ;
+; arriav_lcell_comb     ; 923                         ;
+;     arith             ; 312                         ;
 ;         0 data inputs ; 16                          ;
-;         1 data inputs ; 137                         ;
+;         1 data inputs ; 264                         ;
 ;         2 data inputs ; 4                           ;
 ;         3 data inputs ; 22                          ;
 ;         4 data inputs ; 6                           ;
-;     normal            ; 317                         ;
+;     extend            ; 4                           ;
+;         7 data inputs ; 4                           ;
+;     normal            ; 561                         ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 9                           ;
-;         2 data inputs ; 47                          ;
-;         3 data inputs ; 48                          ;
-;         4 data inputs ; 44                          ;
-;         5 data inputs ; 72                          ;
-;         6 data inputs ; 96                          ;
-;     shared            ; 28                          ;
-;         0 data inputs ; 4                           ;
-;         1 data inputs ; 10                          ;
-;         2 data inputs ; 14                          ;
+;         2 data inputs ; 75                          ;
+;         3 data inputs ; 66                          ;
+;         4 data inputs ; 123                         ;
+;         5 data inputs ; 127                         ;
+;         6 data inputs ; 160                         ;
+;     shared            ; 46                          ;
+;         0 data inputs ; 6                           ;
+;         1 data inputs ; 12                          ;
+;         2 data inputs ; 28                          ;
 ; boundary_port         ; 56                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 10.90                       ;
-; Average LUT depth     ; 4.27                        ;
+; Average LUT depth     ; 4.46                        ;
 +-----------------------+-----------------------------+
 
 
@@ -430,7 +454,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:02     ;
+; Top            ; 00:00:05     ;
 +----------------+--------------+
 
 
@@ -440,7 +464,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Wed Nov 20 16:00:45 2024
+    Info: Processing started: Wed Nov 20 21:53:27 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off display -c display
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -456,55 +480,85 @@ Info (12021): Found 1 design units, including 1 entities, in source file top.v
     Info (12023): Found entity 1: top File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/top.v Line: 24
 Info (12021): Found 2 design units, including 2 entities, in source file display.v
     Info (12023): Found entity 1: display File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 14
-    Info (12023): Found entity 2: seven_seg_decoder File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1204
-Warning (10236): Verilog HDL Implicit Net warning at display.v(203): created implicit net for "tileShiftEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 203
-Warning (10236): Verilog HDL Implicit Net warning at display.v(204): created implicit net for "nextTileEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 204
+    Info (12023): Found entity 2: seven_seg_decoder File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1171
+Warning (10236): Verilog HDL Implicit Net warning at display.v(208): created implicit net for "tileShiftEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 208
+Warning (10236): Verilog HDL Implicit Net warning at display.v(209): created implicit net for "nextTileEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 209
+Warning (10236): Verilog HDL Implicit Net warning at display.v(210): created implicit net for "secondEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 210
 Info (12127): Elaborating entity "display" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at display.v(80): object "finished2" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 80
-Warning (10036): Verilog HDL or VHDL warning at display.v(100): object "finished3" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 100
 Warning (10036): Verilog HDL or VHDL warning at display.v(120): object "finished4" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 120
-Warning (10230): Verilog HDL assignment warning at display.v(368): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 368
-Warning (10230): Verilog HDL assignment warning at display.v(374): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 374
-Warning (10230): Verilog HDL assignment warning at display.v(401): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 401
-Warning (10230): Verilog HDL assignment warning at display.v(407): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 407
-Warning (10230): Verilog HDL assignment warning at display.v(420): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 420
-Warning (10230): Verilog HDL assignment warning at display.v(426): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 426
-Warning (10230): Verilog HDL assignment warning at display.v(439): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 439
-Warning (10230): Verilog HDL assignment warning at display.v(445): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 445
-Warning (10230): Verilog HDL assignment warning at display.v(458): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 458
-Warning (10230): Verilog HDL assignment warning at display.v(464): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 464
+Warning (10230): Verilog HDL assignment warning at display.v(377): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 377
+Warning (10230): Verilog HDL assignment warning at display.v(383): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 383
+Warning (10230): Verilog HDL assignment warning at display.v(410): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 410
+Warning (10230): Verilog HDL assignment warning at display.v(416): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 416
+Warning (10230): Verilog HDL assignment warning at display.v(422): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 422
+Warning (10230): Verilog HDL assignment warning at display.v(428): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 428
+Warning (10230): Verilog HDL assignment warning at display.v(441): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 441
+Warning (10230): Verilog HDL assignment warning at display.v(447): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 447
+Warning (10230): Verilog HDL assignment warning at display.v(453): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 453
+Warning (10230): Verilog HDL assignment warning at display.v(459): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 459
+Warning (10230): Verilog HDL assignment warning at display.v(472): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 472
+Warning (10230): Verilog HDL assignment warning at display.v(478): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 478
+Warning (10230): Verilog HDL assignment warning at display.v(484): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 484
+Warning (10230): Verilog HDL assignment warning at display.v(490): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 490
+Warning (10230): Verilog HDL assignment warning at display.v(503): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 503
+Warning (10230): Verilog HDL assignment warning at display.v(509): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 509
+Warning (10230): Verilog HDL assignment warning at display.v(515): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 515
+Warning (10230): Verilog HDL assignment warning at display.v(521): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 521
+Warning (10230): Verilog HDL assignment warning at display.v(554): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 554
+Warning (10230): Verilog HDL assignment warning at display.v(555): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 555
 Warning (10230): Verilog HDL assignment warning at display.v(556): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 556
-Warning (10230): Verilog HDL assignment warning at display.v(557): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 557
-Warning (10230): Verilog HDL assignment warning at display.v(558): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 558
+Warning (10230): Verilog HDL assignment warning at display.v(571): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 571
+Warning (10230): Verilog HDL assignment warning at display.v(572): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 572
 Warning (10230): Verilog HDL assignment warning at display.v(573): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 573
-Warning (10230): Verilog HDL assignment warning at display.v(574): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 574
-Warning (10230): Verilog HDL assignment warning at display.v(575): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 575
-Warning (10230): Verilog HDL assignment warning at display.v(587): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 587
-Warning (10230): Verilog HDL assignment warning at display.v(599): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 599
-Warning (10230): Verilog HDL assignment warning at display.v(604): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 604
-Warning (10230): Verilog HDL assignment warning at display.v(618): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 618
-Warning (10230): Verilog HDL assignment warning at display.v(623): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 623
-Warning (10230): Verilog HDL assignment warning at display.v(731): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 731
-Warning (10230): Verilog HDL assignment warning at display.v(747): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 747
-Warning (10230): Verilog HDL assignment warning at display.v(783): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 783
-Warning (10230): Verilog HDL assignment warning at display.v(796): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 796
-Warning (10230): Verilog HDL assignment warning at display.v(800): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 800
-Warning (10230): Verilog HDL assignment warning at display.v(814): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 814
-Warning (10230): Verilog HDL assignment warning at display.v(830): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 830
-Warning (10230): Verilog HDL assignment warning at display.v(866): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 866
-Warning (10230): Verilog HDL assignment warning at display.v(879): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 879
-Warning (10230): Verilog HDL assignment warning at display.v(883): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 883
-Warning (10230): Verilog HDL assignment warning at display.v(1128): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1128
-Warning (10230): Verilog HDL assignment warning at display.v(1133): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1133
+Warning (10230): Verilog HDL assignment warning at display.v(588): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 588
+Warning (10230): Verilog HDL assignment warning at display.v(589): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 589
+Warning (10230): Verilog HDL assignment warning at display.v(590): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 590
+Warning (10230): Verilog HDL assignment warning at display.v(605): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 605
+Warning (10230): Verilog HDL assignment warning at display.v(606): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 606
+Warning (10230): Verilog HDL assignment warning at display.v(607): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 607
+Warning (10230): Verilog HDL assignment warning at display.v(619): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 619
+Warning (10230): Verilog HDL assignment warning at display.v(629): truncated value with size 32 to match size of target (22) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 629
+Warning (10230): Verilog HDL assignment warning at display.v(632): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 632
+Warning (10230): Verilog HDL assignment warning at display.v(644): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 644
+Warning (10230): Verilog HDL assignment warning at display.v(656): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 656
+Warning (10230): Verilog HDL assignment warning at display.v(661): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 661
+Warning (10230): Verilog HDL assignment warning at display.v(675): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 675
+Warning (10230): Verilog HDL assignment warning at display.v(680): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 680
+Warning (10230): Verilog HDL assignment warning at display.v(694): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 694
+Warning (10230): Verilog HDL assignment warning at display.v(699): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 699
+Warning (10230): Verilog HDL assignment warning at display.v(713): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 713
+Warning (10230): Verilog HDL assignment warning at display.v(718): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 718
+Warning (10230): Verilog HDL assignment warning at display.v(740): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 740
+Warning (10230): Verilog HDL assignment warning at display.v(756): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 756
+Warning (10230): Verilog HDL assignment warning at display.v(792): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 792
+Warning (10230): Verilog HDL assignment warning at display.v(805): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 805
+Warning (10230): Verilog HDL assignment warning at display.v(809): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 809
+Warning (10230): Verilog HDL assignment warning at display.v(823): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 823
+Warning (10230): Verilog HDL assignment warning at display.v(839): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 839
+Warning (10230): Verilog HDL assignment warning at display.v(875): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 875
+Warning (10230): Verilog HDL assignment warning at display.v(888): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 888
+Warning (10230): Verilog HDL assignment warning at display.v(892): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 892
+Warning (10230): Verilog HDL assignment warning at display.v(906): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 906
+Warning (10230): Verilog HDL assignment warning at display.v(922): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 922
+Warning (10230): Verilog HDL assignment warning at display.v(958): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 958
+Warning (10230): Verilog HDL assignment warning at display.v(971): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 971
+Warning (10230): Verilog HDL assignment warning at display.v(975): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 975
+Warning (10230): Verilog HDL assignment warning at display.v(989): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 989
+Warning (10230): Verilog HDL assignment warning at display.v(1005): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1005
+Warning (10230): Verilog HDL assignment warning at display.v(1041): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1041
+Warning (10230): Verilog HDL assignment warning at display.v(1054): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1054
+Warning (10230): Verilog HDL assignment warning at display.v(1058): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1058
+Warning (10230): Verilog HDL assignment warning at display.v(1076): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1076
+Warning (10230): Verilog HDL assignment warning at display.v(1081): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1081
 Warning (10034): Output port "LEDR" at display.v(27) has no driver File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
-Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:display" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1192
-Warning (10230): Verilog HDL assignment warning at display.v(1215): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1215
-Warning (10230): Verilog HDL assignment warning at display.v(1216): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1216
+Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:display" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1158
+Warning (10230): Verilog HDL assignment warning at display.v(1182): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1182
+Warning (10230): Verilog HDL assignment warning at display.v(1183): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1183
 Info (278001): Inferred 2 megafunctions from design logic
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1216
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1215
-Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1216
-Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Mod0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1216
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1183
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1182
+Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1183
+Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Mod0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1183
     Info (12134): Parameter "LPM_WIDTHN" = "8"
     Info (12134): Parameter "LPM_WIDTHD" = "4"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -515,8 +569,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_bkh File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/sign_div_unsign_bkh.tdf Line: 24
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_sse.tdf
     Info (12023): Found entity 1: alt_u_div_sse File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/alt_u_div_sse.tdf Line: 22
-Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1215
-Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Div0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1215
+Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1182
+Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Div0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1182
     Info (12134): Parameter "LPM_WIDTHN" = "8"
     Info (12134): Parameter "LPM_WIDTHD" = "4"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1119,15 +1173,15 @@ Warning (21074): Design contains 8 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[5]" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 21
     Warning (15610): No output dependent on input pin "SW[6]" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 21
     Warning (15610): No output dependent on input pin "SW[7]" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 21
-Info (21057): Implemented 612 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 1014 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 43 output pins
-    Info (21061): Implemented 556 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 634 warnings
-    Info: Peak virtual memory: 4847 megabytes
-    Info: Processing ended: Wed Nov 20 16:01:05 2024
-    Info: Elapsed time: 00:00:20
-    Info: Total CPU time (on all processors): 00:00:12
+    Info (21061): Implemented 958 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 664 warnings
+    Info: Peak virtual memory: 4859 megabytes
+    Info: Processing ended: Wed Nov 20 21:54:06 2024
+    Info: Elapsed time: 00:00:39
+    Info: Total CPU time (on all processors): 00:00:15
 
 
 +------------------------------------------+

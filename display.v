@@ -15,7 +15,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 //BOARD
 // module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
 //                 VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1);
-	
+
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
 	input [7:0] SW;
@@ -86,7 +86,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	reg continueErase3;
 	
 	reg continueDrawTop3;
-	reg continueEraseBottom3;
+	reg onScreen3;
 	
 	reg [6:0] drawTop3;
 	reg [6:0] eraseBottom3;
@@ -106,7 +106,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 	reg continueErase4;
 	
 	reg continueDrawTop4;
-	reg continueEraseBottom4;
+	reg onScreen4;
 	
 	reg [6:0] drawTop4;
 	reg [6:0] eraseBottom4;
@@ -133,6 +133,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 
 	reg tile1scored;
 	reg tile2scored;
+	reg tile3scored;
+	reg tile4scored;
 	
 	//Next tile timing system
 	reg [25:0] nextTileTime; // number of clock cycles between this tile and the next
@@ -160,8 +162,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		//BOARD
 		// globalSpeed <= 22'd416666;
 		// timeBetweenTile <= 26'd50000000; // corresponds to 1 second between each tile
-		// 22'd416666 corresponds to roughly 20px/second
-		// 22'd208333 corresponds to roughly 120px/second
+		// 22'd416666 corresponds to roughly 1 second for a tile to cross the screen
+		// 22'd208333 corresponds to roughly 0.5 seconds for a tile to cross the screen
 
 		score <= 0;
 
@@ -181,27 +183,34 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 		finished2 <= 0;
 		onScreen2 <= 0;
 		
-		// xStart3 <= 8'd82;
-		// yStart3 <= 7'd0;
-		// drawTop3 <= 0;
-		// drawEnable3 <= 1;
+		xStart3 <= 8'd0;
+		yStart3 <= 7'd0;
+		drawTop3 <= 0;
+		drawEnable3 <= 0;
+		tile3scored <= 0;
+		finished3 <= 0;
+		onScreen3 <= 0;
 		
-		// xStart4 <= 8'd121;
-		// yStart4 <= 7'd0;
-		// drawTop4 <= 0;
-		// drawEnable4 <= 1;
+		xStart4 <= 8'd0;
+		yStart4 <= 7'd0;
+		drawTop4 <= 0;
+		drawEnable4 <= 0;
+		tile4scored <= 0;
+		finished4 <= 0;
+		onScreen4 <= 0;
 
-    //  finished1 <= 1;
-    //  finished2 <= 1;
-     finished3 <= 1;
-     finished4 <= 1;
 	end
 	
-	// Updates for tile movement
+	// Updates for tile movement and speed
 	reg [21:0] fast_count;
+	reg [25:0] second_count;
 	//DESIM
-	assign tileShiftEnable = fast_count == globalSpeed; // Tile speed
-	assign nextTileEnable = nextTileTime == timeBetweenTile; // Time between each tile
+	assign tileShiftEnable = fast_count > globalSpeed; // Tile speed
+	assign nextTileEnable = nextTileTime > timeBetweenTile; // Time between each tile
+	assign secondEnable = second_count == 150000;
+
+	//BOARD
+	// assign secondEnable = second_count == 50000000;
 
 	//BOARD
 	//    vga_adapter VGA (
@@ -223,7 +232,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
     //   defparam VGA.MONOCHROME = "FALSE";
     //   defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
     //   defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
-
 
 	reg key3resetpress;
 	reg key2resetpress;
@@ -346,6 +354,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			score <= 0;
 			fast_count <= 1;
 			nextTileTime <= 1;
+			second_count <= 1;
 		end
 
 		if (enableBackground)
@@ -407,6 +416,18 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 					score <= score + 1;
 				tile2scored <= 1;
 			end
+			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == `BORDER_WIDTH)
+			begin
+				if (~tile3scored)
+					score <= score + 1;
+				tile3scored <= 1;
+			end
+			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == `BORDER_WIDTH)
+			begin
+				if (~tile4scored)
+					score <= score + 1;
+				tile4scored <= 1;
+			end
 			else
 				gameOver <= 1;
 			col1pressed <= 0;
@@ -425,6 +446,18 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				if (~tile2scored)
 					score <= score + 1;
 				tile2scored <= 1;
+			end
+			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
+			begin
+				if (~tile3scored)
+					score <= score + 1;
+				tile3scored <= 1;
+			end
+			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
+			begin
+				if (~tile4scored)
+					score <= score + 1;
+				tile4scored <= 1;
 			end
 			else
 				gameOver <= 1;
@@ -445,6 +478,18 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 					score <= score + 1;
 				tile2scored <= 1;
 			end
+			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
+			begin
+				if (~tile3scored)
+					score <= score + 1;
+				tile3scored <= 1;
+			end
+			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
+			begin
+				if (~tile4scored)
+					score <= score + 1;
+				tile4scored <= 1;
+			end
 			else
 				gameOver <= 1;
 			col3pressed <= 0;
@@ -464,81 +509,34 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 					score <= score + 1;
 				tile2scored <= 1;
 			end
+			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
+			begin
+				if (~tile3scored)
+					score <= score + 1;
+				tile3scored <= 1;
+			end
+			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
+			begin
+				if (~tile4scored)
+					score <= score + 1;
+				tile4scored <= 1;
+			end
 			else
 				gameOver <= 1;
 			col4pressed <= 0;
 		end
-
-		// if (col1pressed | col2pressed | col3pressed | col4pressed) begin
-			
-		// 	if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == `BORDER_WIDTH)
-		// 	begin
-		// 		if (~tile1scored)
-		// 			score = score + 1;
-		// 		tile1scored <= 1;
-		// 		col1pressed <= 0;
-		// 	end
-		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == `BORDER_WIDTH)
-		// 	begin
-		// 		if (~tile2scored)
-		// 			score = score + 1;
-		// 		tile2scored <= 1;
-		// 		col1pressed <= 0;
-		// 	end
-
-		// 	else if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
-		// 	begin
-		// 		if (~tile1scored)
-		// 			score = score + 1;
-		// 		tile1scored <= 1;
-		// 		col2pressed <= 0;
-		// 	end
-		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
-		// 	begin
-		// 		if (~tile2scored)
-		// 			score = score + 1;
-		// 		tile2scored <= 1;
-		// 		col2pressed <= 0;
-		// 	end
-
-		// 	else if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
-		// 	begin
-		// 		if (~tile1scored)
-		// 			score = score + 1;
-		// 		tile1scored <= 1;
-		// 		col3pressed <= 0;
-		// 	end
-		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
-		// 	begin
-		// 		if (~tile2scored)
-		// 			score = score + 1;
-		// 		tile2scored <= 1;
-		// 		col3pressed <= 0;
-		// 	end
-			
-		// 	else if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
-		// 	begin
-		// 		if (~tile1scored)
-		// 			score = score + 1;
-		// 		tile1scored <= 1;
-		// 		col4pressed <= 0;
-		// 	end
-		// 	else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
-		// 	begin
-		// 		if (~tile2scored)
-		// 			score = score + 1;
-		// 		tile2scored <= 1;
-		// 		col4pressed <= 0;
-		// 	end
-		// 	else
-		// 		gameOver <= 1;
-		// end
 
 		//Game Over Check
 	if (yStart >= 55 && ~onScreen && ~tile1scored) begin
 		gameOver <= 1;
 	end
 	if (yStart2 >= 55 && ~onScreen2 && ~tile2scored) begin
+		gameOver <= 1;
+	end
+	if (yStart3 >= 55 && ~onScreen3 && ~tile3scored) begin
+		gameOver <= 1;
+	end
+	if (yStart4 >= 55 && ~onScreen4 && ~tile4scored) begin
 		gameOver <= 1;
 	end
 
@@ -581,10 +579,69 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				finished2 <= 0;
 				onScreen2 <= 1;
 			end
+
+			// For third tile
+			else if (~onScreen3)
+			begin
+				case (random_column)
+                    2'b00: xStart3 <= `BORDER_WIDTH;
+                    2'b01: xStart3 <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
+                    2'b10: xStart3 <= (3*`BORDER_WIDTH) + (2*`COLUMN_WIDTH);
+                    2'b11: xStart3 <= (4*`BORDER_WIDTH) + (3*`COLUMN_WIDTH);
+                endcase
+				yStart3 <= 7'd0;
+				drawTop3 <= 0;
+				drawEnable3 <= 1;
+				tile3scored <= 0;
+				finished3 <= 0;
+				onScreen3 <= 1;
+			end
+
+			// For third tile
+			else if (~onScreen4)
+			begin
+				case (random_column)
+                    2'b00: xStart4 <= `BORDER_WIDTH;
+                    2'b01: xStart4 <= (2*`BORDER_WIDTH) + `COLUMN_WIDTH;
+                    2'b10: xStart4 <= (3*`BORDER_WIDTH) + (2*`COLUMN_WIDTH);
+                    2'b11: xStart4 <= (4*`BORDER_WIDTH) + (3*`COLUMN_WIDTH);
+                endcase
+				yStart4 <= 7'd0;
+				drawTop4 <= 0;
+				drawEnable4 <= 1;
+				tile4scored <= 0;
+				finished4 <= 0;
+				onScreen4 <= 1;
+			end
 		end
 		else
 		begin
 			nextTileTime <= nextTileTime + 1;
+		end
+
+		// Speed updates
+		if (secondEnable)
+		begin
+			second_count <= 26'd1;
+
+			//DESIM
+			if (globalSpeed >= 500)
+				globalSpeed <= globalSpeed - 100;
+
+			if (timeBetweenTile >= 35000)
+				timeBetweenTile <= timeBetweenTile - 15000;
+
+			//BOARD
+			// if (globalSpeed >= 228333)
+			// 	globalSpeed <= globalSpeed - 2000;
+
+			// if (timeBetweenTile >= 13250000)
+			// 	timeBetweenTile <= timeBetweenTile - 750000;
+
+		end
+		else
+		begin
+			second_count <= second_count + 1;
 		end
 		
 		// animation updates
@@ -630,91 +687,43 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 				onScreen2 <= 0;
 			end
 			
-			// // Third tile
-			// if (eraseBottom3 < 121 & yStart3 < 120 - YSIZE)
-			// begin
-			// 	eraseBottom3 <= yStart3;
-			// end
-			// else
-			// begin
-			// 	if (eraseBottom3 < 121)
-			// 	begin
-			// 		eraseBottom3 <= eraseBottom3 + 1;
-			// 		continueEraseBottom3 <= 1;
-			// 		finished3 <= 0;
-					
-			// 		if (eraseBottom3 == 120) // Puts the animation on loop
-			// 		begin
-			// 			if (xStart3 == `BORDER_WIDTH)
-			// 				xStart3 <= (2*`BORDER_WIDTH)+`COLUMN_WIDTH;
-			// 			else if (xStart3 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
-			// 				xStart3 <= 8'd82;
-			// 			else if (xStart3 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
-			// 				xStart3 <= 8'd121;
-			// 			else
-			// 				xStart3 <= `BORDER_WIDTH;
-			// 			yStart3 <= 7'd0;
-			// 			drawTop3 <= 0;
-			// 			eraseBottom3 <= 0;
-			// 			drawEnable3 <= 1;
-			// 		end
-			// 	end
-			// end
+			// Third tile
+			if (drawTop3 < YSIZE - 1 & onScreen3)
+			begin
+				finished3 <= 0;
+				drawTop3 <= drawTop3 + 1;
+				drawEnable3 <= 1;
+			end
+			else if (yStart3 < `RESOLUTION_HEIGHT - 1 & onScreen3)
+			begin
+				yStart3 <= yStart3 + 1;
+				finished3 <= 0;
+				eraseEnable3 <= 1;
+			end
+			else if (yStart3 == `RESOLUTION_HEIGHT - 1) // Puts the animation in a loop
+			begin
+				finished3 <= 1;
+				onScreen3 <= 0;
+			end
 			
-			// if (drawTop3 < YSIZE - 2)
-			// begin
-			// 	finished3 <= 0;
-			// 	drawTop3 <= drawTop3 + 1;
-			// 	continueDrawTop3 <= 1;
-			// end
-			// else if (yStart3 < 120 - YSIZE)
-			// begin
-			// 	finished3 <= 0;
-			// 	eraseEnable3 <= 1;
-			// end
-			
-			// // Fourth tile
-			// if (eraseBottom4 < 121 & yStart4 < 120 - YSIZE)
-			// begin
-			// 	eraseBottom4 <= yStart4;
-			// end
-			// else
-			// begin
-			// 	if (eraseBottom4 < 121)
-			// 	begin
-			// 		eraseBottom4 <= eraseBottom4 + 1;
-			// 		continueEraseBottom4 <= 1;
-			// 		finished4 <= 0;
-					
-			// 		if (eraseBottom4 == 120) // Puts the animation on loop
-			// 		begin
-			// 			if (xStart4 == `BORDER_WIDTH)
-			// 				xStart4 <= (2*`BORDER_WIDTH)+`COLUMN_WIDTH;
-			// 			else if (xStart4 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
-			// 				xStart4 <= 8'd82;
-			// 			else if (xStart4 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
-			// 				xStart4 <= 8'd121;
-			// 			else
-			// 				xStart4 <= `BORDER_WIDTH;
-			// 			yStart4 <= 7'd0;
-			// 			drawTop4 <= 0;
-			// 			eraseBottom4 <= 0;
-			// 			drawEnable4 <= 1;
-			// 		end
-			// 	end
-			// end
-			
-			// if (drawTop4 < YSIZE - 2)
-			// begin
-			// 	finished4 <= 0;
-			// 	drawTop4 <= drawTop4 + 1;
-			// 	continueDrawTop4 <= 1;
-			// end
-			// else if (yStart4 < 120 - YSIZE)
-			// begin
-			// 	finished4 <= 0;
-			// 	eraseEnable4 <= 1;
-			// end
+			// Fourth tile
+			if (drawTop4 < YSIZE - 1 & onScreen4)
+			begin
+				finished4 <= 0;
+				drawTop4 <= drawTop4 + 1;
+				drawEnable4 <= 1;
+			end
+			else if (yStart4 < `RESOLUTION_HEIGHT - 1 & onScreen4)
+			begin
+				yStart4 <= yStart4 + 1;
+				finished4 <= 0;
+				eraseEnable4 <= 1;
+			end
+			else if (yStart4 == `RESOLUTION_HEIGHT - 1) // Puts the animation in a loop
+			begin
+				finished4 <= 1;
+				onScreen4 <= 0;
+			end
 			
 		end
 		else
@@ -890,232 +899,171 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 			
 		end
 		
-		// // Third tile
-		// if (eraseEnable3 & finished2 & finished1)
-		// begin
-		// 	if (yStart3 < 120 - YSIZE)
-		// 	begin
-		// 		xCount3 <= xStart3;
-		// 		yCount3 <= yStart3;
-		// 		plot <= 0;
-		// 		continueErase3 <= 1;
-		// 		eraseEnable3 <= 0;
-		// 		VGA_COLOR <= `BACKGROUND;
-		// 	end
-		// 	fast_count <= 22'd1; // No updates for fast_count
-		// end
-		
-		// else if (continueErase3 & finished2 & finished1) // Erases top of tile
-		// begin
-		// 	VGA_X <= xCount3;
-		// 	VGA_Y <= yCount3;
-		// 	VGA_COLOR <= `BACKGROUND;
-		// 	plot <= 1;
-			
-		// 	xCount3 <= xCount3 + 1;
-			
-		// 	if ((xCount3 - xStart3) == XSIZE)
-		// 	begin
-		// 		continueErase3 <= 0;
-				
-		// 		if (yCount3 < 120)
-		// 		begin
-		// 			yStart3 <= yStart3 + 1;
-		// 			drawEnable3 <= 1;
-		// 		end
-		// 	end
-		// end
-		
-		// else if (continueEraseBottom3 & finished2 & finished1) // Erases tile from top to bottom, one row at a time
-		// begin
-		
-		// 	VGA_X <= xCount3;
-		// 	VGA_Y <= eraseBottom3;
-		// 	VGA_COLOR <= `BACKGROUND;
-		// 	if (eraseBottom3 < 121)
-		// 		plot <= 1;
-		// 	else
-		// 		plot <= 0;
-			
-		// 	xCount3 <= xCount3 + 1;
-			
-		// 	if (xCount3 - xStart3 == XSIZE)
-		// 	begin
-		// 		continueEraseBottom3 <= 0;
-		// 		finished3 <= 1;
-		// 		xCount3 <= xStart3;
-		// 	end
-		// end
-		
-		// // Tile drawings
-		// if (drawEnable3 & finished2 & finished1) // Enables the draw top flag to create illusion of tile going on the screen
-		// begin
-		// 	xCount3 <= xStart3;
-		// 	yCount3 <= yStart3;
-		// 	plot <= 0;
-		// 	drawEnable3 <= 0;
-		// 	VGA_COLOR <= `TILES;
-		// 	continueDrawTop3 <= 1;
-			
-		// 	fast_count <= 22'd1;
-		// end
-		
-		// else if (continueDrawTop3 & finished2 & finished1)
-		// begin
-		// 	VGA_X <= xCount3;
-		// 	VGA_Y <= drawTop3;
-		// 	VGA_COLOR <= `TILES;
-		// 	if (drawTop3 < YSIZE - 2)
-		// 		plot <= 1;
-		// 	else
-		// 		plot <= 0;
-			
-		// 	xCount3 <= xCount3 + 1;
-			
-		// 	if (drawTop3 == (YSIZE - 2))
-		// 	begin
-		// 		continueDrawTop3 <= 0;
-		// 		continueDraw3 <= 1;
-		// 		xCount3 <= xStart3;
-		// 	end
-			
-		// 	else if (xCount3 - xStart3 == XSIZE)
-		// 	begin
-		// 		continueDrawTop3 <= 0;
-		// 		finished3 <= 1;
-		// 		xCount3 <= xStart3;
-		// 	end
-		// end
-		
-		// else if (continueDraw3 & finished2 & finished1) 
-		// begin
-		// 	VGA_X <= xCount3;
-		// 	VGA_Y <= yCount3 + YSIZE - 2;
-		// 	VGA_COLOR <= `TILES;
-		// 	plot <= 1;
-			
-		// 	xCount3 <= xCount3 + 1;
-			
-		// 	if ((xCount3 - xStart3) == XSIZE)
-		// 	begin
-		// 		continueDraw3 <= 0;
-		// 		finished3 <= 1;
-		// 	end
-		// end
-		
-		// // Fourth tile
-		// if (eraseEnable4 & finished3 & finished2 & finished1)
-		// begin
-		// 	if (yStart4 < 120 - YSIZE)
-		// 	begin
-		// 		xCount4 <= xStart4;
-		// 		yCount4 <= yStart4;
-		// 		plot <= 0;
-		// 		continueErase4 <= 1;
-		// 		eraseEnable4 <= 0;
-		// 		VGA_COLOR <= `BACKGROUND;
-		// 	end
-		// 	fast_count <= 22'd1; // No updates for fast_count
-		// end
-		
-		// else if (continueErase4 & finished3 & finished2 & finished1) // Erases top of tile
-		// begin
-		// 	VGA_X <= xCount4;
-		// 	VGA_Y <= yCount4;
-		// 	VGA_COLOR <= `BACKGROUND;
-		// 	plot <= 1;
-			
-		// 	xCount4 <= xCount4 + 1;
-			
-		// 	if ((xCount4 - xStart4) == XSIZE)
-		// 	begin
-		// 		continueErase4 <= 0;
-				
-		// 		if (yCount4 < 120)
-		// 		begin
-		// 			yStart4 <= yStart4 + 1;
-		// 			drawEnable4 <= 1;
-		// 		end
-		// 	end
-		// end
-		
-		// else if (continueEraseBottom4 & finished3 & finished2 & finished1) // Erases tile from top to bottom, one row at a time
-		// begin
-		
-		// 	VGA_X <= xCount4;
-		// 	VGA_Y <= eraseBottom4;
-		// 	VGA_COLOR <= `BACKGROUND;
-		// 	if (eraseBottom4 < 121)
-		// 		plot <= 1;
-		// 	else
-		// 		plot <= 0;
-			
-		// 	xCount4 <= xCount4 + 1;
-			
-		// 	if (xCount4 - xStart4 == XSIZE)
-		// 	begin
-		// 		continueEraseBottom4 <= 0;
-		// 		finished4 <= 1;
-		// 		xCount4 <= xStart4;
-		// 	end
-		// end
-		
-		// // Tile drawings
-		// if (drawEnable4 & finished3 & finished2 & finished1) // Enables the draw top flag to create illusion of tile going on the screen
-		// begin
-		// 	xCount4 <= xStart4;
-		// 	yCount4 <= yStart4;
-		// 	plot <= 0;
-		// 	drawEnable4 <= 0;
-		// 	VGA_COLOR <= `TILES;
-		// 	continueDrawTop4 <= 1;
-			
-		// 	fast_count <= 22'd1;
-		// end
-		
-		// else if (continueDrawTop4 & finished3 & finished2 & finished1)
-		// begin
-		// 	VGA_X <= xCount4;
-		// 	VGA_Y <= drawTop4;
-		// 	VGA_COLOR <= `TILES;
-		// 	if (drawTop4 < YSIZE - 2)
-		// 		plot <= 1;
-		// 	else
-		// 		plot <= 0;
-			
-		// 	xCount4 <= xCount4 + 1;
-			
-		// 	if (drawTop4 == (YSIZE - 2))
-		// 	begin
-		// 		continueDrawTop4 <= 0;
-		// 		continueDraw4 <= 1;
-		// 		xCount4 <= xStart4;
-		// 	end
-			
-		// 	else if (xCount4 - xStart4 == XSIZE)
-		// 	begin
-		// 		continueDrawTop4 <= 0;
-		// 		finished4 <= 1;
-		// 		xCount4 <= xStart4;
-		// 	end
-		// end
-		
-		// else if (continueDraw4 & finished3 & finished2 & finished1) 
-		// begin
-		// 	VGA_X <= xCount4;
-		// 	VGA_Y <= yCount4 + YSIZE - 2;
-		// 	VGA_COLOR <= `TILES;
-		// 	plot <= 1;
-			
-		// 	xCount4 <= xCount4 + 1;
-			
-		// 	if ((xCount4 - xStart4) == XSIZE)
-		// 	begin
-		// 		continueDraw4 <= 0;
-		// 		finished4 <= 1;
-		// 	end
-		// end
+		// Third tile
+		if (eraseEnable3 & finished1 & finished2)
+		begin
+			xCount3 <= xStart3;
+			yCount3 <= yStart3 - 1;
+			plot <= 0;
+			continueErase3 <= 1;
+			eraseEnable3 <= 0;
+			VGA_COLOR <= `BACKGROUND;
 
+			fast_count <= 22'd1; // No updates for fast_count
+		end
+		
+		else if (continueErase3 & finished1 & finished2) // Erases top of tile
+		begin
+			VGA_X <= xCount3;
+			VGA_Y <= yCount3;
+			VGA_COLOR <= `BACKGROUND;
+			plot <= 1;
+			
+			xCount3 <= xCount3 + 1;
+			
+			if ((xCount3 - xStart3) == XSIZE)
+			begin
+				continueErase3 <= 0;
+
+				if (yStart3 < `RESOLUTION_HEIGHT - YSIZE + 1)
+					drawEnable3 <= 1;
+				else
+					finished3 <= 1;
+			end
+		end
+		
+		// Tile drawings
+		if (drawEnable3 & finished1 & finished2) // Enables the draw top flag to create illusion of tile going on the screen
+		begin
+			xCount3 <= xStart3;
+			yCount3 <= yStart3;
+			plot <= 0;
+			drawEnable3 <= 0;
+			VGA_COLOR <= `TILES;
+			if (drawTop3 < YSIZE - 1)
+				continueDrawTop3 <= 1;
+			else
+				continueDraw3 <= 1;
+			
+			fast_count <= 22'd1;
+		end
+		
+		else if (continueDrawTop3 & finished1 & finished2)
+		begin
+			VGA_X <= xCount3;
+			VGA_Y <= drawTop3;
+			VGA_COLOR <= `TILES;
+			plot <= 1;
+			
+			xCount3 <= xCount3 + 1;
+			
+			if (xCount3 - xStart3 == XSIZE)
+			begin
+				xCount3 <= xStart3;
+				continueDrawTop3 <= 0;
+				finished3 <= 1;
+			end
+		end
+		
+		else if (continueDraw3 & finished1 & finished2) 
+		begin
+			VGA_X <= xCount3;
+			VGA_Y <= yCount3 + YSIZE - 2;
+			VGA_COLOR <= `TILES;
+			plot <= 1;
+			
+			xCount3 <= xCount3 + 1;
+			
+			if ((xCount3 - xStart3) == XSIZE)
+			begin
+				continueDraw3 <= 0;
+				finished3 <= 1;
+			end
+			
+		end
+
+		// Fourth tile
+		if (eraseEnable4 & finished1 & finished2 & finished3)
+		begin
+			xCount4 <= xStart4;
+			yCount4 <= yStart4 - 1;
+			plot <= 0;
+			continueErase4 <= 1;
+			eraseEnable4 <= 0;
+			VGA_COLOR <= `BACKGROUND;
+
+			fast_count <= 22'd1; // No updates for fast_count
+		end
+		
+		else if (continueErase4 & finished1 & finished2 & finished3) // Erases top of tile
+		begin
+			VGA_X <= xCount4;
+			VGA_Y <= yCount4;
+			VGA_COLOR <= `BACKGROUND;
+			plot <= 1;
+			
+			xCount4 <= xCount4 + 1;
+			
+			if ((xCount4 - xStart4) == XSIZE)
+			begin
+				continueErase4 <= 0;
+
+				if (yStart4 < `RESOLUTION_HEIGHT - YSIZE + 1)
+					drawEnable4 <= 1;
+				else
+					finished4 <= 1;
+			end
+		end
+		
+		// Tile drawings
+		if (drawEnable4 & finished1 & finished2 & finished3) // Enables the draw top flag to create illusion of tile going on the screen
+		begin
+			xCount4 <= xStart4;
+			yCount4 <= yStart4;
+			plot <= 0;
+			drawEnable4 <= 0;
+			VGA_COLOR <= `TILES;
+			if (drawTop4 < YSIZE - 1)
+				continueDrawTop4 <= 1;
+			else
+				continueDraw4 <= 1;
+			
+			fast_count <= 22'd1;
+		end
+		
+		else if (continueDrawTop4 & finished1 & finished2 & finished3)
+		begin
+			VGA_X <= xCount4;
+			VGA_Y <= drawTop4;
+			VGA_COLOR <= `TILES;
+			plot <= 1;
+			
+			xCount4 <= xCount4 + 1;
+			
+			if (xCount4 - xStart4 == XSIZE)
+			begin
+				xCount4 <= xStart4;
+				continueDrawTop4 <= 0;
+				finished4 <= 1;
+			end
+		end
+		
+		else if (continueDraw4 & finished1 & finished2 & finished3) 
+		begin
+			VGA_X <= xCount4;
+			VGA_Y <= yCount4 + YSIZE - 2;
+			VGA_COLOR <= `TILES;
+			plot <= 1;
+			
+			xCount4 <= xCount4 + 1;
+			
+			if ((xCount4 - xStart4) == XSIZE)
+			begin
+				continueDraw4 <= 0;
+				finished4 <= 1;
+			end
+			
+		end
 
 		end 
 
@@ -1140,6 +1088,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 					globalSpeed <= 22'd1000;
 					timeBetweenTile <= 26'd100000;
 					// 22'd4000 is standard for DESim (for globalSpeed)
+
 					//BOARD
 					// globalSpeed <= 22'd416666;
 					// timeBetweenTile <= 26'd50000000; // corresponds to 1 second between each tile
@@ -1162,8 +1111,25 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX
 					finished2 <= 0;
 					onScreen2 <= 0;
 
+					xStart3 <= 8'd0;
+					yStart3 <= 7'd0;
+					drawTop3 <= 0;
+					drawEnable3 <= 0;
+					tile3scored <= 0;
+					finished3 <= 0;
+					onScreen3 <= 0;
+
+					xStart4 <= 8'd0;
+					yStart4 <= 7'd0;
+					drawTop4 <= 0;
+					drawEnable4 <= 0;
+					tile4scored <= 0;
+					finished4 <= 0;
+					onScreen4 <= 0;
+
 					fast_count <= 1;
 					nextTileTime <= 1;
+					second_count <= 1;
 				end
 
 				// Assign the counters to VGA_X and VGA_Y
@@ -1198,6 +1164,7 @@ seven_seg_decoder display (score[7:0], HEX0, HEX1);
 
 // assign LEDR[0] = onScreen;
 // assign LEDR[1] = tile1scored;
+// assign LEDR[0] = test;
 	
 endmodule
 
