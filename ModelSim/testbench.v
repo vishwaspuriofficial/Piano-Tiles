@@ -23,6 +23,12 @@ module testbench ( );
 	initial begin
         SW[0] <= 1'b0;
         #10 SW[0] <= 1'b1;
+	#10 KEY[0] <= 1'b1;
+	#10 KEY[1] <= 1'b1;
+	#10 KEY[2] <= 1'b1;
+	#10 KEY[3] <= 1'b1;
+	#1000000 KEY[0] <= 1'b0;
+	#1050000 KEY[0] <= 1'b1;
 	end // initial
 
 	display U1 (CLOCK_50, SW[7:0], KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR);
