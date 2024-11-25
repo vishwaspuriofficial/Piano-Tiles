@@ -15,7 +15,7 @@
 // module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX1);
 //BOARD
 module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
-                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1, PS2_CLK, PS2_DAT);
+                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1, HEX4, HEX5, PS2_CLK, PS2_DAT);
 
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
@@ -26,7 +26,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	output reg [2:0] VGA_COLOR;                 
 	output reg plot;                           
 	output [9:0] LEDR;
-	output [6:0] HEX1, HEX0;
+	output [6:0] HEX1, HEX0, HEX4, HEX5;
 	inout				PS2_CLK;
 	inout				PS2_DAT;
 
@@ -150,6 +150,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 
 	//Scoring System
 	reg [7:0] score;
+	reg [7:0] highScore;
 	reg col1pressed, col2pressed, col3pressed, col4pressed;
 
 	reg tile1scored;
@@ -173,6 +174,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	wire [7:0] ps2_key_data; 
 	reg [3:0] last_key; 
 
+	reg [1:0] pressed;
+
 	initial
 	begin
 		lfsr = 24'h800001;
@@ -181,6 +184,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		enableBackground <= 0;
 		startedOnce <= 0;
 		Address <= 0;
+
+		pressed <= 2'b01;
 
 		// DESIM
 		// globalSpeed <= 22'd1000;
@@ -193,6 +198,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		// 22'd208333 corresponds to roughly 0.5 seconds for a tile to cross the screen
 
 		score <= 0;
+		highScore <= 0;
 
 		xStart <= `BORDER_WIDTH;
 		yStart <= 7'd0;
@@ -247,7 +253,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 
 	//BOARD
 	   vga_adapter VGA (
-      .resetn(~SW[7]),
+      .resetn(KEY[0]),
       .clock(CLOCK_50),
       .colour(VGA_COLOR),
       .x(VGA_X),
@@ -295,27 +301,27 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		
 	// end
 
-	reg pressedOnce;
-	reg [7:0] testCount;
-
 	always@ (posedge CLOCK_50) begin
 
-		if (~pressedOnce & ~ps2_key_pressed & ps2_key_data != 8'hF0)
+		if (ps2_key_pressed & ps2_key_data == 8'hF0)
 		begin
-			testCount <= testCount + 1;
-			case (ps2_key_data)
-				8'h1C: last_key[3] <= 0;
-				8'h1B: last_key[2] <= 0;
-				8'h23: last_key[1] <= 0;
-				8'h2B: last_key[0] <= 0;
-			endcase
-			pressedOnce <= 1;
-		end
-
-		if (ps2_key_data == 8'hF0)
-		begin
-			pressedOnce <= 0;
+			pressed <= 0;
 			last_key <= 4'b1111;
+		end
+		else if (ps2_key_pressed & (pressed == 2'b00 | pressed == 2'b01))
+		begin
+			if (pressed == 2'b01)
+			begin
+				
+				case (ps2_key_data)
+					8'h1C: last_key[3] <= 0;
+					8'h1B: last_key[2] <= 0;
+					8'h23: last_key[1] <= 0;
+					8'h2B: last_key[0] <= 0;
+				endcase
+			end
+			
+			pressed <= pressed + 1;
 		end
 		
 		
@@ -1373,6 +1379,13 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 
 		if (gameOver) gameOn <= 0;
 		else gameOn <= 1;
+		if (score > highScore) highScore <= score;
+
+		if (KEY[0] == 0)
+		begin
+			highScore <= 0;
+			score <= 0;
+		end
 
 	end
 	
@@ -1390,8 +1403,10 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 // assign LEDR[7:0] = score;
 
 // assign LEDR[3:0] = last_key;
-// assign LEDR[4] = ps2_key_pressed;
+// assign LEDR[5:4] = pressed;
+
 seven_seg_decoder display (score[7:0], HEX0, HEX1);
+seven_seg_decoder display2 (highScore[7:0], HEX4, HEX5);
 // seven_seg_decoder display (random_column + 8'd48, HEX0, HEX1);
 
 // seven_seg_decoder H0 (yStart[3:0], HEX0);
