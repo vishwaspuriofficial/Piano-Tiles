@@ -9,13 +9,13 @@ z2
 cModel Technology
 dC:/users/ethan/ECE241_labs/project/VGA_display_setup/modelSim
 vdisplay
-Z0 !s110 1732181085
+Z0 !s110 1732474099
 !i10b 1
-!s100 cTI<3I`@EKglO_gkhggGL0
-ILl^d[1Nb2=mkEklc`N2Qc1
+!s100 ]l`8dSFeYQF_@564P?XLQ1
+I4_m1iJlW4nIWE?^S3g=_E3
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 Z2 dC:/users/ethan/ECE241_labs/vsCode/piano-Tiles/modelSim
-Z3 w1732181079
+Z3 w1732473277
 Z4 8../display.v
 Z5 F../display.v
 L0 14
@@ -23,22 +23,42 @@ Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1732181084.000000
-Z8 !s107 ../display.v|
-Z9 !s90 -reportprogress|300|../display.v|
+Z7 !s108 1732474098.000000
+Z8 !s107 ../ram19200x3.v|../display.v|
+Z9 !s90 -reportprogress|300|../display.v|../ram19200x3.v|
 !i113 1
 Z10 tCvgOpt 0
+vram19200x3
+R0
+!i10b 1
+!s100 SnB=ZeWOe>9@f=26gg:zU3
+I`D7fH_Zf`JJfH5c86E_KR0
+R1
+R2
+w1732467340
+8../ram19200x3.v
+F../ram19200x3.v
+L0 39
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
 vseven_seg_decoder
 R0
 !i10b 1
-!s100 2:2n`>jAb<GI?;UXg?;dL3
-IQoaBe>SK5EL^nAAjUK7>53
+!s100 5<NJ9MEd[>_T[<nlAX?oB1
+I24P=EM`hDkD^;I29@R7?]2
 R1
 R2
 R3
 R4
 R5
-L0 1171
+L0 1188
 R6
 r1
 !s85 0
@@ -63,7 +83,7 @@ R6
 r1
 !s85 0
 31
-!s108 1732181085.000000
+!s108 1732474099.000000
 !s107 testbench.v|
 !s90 -reportprogress|300|testbench.v|
 !i113 1

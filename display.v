@@ -38,6 +38,15 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	output VGA_CLK; 
 
 	parameter XSIZE = `COLUMN_WIDTH-1, YSIZE = `COLUMN_HEIGHT;
+
+	// Memory
+	wire Write;
+	reg [14:0] Address;
+	wire [2:0] DataIn, DataOut;
+
+	// instantiate memory module
+	// module ram19200x3 (address, clock, data, wren, q);
+	ram19200x3 U1 (Address, CLOCK_50, DataIn, Write, DataOut);
 	
 	// This is the blueprint for 1 tile falling down (on loop for all 4 columns)
 	// Different flags to indicate which display stage the tile is at
@@ -154,6 +163,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		gameOver <= 0;
 		enableBackground <= 0;
 		startedOnce <= 0;
+		Address <= 0;
 
 		// DESIM
 		// globalSpeed <= 22'd1000;
@@ -357,6 +367,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			fast_count <= 1;
 			nextTileTime <= 1;
 			second_count <= 1;
+			Address <= 0;
+			y_count <= 0;
 		end
 
 		if (enableBackground)
@@ -393,6 +405,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			if (x_count == (`RESOLUTION_WIDTH - 1) & y_count == (`RESOLUTION_HEIGHT - 1)) begin
 				enableBackground <= 0;
 				nextTileTime <= 1;
+				y_count <= 0;
 			end
 
 			// Assign the counters to VGA_X and VGA_Y
@@ -1072,7 +1085,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		else begin
 			if (~enableBackground & startedOnce)
 			begin
-				VGA_COLOR <= `GAMEOVER; // Blue
+				Address <= Address + 1;
+				VGA_COLOR <= DataOut;
 
 				// Increment x_count for each pixel
 				x_count <= x_count + 1;
@@ -1167,6 +1181,7 @@ seven_seg_decoder display (score[7:0], HEX0, HEX1);
 // assign LEDR[0] = onScreen;
 // assign LEDR[1] = tile1scored;
 // assign LEDR[0] = test;
+assign LEDR[2:0] = VGA_COLOR;
 	
 endmodule
 

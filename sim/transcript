@@ -1,18 +1,32 @@
 # vsim -pli "simfpga.vpi" -Lf 220model -Lf altera_mf_ver -Lf verilog -c -do "run -all" tb 
-# Start time: 21:52:25 on Nov 20,2024
+# Start time: 13:45:54 on Nov 24,2024
 # Loading work.tb
 # Loading work.top
 # Loading work.display
+# Loading work.ram19200x3
+# Loading altera_mf_ver.altsyncram
 # Loading work.seven_seg_decoder
+# Loading altera_mf_ver.altsyncram_body
+# Loading altera_mf_ver.ALTERA_DEVICE_FAMILIES
+# Loading altera_mf_ver.ALTERA_MF_MEMORY_INITIALIZATION
 # Loading ./simfpga.vpi
 # run -all
 # Time scaling: 0.0001 sim seconds per real-time second
 # 
 # 
 # Connected to server!
-# ** Note: $finish    : ../tb/tb.v(24)
-#    Time: 23145 us  Iteration: 1  Instance: /tb
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "ram19200x3.mif" for reading.
+# No such file or directory. (errno = ENOENT)    : /build/swbuild/SJ/nightly/18.1std/625/l64/work/modelsim/eda/sim_lib/altera_mf.v(263)
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DUT/U1/U1/altsyncram_component/m_default/altsyncram_inst
+# ERROR: cannot read ram19200x3.mif.
+# ** Warning: (vsim-7) Failed to open readmem file "ram19200x3.ver" in read mode.
+# No such file or directory. (errno = ENOENT)    : /build/swbuild/SJ/nightly/18.1std/625/l64/work/modelsim/eda/sim_lib/altera_mf.v(48976)
+#    Time: 0 ps  Iteration: 0  Instance: /tb/DUT/U1/U1/altsyncram_component/m_default/altsyncram_inst
+# Warning : Address pointed at port A is out of bound!
+# Time: 867490000  Instance: tb.DUT.U1.U1.altsyncram_component.m_default.altsyncram_inst
+# ** Note: $finish    : /build/swbuild/SJ/nightly/18.1std/625/l64/work/modelsim/eda/sim_lib/altera_mf.v(50266)
+#    Time: 2363634040 ns  Iteration: 1  Instance: /tb
 # 
 # Quitting...
-# End time: 21:53:00 on Nov 20,2024, Elapsed time: 0:00:35
-# Errors: 0, Warnings: 0
+# End time: 17:56:08 on Nov 24,2024, Elapsed time: 4:10:14
+# Errors: 0, Warnings: 2

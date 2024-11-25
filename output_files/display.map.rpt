@@ -1,5 +1,5 @@
 Analysis & Synthesis report for display
-Thu Nov 21 14:54:01 2024
+Mon Nov 25 08:56:55 2024
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -14,27 +14,30 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis RAM Summary
-  9. Registers Removed During Synthesis
- 10. Removed Registers Triggering Further Register Optimizations
- 11. General Register Statistics
- 12. Inverted Register Statistics
- 13. Multiplexer Restructuring Statistics (Restructuring Performed)
- 14. Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated
- 15. Parameter Settings for User Entity Instance: Top-level Entity: |display
- 16. Parameter Settings for User Entity Instance: vga_adapter:VGA
- 17. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_address_translator:user_input_translator
- 18. Parameter Settings for User Entity Instance: vga_adapter:VGA|altsyncram:VideoMemory
- 19. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component
- 20. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller
- 21. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator
- 22. Parameter Settings for Inferred Entity Instance: seven_seg_decoder:display|lpm_divide:Mod0
- 23. Parameter Settings for Inferred Entity Instance: seven_seg_decoder:display|lpm_divide:Div0
- 24. altsyncram Parameter Settings by Entity Instance
- 25. altpll Parameter Settings by Entity Instance
- 26. Post-Synthesis Netlist Statistics for Top Partition
- 27. Elapsed Time Per Partition
- 28. Analysis & Synthesis Messages
- 29. Analysis & Synthesis Suppressed Messages
+  9. Analysis & Synthesis IP Cores Summary
+ 10. Registers Removed During Synthesis
+ 11. Removed Registers Triggering Further Register Optimizations
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Source assignments for ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated
+ 16. Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated
+ 17. Parameter Settings for User Entity Instance: Top-level Entity: |display
+ 18. Parameter Settings for User Entity Instance: ram19200x3:U1|altsyncram:altsyncram_component
+ 19. Parameter Settings for User Entity Instance: vga_adapter:VGA
+ 20. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_address_translator:user_input_translator
+ 21. Parameter Settings for User Entity Instance: vga_adapter:VGA|altsyncram:VideoMemory
+ 22. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component
+ 23. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller
+ 24. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator
+ 25. Parameter Settings for Inferred Entity Instance: seven_seg_decoder:display|lpm_divide:Mod0
+ 26. Parameter Settings for Inferred Entity Instance: seven_seg_decoder:display|lpm_divide:Div0
+ 27. altsyncram Parameter Settings by Entity Instance
+ 28. altpll Parameter Settings by Entity Instance
+ 29. Post-Synthesis Netlist Statistics for Top Partition
+ 30. Elapsed Time Per Partition
+ 31. Analysis & Synthesis Messages
+ 32. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -60,16 +63,16 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu Nov 21 14:54:01 2024       ;
+; Analysis & Synthesis Status     ; Successful - Mon Nov 25 08:56:55 2024       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; display                                     ;
 ; Top-level Entity Name           ; display                                     ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 389                                         ;
+; Total registers                 ; 406                                         ;
 ; Total pins                      ; 85                                          ;
 ; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 57,600                                      ;
+; Total block memory bits         ; 115,200                                     ;
 ; Total DSP Blocks                ; 0                                           ;
 ; Total HSSI RX PCSs              ; 0                                           ;
 ; Total HSSI PMA RX Deserializers ; 0                                           ;
@@ -186,42 +189,45 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                               ;
-+--------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path     ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                       ; Library ;
-+--------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------+---------+
-; vga_adapter/vga_pll.v                ; yes             ; User Wizard-Generated File   ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_pll.v                ;         ;
-; vga_adapter/vga_controller.v         ; yes             ; User Verilog HDL File        ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_controller.v         ;         ;
-; vga_adapter/vga_address_translator.v ; yes             ; User Verilog HDL File        ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_address_translator.v ;         ;
-; vga_adapter/vga_adapter.v            ; yes             ; User Verilog HDL File        ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v            ;         ;
-; display.v                            ; yes             ; User Verilog HDL File        ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v                            ;         ;
-; altsyncram.tdf                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf              ;         ;
-; stratix_ram_block.inc                ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/stratix_ram_block.inc       ;         ;
-; lpm_mux.inc                          ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_mux.inc                 ;         ;
-; lpm_decode.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_decode.inc              ;         ;
-; aglobal181.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/aglobal181.inc              ;         ;
-; a_rdenreg.inc                        ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/a_rdenreg.inc               ;         ;
-; altrom.inc                           ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altrom.inc                  ;         ;
-; altram.inc                           ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altram.inc                  ;         ;
-; altdpram.inc                         ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altdpram.inc                ;         ;
-; db/altsyncram_usm1.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_usm1.tdf               ;         ;
-; db/decode_7la.tdf                    ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_7la.tdf                    ;         ;
-; db/decode_01a.tdf                    ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_01a.tdf                    ;         ;
-; db/mux_ifb.tdf                       ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/mux_ifb.tdf                       ;         ;
-; altpll.tdf                           ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altpll.tdf                  ;         ;
-; stratix_pll.inc                      ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/stratix_pll.inc             ;         ;
-; stratixii_pll.inc                    ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/stratixii_pll.inc           ;         ;
-; cycloneii_pll.inc                    ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/cycloneii_pll.inc           ;         ;
-; db/altpll_80u.tdf                    ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altpll_80u.tdf                    ;         ;
-; lpm_divide.tdf                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_divide.tdf              ;         ;
-; abs_divider.inc                      ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/abs_divider.inc             ;         ;
-; sign_div_unsign.inc                  ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sign_div_unsign.inc         ;         ;
-; db/lpm_divide_82m.tdf                ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/lpm_divide_82m.tdf                ;         ;
-; db/sign_div_unsign_bkh.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/sign_div_unsign_bkh.tdf           ;         ;
-; db/alt_u_div_sse.tdf                 ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/alt_u_div_sse.tdf                 ;         ;
-; db/lpm_divide_5am.tdf                ; yes             ; Auto-Generated Megafunction  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/lpm_divide_5am.tdf                ;         ;
-+--------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------+---------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                         ;
++--------------------------------------+-----------------+----------------------------------------+------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path     ; Used in Netlist ; File Type                              ; File Name with Absolute Path                                                       ; Library ;
++--------------------------------------+-----------------+----------------------------------------+------------------------------------------------------------------------------------+---------+
+; vga_adapter/vga_pll.v                ; yes             ; User Wizard-Generated File             ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_pll.v                ;         ;
+; vga_adapter/vga_controller.v         ; yes             ; User Verilog HDL File                  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_controller.v         ;         ;
+; vga_adapter/vga_address_translator.v ; yes             ; User Verilog HDL File                  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_address_translator.v ;         ;
+; vga_adapter/vga_adapter.v            ; yes             ; User Verilog HDL File                  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v            ;         ;
+; display.v                            ; yes             ; User Verilog HDL File                  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v                            ;         ;
+; ram19200x3.v                         ; yes             ; User Wizard-Generated File             ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ram19200x3.v                         ;         ;
+; altsyncram.tdf                       ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf              ;         ;
+; stratix_ram_block.inc                ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/stratix_ram_block.inc       ;         ;
+; lpm_mux.inc                          ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_mux.inc                 ;         ;
+; lpm_decode.inc                       ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_decode.inc              ;         ;
+; aglobal181.inc                       ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/aglobal181.inc              ;         ;
+; a_rdenreg.inc                        ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/a_rdenreg.inc               ;         ;
+; altrom.inc                           ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altrom.inc                  ;         ;
+; altram.inc                           ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altram.inc                  ;         ;
+; altdpram.inc                         ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altdpram.inc                ;         ;
+; db/altsyncram_4lo1.tdf               ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_4lo1.tdf               ;         ;
+; ram19200x3.mif                       ; yes             ; Auto-Found Memory Initialization File  ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ram19200x3.mif                       ;         ;
+; db/decode_7la.tdf                    ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_7la.tdf                    ;         ;
+; db/decode_01a.tdf                    ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_01a.tdf                    ;         ;
+; db/mux_ifb.tdf                       ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/mux_ifb.tdf                       ;         ;
+; db/altsyncram_usm1.tdf               ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_usm1.tdf               ;         ;
+; altpll.tdf                           ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altpll.tdf                  ;         ;
+; stratix_pll.inc                      ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/stratix_pll.inc             ;         ;
+; stratixii_pll.inc                    ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/stratixii_pll.inc           ;         ;
+; cycloneii_pll.inc                    ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/cycloneii_pll.inc           ;         ;
+; db/altpll_80u.tdf                    ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altpll_80u.tdf                    ;         ;
+; lpm_divide.tdf                       ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_divide.tdf              ;         ;
+; abs_divider.inc                      ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/abs_divider.inc             ;         ;
+; sign_div_unsign.inc                  ; yes             ; Megafunction                           ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sign_div_unsign.inc         ;         ;
+; db/lpm_divide_82m.tdf                ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/lpm_divide_82m.tdf                ;         ;
+; db/sign_div_unsign_bkh.tdf           ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/sign_div_unsign_bkh.tdf           ;         ;
+; db/alt_u_div_sse.tdf                 ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/alt_u_div_sse.tdf                 ;         ;
+; db/lpm_divide_5am.tdf                ; yes             ; Auto-Generated Megafunction            ; C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/lpm_divide_5am.tdf                ;         ;
++--------------------------------------+-----------------+----------------------------------------+------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -229,20 +235,20 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 563            ;
+; Estimate of Logic utilization (ALMs needed) ; 581            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 964            ;
+; Combinational ALUT usage for logic          ; 992            ;
 ;     -- 7 input functions                    ; 6              ;
-;     -- 6 input functions                    ; 151            ;
+;     -- 6 input functions                    ; 158            ;
 ;     -- 5 input functions                    ; 123            ;
-;     -- 4 input functions                    ; 136            ;
-;     -- <=3 input functions                  ; 548            ;
+;     -- 4 input functions                    ; 139            ;
+;     -- <=3 input functions                  ; 566            ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 389            ;
+; Dedicated logic registers                   ; 406            ;
 ;                                             ;                ;
 ; I/O pins                                    ; 85             ;
 ; Total MLAB memory bits                      ; 0              ;
-; Total block memory bits                     ; 57600          ;
+; Total block memory bits                     ; 115200         ;
 ;                                             ;                ;
 ; Total DSP Blocks                            ; 0              ;
 ;                                             ;                ;
@@ -250,9 +256,9 @@ refer to the applicable agreement for further details.
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 369            ;
-; Total fan-out                               ; 5226           ;
-; Average fan-out                             ; 3.41           ;
+; Maximum fan-out                             ; 395            ;
+; Total fan-out                               ; 5530           ;
+; Average fan-out                             ; 3.48           ;
 +---------------------------------------------+----------------+
 
 
@@ -261,7 +267,11 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------+------------------------+--------------+
 ; Compilation Hierarchy Node                              ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                ; Entity Name            ; Library Name ;
 +---------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------+------------------------+--------------+
-; |display                                                ; 964 (773)           ; 389 (359)                 ; 57600             ; 0          ; 85   ; 0            ; |display                                                                                                                           ; seven_seg_decoder      ; work         ;
+; |display                                                ; 992 (798)           ; 406 (374)                 ; 115200            ; 0          ; 85   ; 0            ; |display                                                                                                                           ; seven_seg_decoder      ; work         ;
+;    |ram19200x3:U1|                                      ; 3 (0)               ; 2 (0)                     ; 57600             ; 0          ; 0    ; 0            ; |display|ram19200x3:U1                                                                                                             ; ram19200x3             ; work         ;
+;       |altsyncram:altsyncram_component|                 ; 3 (0)               ; 2 (0)                     ; 57600             ; 0          ; 0    ; 0            ; |display|ram19200x3:U1|altsyncram:altsyncram_component                                                                             ; altsyncram             ; work         ;
+;          |altsyncram_4lo1:auto_generated|               ; 3 (0)               ; 2 (2)                     ; 57600             ; 0          ; 0    ; 0            ; |display|ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated                                              ; altsyncram_4lo1        ; work         ;
+;             |decode_01a:rden_decode|                    ; 3 (3)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |display|ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated|decode_01a:rden_decode                       ; decode_01a             ; work         ;
 ;    |seven_seg_decoder:display|                          ; 124 (26)            ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |display|seven_seg_decoder:display                                                                                                 ; seven_seg_decoder      ; work         ;
 ;       |lpm_divide:Div0|                                 ; 49 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |display|seven_seg_decoder:display|lpm_divide:Div0                                                                                 ; lpm_divide             ; work         ;
 ;          |lpm_divide_5am:auto_generated|                ; 49 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |display|seven_seg_decoder:display|lpm_divide:Div0|lpm_divide_5am:auto_generated                                                   ; lpm_divide_5am         ; work         ;
@@ -286,13 +296,23 @@ refer to the applicable agreement for further details.
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                      ;
-+----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
-; Name                                                                             ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF  ;
-+----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
-; vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 19200        ; 3            ; 19200        ; 3            ; 57600 ; None ;
-+----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                       ;
++-----------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------+
+; Name                                                                                    ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF            ;
++-----------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------+
+; ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated|ALTSYNCRAM ; AUTO ; Single Port      ; 19200        ; 3            ; --           ; --           ; 57600 ; ram19200x3.mif ;
+; vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated|ALTSYNCRAM        ; AUTO ; Simple Dual Port ; 19200        ; 3            ; 19200        ; 3            ; 57600 ; None           ;
++-----------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------+
+
+
++----------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis IP Cores Summary                                                                    ;
++--------+--------------+---------+--------------+--------------+------------------------+-----------------+
+; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance        ; IP Include File ;
++--------+--------------+---------+--------------+--------------+------------------------+-----------------+
+; Altera ; RAM: 1-PORT  ; 18.1    ; N/A          ; N/A          ; |display|ram19200x3:U1 ; ram19200x3.v    ;
++--------+--------------+---------+--------------+--------------+------------------------+-----------------+
 
 
 +---------------------------------------------------------------------------------+
@@ -307,13 +327,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; globalSpeed[3]                         ; Stuck at VCC due to stuck port data_in ;
 ; xStart4[3,5]                           ; Merged with xStart4[0]                 ;
 ; xStart4[6]                             ; Merged with xStart4[4]                 ;
-; xStart3[5]                             ; Merged with xStart3[3]                 ;
+; xStart3[3]                             ; Merged with xStart3[0]                 ;
 ; xStart3[6]                             ; Merged with xStart3[4]                 ;
-; xStart2[5]                             ; Merged with xStart2[3]                 ;
+; xStart2[5]                             ; Merged with xStart2[0]                 ;
 ; xStart2[6]                             ; Merged with xStart2[4]                 ;
 ; xStart[3,5]                            ; Merged with xStart[0]                  ;
 ; xStart[6]                              ; Merged with xStart[4]                  ;
-; xStart3[3]                             ; Merged with xStart3[0]                 ;
+; xStart3[5]                             ; Merged with xStart3[0]                 ;
 ; xStart2[3]                             ; Merged with xStart2[0]                 ;
 ; xStart4[7]                             ; Stuck at GND due to stuck port data_in ;
 ; xStart3[7]                             ; Stuck at GND due to stuck port data_in ;
@@ -338,12 +358,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 389   ;
-; Number of registers using Synchronous Clear  ; 118   ;
+; Total registers                              ; 406   ;
+; Number of registers using Synchronous Clear  ; 140   ;
 ; Number of registers using Synchronous Load   ; 142   ;
 ; Number of registers using Asynchronous Clear ; 20    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 311   ;
+; Number of registers using Clock Enable       ; 326   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -353,8 +373,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------------------------+---------+
 ; Inverted Register                       ; Fan out ;
 +-----------------------------------------+---------+
-; gameOn                                  ; 16      ;
-; drawEnable                              ; 22      ;
+; gameOn                                  ; 14      ;
+; drawEnable                              ; 21      ;
 ; xStart[2]                               ; 6       ;
 ; onScreen                                ; 18      ;
 ; globalSpeed[4]                          ; 5       ;
@@ -390,39 +410,49 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                 ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------+
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount[0]                                                                                         ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount2[1]                                                                                        ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount3[3]                                                                                        ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount2[5]                                                                                        ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount3[6]                                                                                        ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |display|yCount4[5]                                                                                        ;
 ; 3:1                ; 9 bits    ; 18 LEs        ; 0 LEs                ; 18 LEs                 ; Yes        ; |display|globalSpeed[6]                                                                                    ;
 ; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |display|timeBetweenTile[6]                                                                                ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |display|vga_adapter:VGA|vga_controller:controller|yCounter[6]                                             ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 0 LEs                ; 14 LEs                 ; Yes        ; |display|y_count[5]                                                                                        ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |display|x_count[6]                                                                                        ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |display|vga_adapter:VGA|vga_controller:controller|yCounter[0]                                             ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |display|Address[7]                                                                                        ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |display|x_count[2]                                                                                        ;
 ; 5:1                ; 26 bits   ; 78 LEs        ; 52 LEs               ; 26 LEs                 ; Yes        ; |display|second_count[8]                                                                                   ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart[3]                                                                                         ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop[1]                                                                                        ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart2[6]                                                                                        ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop2[4]                                                                                       ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart3[4]                                                                                        ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop3[0]                                                                                       ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart4[4]                                                                                        ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop4[1]                                                                                       ;
-; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount[4]                                                                                         ;
-; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount2[2]                                                                                        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart[1]                                                                                         ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop[5]                                                                                        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart2[3]                                                                                        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop2[1]                                                                                       ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart3[5]                                                                                        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop3[6]                                                                                       ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|yStart4[2]                                                                                        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|drawTop4[6]                                                                                       ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount[6]                                                                                         ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount2[5]                                                                                        ;
 ; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount3[1]                                                                                        ;
-; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount4[1]                                                                                        ;
-; 6:1                ; 26 bits   ; 104 LEs       ; 78 LEs               ; 26 LEs                 ; Yes        ; |display|nextTileTime[22]                                                                                  ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |display|score[0]                                                                                          ;
-; 11:1               ; 8 bits    ; 56 LEs        ; 16 LEs               ; 40 LEs                 ; Yes        ; |display|VGA_X[2]~reg0                                                                                     ;
-; 13:1               ; 22 bits   ; 176 LEs       ; 176 LEs              ; 0 LEs                  ; Yes        ; |display|fast_count[13]                                                                                    ;
-; 15:1               ; 2 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; Yes        ; |display|VGA_Y[1]~reg0                                                                                     ;
-; 15:1               ; 5 bits    ; 50 LEs        ; 30 LEs               ; 20 LEs                 ; Yes        ; |display|VGA_Y[3]~reg0                                                                                     ;
-; 24:1               ; 2 bits    ; 32 LEs        ; 30 LEs               ; 2 LEs                  ; Yes        ; |display|VGA_COLOR[2]~reg0                                                                                 ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; Yes        ; |display|xCount4[4]                                                                                        ;
+; 6:1                ; 26 bits   ; 104 LEs       ; 78 LEs               ; 26 LEs                 ; Yes        ; |display|nextTileTime[19]                                                                                  ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |display|y_count[4]                                                                                        ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |display|score[6]                                                                                          ;
+; 11:1               ; 8 bits    ; 56 LEs        ; 16 LEs               ; 40 LEs                 ; Yes        ; |display|VGA_X[0]~reg0                                                                                     ;
+; 13:1               ; 22 bits   ; 176 LEs       ; 176 LEs              ; 0 LEs                  ; Yes        ; |display|fast_count[10]                                                                                    ;
+; 15:1               ; 2 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; Yes        ; |display|VGA_Y[0]~reg0                                                                                     ;
+; 15:1               ; 5 bits    ; 50 LEs        ; 30 LEs               ; 20 LEs                 ; Yes        ; |display|VGA_Y[6]~reg0                                                                                     ;
+; 26:1               ; 2 bits    ; 34 LEs        ; 32 LEs               ; 2 LEs                  ; Yes        ; |display|VGA_COLOR[0]~reg0                                                                                 ;
 ; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |display|globalSpeed[17]                                                                                   ;
-; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |display|timeBetweenTile[22]                                                                               ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |display|timeBetweenTile[21]                                                                               ;
 ; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |display|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated|mux_ifb:mux3|result_node[2] ;
 ; 4:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |display|Add18                                                                                             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Source assignments for ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated ;
++---------------------------------+--------------------+------+---------------------------------------+
+; Assignment                      ; Value              ; From ; To                                    ;
++---------------------------------+--------------------+------+---------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                     ;
++---------------------------------+--------------------+------+---------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------+
@@ -442,6 +472,67 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; XSIZE          ; 34    ; Signed Integer                                 ;
 ; YSIZE          ; 30    ; Signed Integer                                 ;
 +----------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ram19200x3:U1|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+--------------------------------+
+; Parameter Name                     ; Value                ; Type                           ;
++------------------------------------+----------------------+--------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                        ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                   ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                 ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                        ;
+; OPERATION_MODE                     ; SINGLE_PORT          ; Untyped                        ;
+; WIDTH_A                            ; 3                    ; Signed Integer                 ;
+; WIDTHAD_A                          ; 15                   ; Signed Integer                 ;
+; NUMWORDS_A                         ; 19200                ; Signed Integer                 ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                        ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                        ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                        ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                        ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                        ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                        ;
+; WIDTH_B                            ; 1                    ; Untyped                        ;
+; WIDTHAD_B                          ; 1                    ; Untyped                        ;
+; NUMWORDS_B                         ; 1                    ; Untyped                        ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                        ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                        ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                        ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                        ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                        ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                        ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                        ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                        ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                        ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                        ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                        ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                 ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                        ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                        ;
+; BYTE_SIZE                          ; 8                    ; Untyped                        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                        ;
+; INIT_FILE                          ; ram19200x3.mif       ; Untyped                        ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                        ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                        ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                        ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                        ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                        ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                        ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                        ;
+; CBXI_PARAMETER                     ; altsyncram_4lo1      ; Untyped                        ;
++------------------------------------+----------------------+--------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -979,24 +1070,35 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+------------------------------------------------------------------------------------+
-; altsyncram Parameter Settings by Entity Instance                                   ;
-+-------------------------------------------+----------------------------------------+
-; Name                                      ; Value                                  ;
-+-------------------------------------------+----------------------------------------+
-; Number of entity instances                ; 1                                      ;
-; Entity Instance                           ; vga_adapter:VGA|altsyncram:VideoMemory ;
-;     -- OPERATION_MODE                     ; DUAL_PORT                              ;
-;     -- WIDTH_A                            ; 3                                      ;
-;     -- NUMWORDS_A                         ; 19200                                  ;
-;     -- OUTDATA_REG_A                      ; UNREGISTERED                           ;
-;     -- WIDTH_B                            ; 3                                      ;
-;     -- NUMWORDS_B                         ; 19200                                  ;
-;     -- ADDRESS_REG_B                      ; CLOCK1                                 ;
-;     -- OUTDATA_REG_B                      ; CLOCK1                                 ;
-;     -- RAM_BLOCK_TYPE                     ; AUTO                                   ;
-;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                              ;
-+-------------------------------------------+----------------------------------------+
++-------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                          ;
++-------------------------------------------+-----------------------------------------------+
+; Name                                      ; Value                                         ;
++-------------------------------------------+-----------------------------------------------+
+; Number of entity instances                ; 2                                             ;
+; Entity Instance                           ; ram19200x3:U1|altsyncram:altsyncram_component ;
+;     -- OPERATION_MODE                     ; SINGLE_PORT                                   ;
+;     -- WIDTH_A                            ; 3                                             ;
+;     -- NUMWORDS_A                         ; 19200                                         ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                  ;
+;     -- WIDTH_B                            ; 1                                             ;
+;     -- NUMWORDS_B                         ; 1                                             ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                        ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                  ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                          ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                     ;
+; Entity Instance                           ; vga_adapter:VGA|altsyncram:VideoMemory        ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                     ;
+;     -- WIDTH_A                            ; 3                                             ;
+;     -- NUMWORDS_A                         ; 19200                                         ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                  ;
+;     -- WIDTH_B                            ; 3                                             ;
+;     -- NUMWORDS_B                         ; 19200                                         ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                        ;
+;     -- OUTDATA_REG_B                      ; CLOCK1                                        ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                          ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                     ;
++-------------------------------------------+-----------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------+
@@ -1021,31 +1123,31 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 389                         ;
+; arriav_ff             ; 406                         ;
 ;     CLR SCLR          ; 10                          ;
-;     ENA               ; 61                          ;
+;     ENA               ; 54                          ;
 ;     ENA CLR SCLR      ; 10                          ;
-;     ENA SCLR          ; 98                          ;
+;     ENA SCLR          ; 120                         ;
 ;     ENA SLD           ; 142                         ;
-;     plain             ; 68                          ;
-; arriav_lcell_comb     ; 967                         ;
-;     arith             ; 339                         ;
+;     plain             ; 70                          ;
+; arriav_lcell_comb     ; 995                         ;
+;     arith             ; 354                         ;
 ;         0 data inputs ; 17                          ;
-;         1 data inputs ; 282                         ;
+;         1 data inputs ; 297                         ;
 ;         2 data inputs ; 6                           ;
 ;         3 data inputs ; 23                          ;
 ;         4 data inputs ; 8                           ;
 ;         5 data inputs ; 3                           ;
 ;     extend            ; 6                           ;
 ;         7 data inputs ; 6                           ;
-;     normal            ; 566                         ;
+;     normal            ; 579                         ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 9                           ;
-;         2 data inputs ; 85                          ;
+;         2 data inputs ; 88                          ;
 ;         3 data inputs ; 71                          ;
-;         4 data inputs ; 128                         ;
+;         4 data inputs ; 131                         ;
 ;         5 data inputs ; 120                         ;
-;         6 data inputs ; 151                         ;
+;         6 data inputs ; 158                         ;
 ;     shared            ; 56                          ;
 ;         0 data inputs ; 7                           ;
 ;         1 data inputs ; 14                          ;
@@ -1053,10 +1155,10 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;         3 data inputs ; 1                           ;
 ; boundary_port         ; 85                          ;
 ; generic_pll           ; 1                           ;
-; stratixv_ram_block    ; 9                           ;
+; stratixv_ram_block    ; 18                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 10.90                       ;
-; Average LUT depth     ; 4.28                        ;
+; Average LUT depth     ; 4.21                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1075,7 +1177,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Thu Nov 21 14:53:45 2024
+    Info: Processing started: Mon Nov 25 08:56:21 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off display -c display
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -1091,78 +1193,123 @@ Info (12021): Found 1 design units, including 1 entities, in source file top.v
     Info (12023): Found entity 1: top File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/top.v Line: 24
 Info (12021): Found 2 design units, including 2 entities, in source file display.v
     Info (12023): Found entity 1: display File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 16
-    Info (12023): Found entity 2: seven_seg_decoder File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1173
-Warning (10236): Verilog HDL Implicit Net warning at display.v(208): created implicit net for "tileShiftEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 208
-Warning (10236): Verilog HDL Implicit Net warning at display.v(209): created implicit net for "nextTileEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 209
-Warning (10236): Verilog HDL Implicit Net warning at display.v(215): created implicit net for "secondEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 215
+    Info (12023): Found entity 2: seven_seg_decoder File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1188
+Info (12021): Found 1 design units, including 1 entities, in source file ram19200x3.v
+    Info (12023): Found entity 1: ram19200x3 File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ram19200x3.v Line: 39
+Warning (10236): Verilog HDL Implicit Net warning at display.v(218): created implicit net for "tileShiftEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 218
+Warning (10236): Verilog HDL Implicit Net warning at display.v(219): created implicit net for "nextTileEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 219
+Warning (10236): Verilog HDL Implicit Net warning at display.v(225): created implicit net for "secondEnable" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 225
 Info (12127): Elaborating entity "display" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at display.v(120): object "finished4" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 120
-Warning (10230): Verilog HDL assignment warning at display.v(379): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 379
-Warning (10230): Verilog HDL assignment warning at display.v(385): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 385
-Warning (10230): Verilog HDL assignment warning at display.v(412): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 412
-Warning (10230): Verilog HDL assignment warning at display.v(418): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 418
-Warning (10230): Verilog HDL assignment warning at display.v(424): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 424
-Warning (10230): Verilog HDL assignment warning at display.v(430): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 430
+Warning (10036): Verilog HDL or VHDL warning at display.v(129): object "finished4" assigned a value but never read File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 129
+Warning (10230): Verilog HDL assignment warning at display.v(391): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 391
+Warning (10230): Verilog HDL assignment warning at display.v(397): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 397
+Warning (10230): Verilog HDL assignment warning at display.v(425): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 425
+Warning (10230): Verilog HDL assignment warning at display.v(431): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 431
+Warning (10230): Verilog HDL assignment warning at display.v(437): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 437
 Warning (10230): Verilog HDL assignment warning at display.v(443): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 443
-Warning (10230): Verilog HDL assignment warning at display.v(449): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 449
-Warning (10230): Verilog HDL assignment warning at display.v(455): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 455
-Warning (10230): Verilog HDL assignment warning at display.v(461): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 461
+Warning (10230): Verilog HDL assignment warning at display.v(456): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 456
+Warning (10230): Verilog HDL assignment warning at display.v(462): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 462
+Warning (10230): Verilog HDL assignment warning at display.v(468): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 468
 Warning (10230): Verilog HDL assignment warning at display.v(474): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 474
-Warning (10230): Verilog HDL assignment warning at display.v(480): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 480
-Warning (10230): Verilog HDL assignment warning at display.v(486): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 486
-Warning (10230): Verilog HDL assignment warning at display.v(492): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 492
+Warning (10230): Verilog HDL assignment warning at display.v(487): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 487
+Warning (10230): Verilog HDL assignment warning at display.v(493): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 493
+Warning (10230): Verilog HDL assignment warning at display.v(499): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 499
 Warning (10230): Verilog HDL assignment warning at display.v(505): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 505
-Warning (10230): Verilog HDL assignment warning at display.v(511): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 511
-Warning (10230): Verilog HDL assignment warning at display.v(517): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 517
-Warning (10230): Verilog HDL assignment warning at display.v(523): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 523
-Warning (10230): Verilog HDL assignment warning at display.v(556): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 556
-Warning (10230): Verilog HDL assignment warning at display.v(557): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 557
-Warning (10230): Verilog HDL assignment warning at display.v(558): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 558
-Warning (10230): Verilog HDL assignment warning at display.v(573): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 573
-Warning (10230): Verilog HDL assignment warning at display.v(574): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 574
-Warning (10230): Verilog HDL assignment warning at display.v(575): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 575
-Warning (10230): Verilog HDL assignment warning at display.v(590): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 590
-Warning (10230): Verilog HDL assignment warning at display.v(591): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 591
-Warning (10230): Verilog HDL assignment warning at display.v(592): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 592
-Warning (10230): Verilog HDL assignment warning at display.v(607): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 607
-Warning (10230): Verilog HDL assignment warning at display.v(608): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 608
-Warning (10230): Verilog HDL assignment warning at display.v(609): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 609
-Warning (10230): Verilog HDL assignment warning at display.v(621): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 621
-Warning (10230): Verilog HDL assignment warning at display.v(638): truncated value with size 32 to match size of target (22) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 638
-Warning (10230): Verilog HDL assignment warning at display.v(641): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 641
-Warning (10230): Verilog HDL assignment warning at display.v(646): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 646
-Warning (10230): Verilog HDL assignment warning at display.v(658): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 658
-Warning (10230): Verilog HDL assignment warning at display.v(663): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 663
-Warning (10230): Verilog HDL assignment warning at display.v(677): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 677
-Warning (10230): Verilog HDL assignment warning at display.v(682): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 682
-Warning (10230): Verilog HDL assignment warning at display.v(696): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 696
-Warning (10230): Verilog HDL assignment warning at display.v(701): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 701
-Warning (10230): Verilog HDL assignment warning at display.v(715): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 715
-Warning (10230): Verilog HDL assignment warning at display.v(720): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 720
-Warning (10230): Verilog HDL assignment warning at display.v(742): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 742
-Warning (10230): Verilog HDL assignment warning at display.v(758): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 758
-Warning (10230): Verilog HDL assignment warning at display.v(794): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 794
-Warning (10230): Verilog HDL assignment warning at display.v(807): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 807
-Warning (10230): Verilog HDL assignment warning at display.v(811): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 811
-Warning (10230): Verilog HDL assignment warning at display.v(825): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 825
-Warning (10230): Verilog HDL assignment warning at display.v(841): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 841
-Warning (10230): Verilog HDL assignment warning at display.v(877): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 877
-Warning (10230): Verilog HDL assignment warning at display.v(890): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 890
-Warning (10230): Verilog HDL assignment warning at display.v(894): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 894
-Warning (10230): Verilog HDL assignment warning at display.v(908): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 908
-Warning (10230): Verilog HDL assignment warning at display.v(924): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 924
-Warning (10230): Verilog HDL assignment warning at display.v(960): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 960
-Warning (10230): Verilog HDL assignment warning at display.v(973): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 973
-Warning (10230): Verilog HDL assignment warning at display.v(977): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 977
-Warning (10230): Verilog HDL assignment warning at display.v(991): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 991
-Warning (10230): Verilog HDL assignment warning at display.v(1007): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1007
-Warning (10230): Verilog HDL assignment warning at display.v(1043): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1043
-Warning (10230): Verilog HDL assignment warning at display.v(1056): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1056
-Warning (10230): Verilog HDL assignment warning at display.v(1060): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1060
-Warning (10230): Verilog HDL assignment warning at display.v(1078): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1078
-Warning (10230): Verilog HDL assignment warning at display.v(1083): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1083
-Warning (10034): Output port "LEDR" at display.v(27) has no driver File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
-Info (12128): Elaborating entity "vga_adapter" for hierarchy "vga_adapter:VGA" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 232
+Warning (10230): Verilog HDL assignment warning at display.v(518): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 518
+Warning (10230): Verilog HDL assignment warning at display.v(524): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 524
+Warning (10230): Verilog HDL assignment warning at display.v(530): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 530
+Warning (10230): Verilog HDL assignment warning at display.v(536): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 536
+Warning (10230): Verilog HDL assignment warning at display.v(569): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 569
+Warning (10230): Verilog HDL assignment warning at display.v(570): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 570
+Warning (10230): Verilog HDL assignment warning at display.v(571): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 571
+Warning (10230): Verilog HDL assignment warning at display.v(586): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 586
+Warning (10230): Verilog HDL assignment warning at display.v(587): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 587
+Warning (10230): Verilog HDL assignment warning at display.v(588): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 588
+Warning (10230): Verilog HDL assignment warning at display.v(603): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 603
+Warning (10230): Verilog HDL assignment warning at display.v(604): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 604
+Warning (10230): Verilog HDL assignment warning at display.v(605): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 605
+Warning (10230): Verilog HDL assignment warning at display.v(620): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 620
+Warning (10230): Verilog HDL assignment warning at display.v(621): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 621
+Warning (10230): Verilog HDL assignment warning at display.v(622): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 622
+Warning (10230): Verilog HDL assignment warning at display.v(634): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 634
+Warning (10230): Verilog HDL assignment warning at display.v(651): truncated value with size 32 to match size of target (22) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 651
+Warning (10230): Verilog HDL assignment warning at display.v(654): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 654
+Warning (10230): Verilog HDL assignment warning at display.v(659): truncated value with size 32 to match size of target (26) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 659
+Warning (10230): Verilog HDL assignment warning at display.v(671): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 671
+Warning (10230): Verilog HDL assignment warning at display.v(676): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 676
+Warning (10230): Verilog HDL assignment warning at display.v(690): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 690
+Warning (10230): Verilog HDL assignment warning at display.v(695): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 695
+Warning (10230): Verilog HDL assignment warning at display.v(709): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 709
+Warning (10230): Verilog HDL assignment warning at display.v(714): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 714
+Warning (10230): Verilog HDL assignment warning at display.v(728): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 728
+Warning (10230): Verilog HDL assignment warning at display.v(733): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 733
+Warning (10230): Verilog HDL assignment warning at display.v(755): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 755
+Warning (10230): Verilog HDL assignment warning at display.v(771): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 771
+Warning (10230): Verilog HDL assignment warning at display.v(807): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 807
+Warning (10230): Verilog HDL assignment warning at display.v(820): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 820
+Warning (10230): Verilog HDL assignment warning at display.v(824): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 824
+Warning (10230): Verilog HDL assignment warning at display.v(838): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 838
+Warning (10230): Verilog HDL assignment warning at display.v(854): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 854
+Warning (10230): Verilog HDL assignment warning at display.v(890): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 890
+Warning (10230): Verilog HDL assignment warning at display.v(903): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 903
+Warning (10230): Verilog HDL assignment warning at display.v(907): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 907
+Warning (10230): Verilog HDL assignment warning at display.v(921): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 921
+Warning (10230): Verilog HDL assignment warning at display.v(937): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 937
+Warning (10230): Verilog HDL assignment warning at display.v(973): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 973
+Warning (10230): Verilog HDL assignment warning at display.v(986): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 986
+Warning (10230): Verilog HDL assignment warning at display.v(990): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 990
+Warning (10230): Verilog HDL assignment warning at display.v(1004): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1004
+Warning (10230): Verilog HDL assignment warning at display.v(1020): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1020
+Warning (10230): Verilog HDL assignment warning at display.v(1056): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1056
+Warning (10230): Verilog HDL assignment warning at display.v(1069): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1069
+Warning (10230): Verilog HDL assignment warning at display.v(1073): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1073
+Warning (10230): Verilog HDL assignment warning at display.v(1088): truncated value with size 32 to match size of target (15) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1088
+Warning (10230): Verilog HDL assignment warning at display.v(1092): truncated value with size 32 to match size of target (8) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1092
+Warning (10230): Verilog HDL assignment warning at display.v(1097): truncated value with size 32 to match size of target (7) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1097
+Warning (10034): Output port "LEDR[9..3]" at display.v(27) has no driver File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
+Info (12128): Elaborating entity "ram19200x3" for hierarchy "ram19200x3:U1" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 49
+Info (12128): Elaborating entity "altsyncram" for hierarchy "ram19200x3:U1|altsyncram:altsyncram_component" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ram19200x3.v Line: 85
+Info (12130): Elaborated megafunction instantiation "ram19200x3:U1|altsyncram:altsyncram_component" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ram19200x3.v Line: 85
+Info (12133): Instantiated megafunction "ram19200x3:U1|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ram19200x3.v Line: 85
+    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
+    Info (12134): Parameter "init_file" = "ram19200x3.mif"
+    Info (12134): Parameter "intended_device_family" = "Cyclone V"
+    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=NO"
+    Info (12134): Parameter "lpm_type" = "altsyncram"
+    Info (12134): Parameter "numwords_a" = "19200"
+    Info (12134): Parameter "operation_mode" = "SINGLE_PORT"
+    Info (12134): Parameter "outdata_aclr_a" = "NONE"
+    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
+    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
+    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
+    Info (12134): Parameter "widthad_a" = "15"
+    Info (12134): Parameter "width_a" = "3"
+    Info (12134): Parameter "width_byteena_a" = "1"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_4lo1.tdf
+    Info (12023): Found entity 1: altsyncram_4lo1 File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_4lo1.tdf Line: 33
+Info (12128): Elaborating entity "altsyncram_4lo1" for hierarchy "ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Warning (113031): 2731 out of 19200 addresses are reinitialized. The latest initialized data will replace the existing data. There are 2731 warnings found, and 10 warnings are reported. File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ram19200x3.mif Line: 1
+    Warning (113030): Memory Initialization File address 3 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 8
+    Warning (113030): Memory Initialization File address 12 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 9
+    Warning (113030): Memory Initialization File address 21 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 10
+    Warning (113030): Memory Initialization File address 30 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 11
+    Warning (113030): Memory Initialization File address 39 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 12
+    Warning (113030): Memory Initialization File address 48 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 13
+    Warning (113030): Memory Initialization File address 57 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 14
+    Warning (113030): Memory Initialization File address 66 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 15
+    Warning (113030): Memory Initialization File address 75 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 16
+    Warning (113030): Memory Initialization File address 84 is reinitialized File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/ Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_7la.tdf
+    Info (12023): Found entity 1: decode_7la File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_7la.tdf Line: 22
+Info (12128): Elaborating entity "decode_7la" for hierarchy "ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated|decode_7la:decode3" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_4lo1.tdf Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_01a.tdf
+    Info (12023): Found entity 1: decode_01a File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_01a.tdf Line: 22
+Info (12128): Elaborating entity "decode_01a" for hierarchy "ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated|decode_01a:rden_decode" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_4lo1.tdf Line: 44
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_ifb.tdf
+    Info (12023): Found entity 1: mux_ifb File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/mux_ifb.tdf Line: 22
+Info (12128): Elaborating entity "mux_ifb" for hierarchy "ram19200x3:U1|altsyncram:altsyncram_component|altsyncram_4lo1:auto_generated|mux_ifb:mux2" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_4lo1.tdf Line: 45
+Info (12128): Elaborating entity "vga_adapter" for hierarchy "vga_adapter:VGA" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 242
 Info (12128): Elaborating entity "vga_address_translator" for hierarchy "vga_adapter:VGA|vga_address_translator:user_input_translator" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v Line: 157
 Info (12128): Elaborating entity "altsyncram" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v Line: 178
 Info (12130): Elaborated megafunction instantiation "vga_adapter:VGA|altsyncram:VideoMemory" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v Line: 178
@@ -1185,15 +1332,7 @@ Info (12133): Instantiated megafunction "vga_adapter:VGA|altsyncram:VideoMemory"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_usm1.tdf
     Info (12023): Found entity 1: altsyncram_usm1 File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_usm1.tdf Line: 33
 Info (12128): Elaborating entity "altsyncram_usm1" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/decode_7la.tdf
-    Info (12023): Found entity 1: decode_7la File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_7la.tdf Line: 22
-Info (12128): Elaborating entity "decode_7la" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated|decode_7la:decode2" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_usm1.tdf Line: 46
-Info (12021): Found 1 design units, including 1 entities, in source file db/decode_01a.tdf
-    Info (12023): Found entity 1: decode_01a File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/decode_01a.tdf Line: 22
-Info (12128): Elaborating entity "decode_01a" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated|decode_01a:rden_decode_b" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_usm1.tdf Line: 47
-Info (12021): Found 1 design units, including 1 entities, in source file db/mux_ifb.tdf
-    Info (12023): Found entity 1: mux_ifb File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/mux_ifb.tdf Line: 22
-Info (12128): Elaborating entity "mux_ifb" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_usm1:auto_generated|mux_ifb:mux3" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altsyncram_usm1.tdf Line: 49
+Critical Warning (127003): Can't find Memory Initialization File or Hexadecimal (Intel-Format) File C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/image.colour.mif -- setting all initial values to 0 File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v Line: 178
 Info (12128): Elaborating entity "vga_pll" for hierarchy "vga_adapter:VGA|vga_pll:mypll" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v Line: 201
 Info (12128): Elaborating entity "altpll" for hierarchy "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_pll.v Line: 53
 Info (12130): Elaborated megafunction instantiation "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_pll.v Line: 53
@@ -1213,14 +1352,14 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/altp
     Info (12023): Found entity 1: altpll_80u File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/altpll_80u.tdf Line: 25
 Info (12128): Elaborating entity "altpll_80u" for hierarchy "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component|altpll_80u:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altpll.tdf Line: 897
 Info (12128): Elaborating entity "vga_controller" for hierarchy "vga_adapter:VGA|vga_controller:controller" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/vga_adapter/vga_adapter.v Line: 216
-Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:display" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1160
-Warning (10230): Verilog HDL assignment warning at display.v(1184): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1184
-Warning (10230): Verilog HDL assignment warning at display.v(1185): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1185
+Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:display" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1174
+Warning (10230): Verilog HDL assignment warning at display.v(1199): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1199
+Warning (10230): Verilog HDL assignment warning at display.v(1200): truncated value with size 32 to match size of target (4) File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1200
 Info (278001): Inferred 2 megafunctions from design logic
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1185
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1184
-Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1185
-Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Mod0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1185
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1200
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "seven_seg_decoder:display|Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1199
+Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Mod0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1200
+Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Mod0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1200
     Info (12134): Parameter "LPM_WIDTHN" = "8"
     Info (12134): Parameter "LPM_WIDTHD" = "4"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1231,8 +1370,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_bkh File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/sign_div_unsign_bkh.tdf Line: 24
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_sse.tdf
     Info (12023): Found entity 1: alt_u_div_sse File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/alt_u_div_sse.tdf Line: 22
-Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1184
-Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Div0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1184
+Info (12130): Elaborated megafunction instantiation "seven_seg_decoder:display|lpm_divide:Div0" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1199
+Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Div0" with the following parameter: File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 1199
     Info (12134): Parameter "LPM_WIDTHN" = "8"
     Info (12134): Parameter "LPM_WIDTHD" = "4"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1240,9 +1379,6 @@ Info (12133): Instantiated megafunction "seven_seg_decoder:display|lpm_divide:Di
 Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_5am.tdf
     Info (12023): Found entity 1: lpm_divide_5am File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/db/lpm_divide_5am.tdf Line: 24
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDR[0]" is stuck at GND File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
-    Warning (13410): Pin "LEDR[1]" is stuck at GND File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
-    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
     Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
     Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
     Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 27
@@ -1837,17 +1973,17 @@ Warning (21074): Design contains 7 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[4]" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 21
     Warning (15610): No output dependent on input pin "SW[5]" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 21
     Warning (15610): No output dependent on input pin "SW[6]" File: C:/Users/ethan/ece241_labs/VSCode/Piano-Tiles/display.v Line: 21
-Info (21057): Implemented 1103 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 1142 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 72 output pins
-    Info (21061): Implemented 1008 logic cells
-    Info (21064): Implemented 9 RAM segments
+    Info (21061): Implemented 1038 logic cells
+    Info (21064): Implemented 18 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 665 warnings
-    Info: Peak virtual memory: 4856 megabytes
-    Info: Processing ended: Thu Nov 21 14:54:01 2024
-    Info: Elapsed time: 00:00:16
-    Info: Total CPU time (on all processors): 00:00:09
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 675 warnings
+    Info: Peak virtual memory: 4869 megabytes
+    Info: Processing ended: Mon Nov 25 08:56:55 2024
+    Info: Elapsed time: 00:00:34
+    Info: Total CPU time (on all processors): 00:00:12
 
 
 +------------------------------------------+
