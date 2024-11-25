@@ -8,6 +8,7 @@
 `define BOUNDARY 3'b100 //RED
 `define BORDER 3'b010 //GREEN
 `define GAMEOVER 3'b001 //BLUE
+`define CLICKED_COLOUR 3'b001 //BLUE
 
 
 //DESIM
@@ -54,6 +55,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	reg continueDraw;
 	reg eraseEnable;
 	reg continueErase;
+	reg replaceTile1;
+	reg continueReplace;
 	
 	reg continueDrawTop;
 	reg onScreen;
@@ -73,6 +76,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	reg continueDraw2;
 	reg eraseEnable2;
 	reg continueErase2;
+	reg replaceTile2;
+	reg continueReplace2;
 	
 	reg continueDrawTop2;
 	reg onScreen2;
@@ -93,6 +98,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	reg continueDraw3;
 	reg eraseEnable3;
 	reg continueErase3;
+	reg replaceTile3;
+	reg continueReplace3;
 	
 	reg continueDrawTop3;
 	reg onScreen3;
@@ -113,6 +120,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	reg continueDraw4;
 	reg eraseEnable4;
 	reg continueErase4;
+	reg replaceTile4;
+	reg continueReplace4;
 	
 	reg continueDrawTop4;
 	reg onScreen4;
@@ -184,6 +193,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		tile1scored <= 0;
 		finished1 <= 0;
 		onScreen <= 1;
+		replaceTile1 <= 0;
 		
 		xStart2 <= 8'd0;
 		yStart2 <= 7'd0;
@@ -192,6 +202,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		tile2scored <= 0;
 		finished2 <= 0;
 		onScreen2 <= 0;
+		replaceTile2 <= 0;
 		
 		xStart3 <= 8'd0;
 		yStart3 <= 7'd0;
@@ -200,6 +211,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		tile3scored <= 0;
 		finished3 <= 0;
 		onScreen3 <= 0;
+		replaceTile3 <= 0;
 		
 		xStart4 <= 8'd0;
 		yStart4 <= 7'd0;
@@ -208,6 +220,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		tile4scored <= 0;
 		finished4 <= 0;
 		onScreen4 <= 0;
+		replaceTile4 <= 0;
 
 	end
 	
@@ -254,23 +267,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	reg key2pressed;
 	reg key1pressed;
 	reg key0pressed;
-
-	// always@ (negedge KEY[3])
-	// begin
-	// 	key3pressed = 1;
-	// end
-	// always@ (negedge KEY[2])
-	// begin
-	// 	key2pressed = 1;
-	// end
-	// always@ (negedge KEY[1])
-	// begin
-	// 	key1pressed = 1;
-	// end
-	// always@ (negedge KEY[0])
-	// begin
-	// 	key0pressed = 1;
-	// end
 
 	always @(posedge CLOCK_50) begin
         lfsr <= {lfsr[22:0], lfsr[23] ^ lfsr[22] ^ lfsr[17] ^ lfsr[16]};
@@ -422,25 +418,37 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == `BORDER_WIDTH)
 			begin
 				if (~tile1scored)
+				begin
 					score <= score + 1;
+					replaceTile1 <= 1;
+				end
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == `BORDER_WIDTH)
 			begin
 				if (~tile2scored)
+				begin
 					score <= score + 1;
+					replaceTile2 <= 1;
+				end
 				tile2scored <= 1;
 			end
 			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == `BORDER_WIDTH)
 			begin
 				if (~tile3scored)
+				begin
 					score <= score + 1;
+					replaceTile3 <= 1;
+				end
 				tile3scored <= 1;
 			end
 			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == `BORDER_WIDTH)
 			begin
 				if (~tile4scored)
+				begin
 					score <= score + 1;
+					replaceTile4 <= 1;
+				end
 				tile4scored <= 1;
 			end
 			else
@@ -453,25 +461,37 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile1scored)
+				begin
 					score <= score + 1;
+					replaceTile1 <= 1;
+				end
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile2scored)
+				begin
 					score <= score + 1;
+					replaceTile2 <= 1;
+				end
 				tile2scored <= 1;
 			end
 			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile3scored)
+				begin
 					score <= score + 1;
+					replaceTile3 <= 1;
+				end
 				tile3scored <= 1;
 			end
 			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == (2*`BORDER_WIDTH)+`COLUMN_WIDTH)
 			begin
 				if (~tile4scored)
+				begin
 					score <= score + 1;
+					replaceTile4 <= 1;
+				end
 				tile4scored <= 1;
 			end
 			else
@@ -484,25 +504,37 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
+				begin
 					score <= score + 1;
+					replaceTile1 <= 1;
+				end
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
+				begin
 					score <= score + 1;
+					replaceTile2 <= 1;
+				end
 				tile2scored <= 1;
 			end
 			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile3scored)
+				begin
 					score <= score + 1;
+					replaceTile3 <= 1;
+				end
 				tile3scored <= 1;
 			end
 			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == (3*`BORDER_WIDTH)+(2*`COLUMN_WIDTH))
 			begin
 				if (~tile4scored)
+				begin
 					score <= score + 1;
+					replaceTile4 <= 1;
+				end
 				tile4scored <= 1;
 			end
 			else
@@ -515,31 +547,172 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 			if (yStart > `RESOLUTION_HEIGHT - YSIZE & onScreen & xStart == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile1scored)
+				begin
 					score <= score + 1;
+					replaceTile1 <= 1;
+				end
 				tile1scored <= 1;
 			end
 			else if (yStart2 > `RESOLUTION_HEIGHT - YSIZE & onScreen2 & xStart2 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile2scored)
+				begin
 					score <= score + 1;
+					replaceTile2 <= 1;
+				end
 				tile2scored <= 1;
 			end
 			else if (yStart3 > `RESOLUTION_HEIGHT - YSIZE & onScreen3 & xStart3 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile3scored)
+				begin
 					score <= score + 1;
+					replaceTile3 <= 1;
+				end
 				tile3scored <= 1;
 			end
 			else if (yStart4 > `RESOLUTION_HEIGHT - YSIZE & onScreen4 & xStart4 == (4*`BORDER_WIDTH)+(3*`COLUMN_WIDTH))
 			begin
 				if (~tile4scored)
+				begin
 					score <= score + 1;
+					replaceTile4 <= 1;
+				end
 				tile4scored <= 1;
 			end
 			else
 				gameOver <= 1;
 			col4pressed <= 0;
 		end
+
+	// Replace Tile colour with clicked colour
+	// Tile 1
+	if (replaceTile1)
+	begin
+		xCount <= xStart;
+		yCount <= yStart;
+		plot <= 0;
+		continueReplace <= 1;
+		replaceTile1 <= 0;
+		VGA_COLOR <= `CLICKED_COLOUR;
+	end
+
+	else if (continueReplace) 
+	begin
+		VGA_X <= xCount;
+		VGA_Y <= yCount;
+		VGA_COLOR <= `CLICKED_COLOUR;
+		plot <= 1;
+		
+		xCount <= xCount + 1;
+		
+		if ((xCount - xStart) == XSIZE)
+		begin
+			yCount <= yCount + 1;
+			xCount <= xStart;
+		end
+
+		if (yCount == (`RESOLUTION_HEIGHT - 2) & (xCount - xStart) == XSIZE)
+		begin
+			continueReplace <= 0;
+		end
+	end
+
+	// Tile 2
+	if (replaceTile2)
+	begin
+		xCount2 <= xStart2;
+		yCount2 <= yStart2;
+		plot <= 0;
+		continueReplace2 <= 1;
+		replaceTile2 <= 0;
+		VGA_COLOR <= `CLICKED_COLOUR;
+	end
+
+	else if (continueReplace2) 
+	begin
+		VGA_X <= xCount2;
+		VGA_Y <= yCount2;
+		VGA_COLOR <= `CLICKED_COLOUR;
+		plot <= 1;
+		
+		xCount2 <= xCount2 + 1;
+		
+		if ((xCount2 - xStart2) == XSIZE)
+		begin
+			yCount2 <= yCount2 + 1;
+			xCount2 <= xStart2;
+		end
+
+		if (yCount2 == (`RESOLUTION_HEIGHT - 2) & (xCount2 - xStart2) == XSIZE)
+		begin
+			continueReplace2 <= 0;
+		end
+	end
+
+	// Tile 3
+	if (replaceTile3)
+	begin
+		xCount3 <= xStart3;
+		yCount3 <= yStart3;
+		plot <= 0;
+		continueReplace3 <= 1;
+		replaceTile3 <= 0;
+		VGA_COLOR <= `CLICKED_COLOUR;
+	end
+
+	else if (continueReplace3) 
+	begin
+		VGA_X <= xCount3;
+		VGA_Y <= yCount3;
+		VGA_COLOR <= `CLICKED_COLOUR;
+		plot <= 1;
+		
+		xCount3 <= xCount3 + 1;
+		
+		if ((xCount3 - xStart3) == XSIZE)
+		begin
+			yCount3 <= yCount3 + 1;
+			xCount3 <= xStart3;
+		end
+
+		if (yCount3 == (`RESOLUTION_HEIGHT - 2) & (xCount3 - xStart3) == XSIZE)
+		begin
+			continueReplace3 <= 0;
+		end
+	end
+	
+	// Tile 4
+	if (replaceTile4)
+	begin
+		xCount4 <= xStart4;
+		yCount4 <= yStart4;
+		plot <= 0;
+		continueReplace4 <= 1;
+		replaceTile4 <= 0;
+		VGA_COLOR <= `CLICKED_COLOUR;
+	end
+
+	else if (continueReplace4) 
+	begin
+		VGA_X <= xCount4;
+		VGA_Y <= yCount4;
+		VGA_COLOR <= `CLICKED_COLOUR;
+		plot <= 1;
+		
+		xCount4 <= xCount4 + 1;
+		
+		if ((xCount4 - xStart4) == XSIZE)
+		begin
+			yCount4 <= yCount4 + 1;
+			xCount4 <= xStart4;
+		end
+
+		if (yCount4 == (`RESOLUTION_HEIGHT - 2) & (xCount4 - xStart4) == XSIZE)
+		begin
+			continueReplace4 <= 0;
+		end
+	end
 
 		//Game Over Check
 	if (yStart >= 55 && ~onScreen && ~tile1scored) begin
