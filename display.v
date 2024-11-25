@@ -172,7 +172,6 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	wire ps2_key_pressed;
 	wire [7:0] ps2_key_data; 
 	reg [3:0] last_key; 
-	reg [7:0] last;
 
 	initial
 	begin
@@ -292,25 +291,34 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
         lfsr <= {lfsr[22:0], lfsr[23] ^ lfsr[22] ^ lfsr[17] ^ lfsr[16]};
     end
 
+	// always @(posedge ps2_key_pressed) begin
+		
+	// end
 
-
+	reg pressedOnce;
+	reg [7:0] testCount;
 
 	always@ (posedge CLOCK_50) begin
-			if (ps2_key_data == last) 
-			begin
-				last_key <= 4'b1111;
-			end
 
-			else begin
+		if (~pressedOnce & ~ps2_key_pressed & ps2_key_data != 8'hF0)
+		begin
+			testCount <= testCount + 1;
 			case (ps2_key_data)
-				8'h1C, 8'h30: last_key[3] <= 0; // a or A
-				8'h1B, 8'h2D: last_key[2] <= 0; // s or S
-				8'h23, 8'h32: last_key[1] <= 0; // d or D
-				8'h2B, 8'h31: last_key[0] <= 0; // f or F
-				default: last = ps2_key_data;
+				8'h1C: last_key[3] <= 0;
+				8'h1B: last_key[2] <= 0;
+				8'h23: last_key[1] <= 0;
+				8'h2B: last_key[0] <= 0;
 			endcase
-			end
+			pressedOnce <= 1;
+		end
 
+		if (ps2_key_data == 8'hF0)
+		begin
+			pressedOnce <= 0;
+			last_key <= 4'b1111;
+		end
+		
+		
 		// Key press logic (same as negedge presses)
 		if (last_key[3] == 0 & key3resetpress == 0)
 		begin
@@ -1365,6 +1373,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 
 		if (gameOver) gameOn <= 0;
 		else gameOn <= 1;
+
 	end
 	
 	// Test/debug code
@@ -1380,7 +1389,8 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 // assign LEDR[0] = nextTileEnable;
 // assign LEDR[7:0] = score;
 
-assign LEDR[3:0] = last_key;
+// assign LEDR[3:0] = last_key;
+// assign LEDR[4] = ps2_key_pressed;
 seven_seg_decoder display (score[7:0], HEX0, HEX1);
 // seven_seg_decoder display (random_column + 8'd48, HEX0, HEX1);
 
