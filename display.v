@@ -15,7 +15,7 @@
 // module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, HEX0, HEX1);
 //BOARD
 module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VGA_G, VGA_B,
-                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1);
+                VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK, HEX0, HEX1, PS2_CLK, PS2_DAT);
 
 	// Initialize starting tile positions and VGA/draw states
 	input CLOCK_50;	
@@ -27,6 +27,9 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	output reg plot;                           
 	output [9:0] LEDR;
 	output [6:0] HEX1, HEX0;
+	inout				PS2_CLK;
+	inout				PS2_DAT;
+
 
 	//BOARD
 	output [7:0] VGA_R;
@@ -165,6 +168,12 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 	reg [1:0] random_column;
 	reg [23:0] lfsr;
 
+	//Keyboard
+	wire ps2_key_pressed;
+	wire [7:0] ps2_key_data; 
+	reg [3:0] last_key; 
+	reg [7:0] last;
+
 	initial
 	begin
 		lfsr = 24'h800001;
@@ -258,6 +267,17 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
       defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
       defparam VGA.BACKGROUND_IMAGE = "image.colour.mif";
 
+
+	//Keyboard
+	PS2_Controller PS2 (
+		.CLOCK_50(CLOCK_50),
+		.reset(~KEY[0]),
+		.PS2_CLK(PS2_CLK),
+		.PS2_DAT(PS2_DAT),
+		.received_data(ps2_key_data),
+		.received_data_en(ps2_key_pressed)
+	);
+
 	reg key3resetpress;
 	reg key2resetpress;
 	reg key1resetpress;
@@ -273,46 +293,61 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
     end
 
 
-	always@ (posedge CLOCK_50)
-	begin
-		
+
+
+	always@ (posedge CLOCK_50) begin
+			if (ps2_key_data == last) 
+			begin
+				last_key <= 4'b1111;
+			end
+
+			else begin
+			case (ps2_key_data)
+				8'h1C, 8'h30: last_key[3] <= 0; // a or A
+				8'h1B, 8'h2D: last_key[2] <= 0; // s or S
+				8'h23, 8'h32: last_key[1] <= 0; // d or D
+				8'h2B, 8'h31: last_key[0] <= 0; // f or F
+				default: last = ps2_key_data;
+			endcase
+			end
+
 		// Key press logic (same as negedge presses)
-		if (KEY[3] == 0 & key3resetpress == 0)
+		if (last_key[3] == 0 & key3resetpress == 0)
 		begin
 			key3pressed <= 1;
 			key3resetpress <= 1;
 		end
-		if (KEY[3] == 1)
+		if (last_key[3] == 1)
 		begin
 			key3resetpress <= 0;
 		end
 
-		if (KEY[2] == 0 & key2resetpress == 0)
+		if (last_key[2] == 0 & key2resetpress == 0)
 		begin
 			key2pressed <= 1;
 			key2resetpress <= 1;
 		end
-		if (KEY[2] == 1)
+		if (last_key[2] == 1)
 		begin
 			key2resetpress <= 0;
 		end
 
-		if (KEY[1] == 0 & key1resetpress == 0)
+		if (last_key[1] == 0 & key1resetpress == 0)
 		begin
 			key1pressed <= 1;
 			key1resetpress <= 1;
 		end
-		if (KEY[1] == 1)
+		if (last_key[1] == 1)
 		begin
 			key1resetpress <= 0;
 		end
 
-		if (KEY[0] == 0 & key0resetpress == 0)
+		if (last_key[0] == 0 & key0resetpress == 0)
 		begin
 			key0pressed <= 1;
 			key0resetpress <= 1;
 		end
-		if (KEY[0] == 1)
+		if (last_key[0] == 1)
 		begin
 			key0resetpress <= 0;
 		end
@@ -1258,6 +1293,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 		else begin
 			if (~enableBackground & startedOnce)
 			begin
+				// VGA_COLOR <= `GAMEOVER; // Blue
 				Address <= Address + 1;
 				VGA_COLOR <= DataOut;
 
@@ -1344,6 +1380,7 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 // assign LEDR[0] = nextTileEnable;
 // assign LEDR[7:0] = score;
 
+assign LEDR[3:0] = last_key;
 seven_seg_decoder display (score[7:0], HEX0, HEX1);
 // seven_seg_decoder display (random_column + 8'd48, HEX0, HEX1);
 
@@ -1354,7 +1391,6 @@ seven_seg_decoder display (score[7:0], HEX0, HEX1);
 // assign LEDR[0] = onScreen;
 // assign LEDR[1] = tile1scored;
 // assign LEDR[0] = test;
-assign LEDR[2:0] = VGA_COLOR;
 	
 endmodule
 
