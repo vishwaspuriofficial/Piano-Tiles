@@ -870,10 +870,10 @@ module display(CLOCK_50, SW, KEY, VGA_X, VGA_Y, VGA_COLOR, plot, LEDR, VGA_R, VG
 
 			//BOARD
 			if (globalSpeed >= 228333)
-				globalSpeed <= globalSpeed - 2000;
+				globalSpeed <= globalSpeed - 5000;
 
 			if (timeBetweenTile >= 13250000)
-				timeBetweenTile <= timeBetweenTile - 750000;
+				timeBetweenTile <= timeBetweenTile - 1250000;
 
 		end
 		else
